@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), Mira.Default.props))\Mira.Default.props" />
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{46CCF603-AD8B-4E37-9B52-5D2FC035D9A6}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>UnitTests</RootNamespace>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <ProjectName>Arcana.UWP.Test</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(MiraBuildPropertiesDir)Mira.Windows.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(MiraBuildPropertiesDir)Mira.Windows.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+    <Import Project="..\..\Arcana\UWP\Arcana.UWP.Reference.vcxitems" Label="Shared" />
+    <Import Project="..\Shared.Test\Arcana.Test.vcxitems" Label="Shared" />
+    <Import Project="..\..\..\..\Packages\boost.headers.2018.4.30.1\build\boost.headers.targets" Condition="Exists('..\..\..\..\Packages\boost.headers.2018.4.30.1\build\boost.headers.targets')" />
+  </ImportGroup>
+  <PropertyGroup>
+    <TargetExt>.dll</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Bob\TestBob.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MiraBuildTargetsDir)Mira.Cpp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\..\Packages\boost.headers.2018.4.30.1\build\boost.headers.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\Packages\boost.headers.2018.4.30.1\build\boost.headers.targets'))" />
+  </Target>
+</Project>

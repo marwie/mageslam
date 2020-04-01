@@ -1,0 +1,2 @@
+# Arcana
+Arcana is a general purpose C++ library with no code that is specific to the Mira team or Mira tech. Think of it as STL-Ex. If you are adding helper/utility code that anyone using standard C++ could use, add it here. Note that all code in this library should compile with C++ compilers for other platforms (e.g. iOS and Android), which of course means no C++/CX. If you are adding something specific to the domain of Mira tech, or something platform specific (e.g. UWP/iOS/Android), consider adding it to [Mira.Plat.Native](../Mira.Plat.Native/Mira.Plat.Native.md).

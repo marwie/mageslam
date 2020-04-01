@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), Mira.Default.props))\Mira.Default.props" />
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{e4c54c47-397b-4d8e-9488-99d79a29ab38}</ProjectGuid>
+    <Keyword>StaticLibrary</Keyword>
+    <RootNamespace>Arcana</RootNamespace>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <AppContainerApplication>true</AppContainerApplication>
+    <ApplicationType>Windows Store</ApplicationType>
+    <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
+  </PropertyGroup>
+  <Import Project="$(MiraBuildPropertiesDir)Mira.UWP.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <Import Project="$(MiraBuildPropertiesDir)Mira.UWP.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+    <Import Project="..\Shared\Arcana.vcxitems" Label="Shared" />
+    <Import Project="..\..\..\External\Cereal.vcxitems" Label="Shared" />
+    <Import Project="..\..\..\External\GSL.vcxitems" Label="Shared" />
+  </ImportGroup>
+  <PropertyGroup>
+    <GenerateManifest>false</GenerateManifest>
+    <TargetName>Arcana</TargetName>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <PrecompiledHeaderFile />
+      <PrecompiledHeaderOutputFile />
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(MiraBuildTargetsDir)Mira.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\..\..\..\Packages\boost.headers.2018.4.30.1\build\boost.headers.targets" Condition="Exists('..\..\..\..\Packages\boost.headers.2018.4.30.1\build\boost.headers.targets')" />
+    <Import Project="..\..\..\..\Packages\clang-tools.2018.6.11.1\build\clang-tools.targets" Condition="Exists('..\..\..\..\Packages\clang-tools.2018.6.11.1\build\clang-tools.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\..\Packages\boost.headers.2018.4.30.1\build\boost.headers.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\Packages\boost.headers.2018.4.30.1\build\boost.headers.targets'))" />
+    <Error Condition="!Exists('..\..\..\..\Packages\clang-tools.2018.6.11.1\build\clang-tools.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\Packages\clang-tools.2018.6.11.1\build\clang-tools.targets'))" />
+  </Target>
+</Project>

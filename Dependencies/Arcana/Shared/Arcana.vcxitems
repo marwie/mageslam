@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{5F50DA01-6416-4ABD-9514-28E68FAC01BA}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\analysis\data_point.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\analysis\introspector.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\analysis\object_trace.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\analysis\xray.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\bob\bob.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\bob\bob_data.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\bob\bob_helpers.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\bob\bob_stream_file.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\bob\bob_entry_writer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\bob\bob_reader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\bob\bob_writer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\containers\index_pool.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\containers\sorted_vector.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\containers\ticketed_collection.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\either.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\analysis\binary_iterator.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\analysis\crc32.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\analysis\determinator.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\analysis\sha1.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\exceptions.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\experimental\array.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\functional\inplace_function.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\function_view.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\math.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\errors.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\finally_scope.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\iterators.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\macros.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\mixin_ptr.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\path.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\reference_counter.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\streams\memory_device.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\propertybag.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\expected.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\scheduling\state_machine_state.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\string.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\scheduling\state_machine.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\threading\coroutine.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\timer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\type_traits.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\threading\dispatcher.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\messaging\mediator.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\messaging\router.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\sentry.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\threading\affinity.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\threading\blocking_concurrent_queue.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\threading\cancellation.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\threading\fence.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\threading\incrementing_counter.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\threading\internal\internal_task.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\threading\invoke_nth.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\threading\nfence.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\threading\parallel.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\threading\pending_task_scope.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\threading\semaphore.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\threading\signal.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\threading\task.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\containers\unique_vector.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\utils\algorithm.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\utils\functional.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\utils\serialization\base_stream.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\utils\serialization\custom_serialization.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\utils\serialization\member.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\utils\serialization\member_serializer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\utils\serialization\serializable.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\utils\memory_extensions.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)arcana\utils\stl_shim.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)arcana\analysis\crc32.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)arcana\analysis\determinator.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)arcana\analysis\object_trace.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)arcana\analysis\sha1.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)arcana\analysis\xray.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)arcana\bob\bob_reader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)arcana\errors.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)arcana\threading\signal.cpp" />
+  </ItemGroup>
+</Project>

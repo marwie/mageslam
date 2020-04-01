@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), Mira.Default.props))\Mira.Default.props" />
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D3384115-A923-4F26-86B2-CCE99B4241DD}</ProjectGuid>
+    <Keyword>Android</Keyword>
+    <RootNamespace>Arcana</RootNamespace>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <ApplicationType>Android</ApplicationType>
+  </PropertyGroup>
+  <Import Project="$(MiraBuildPropertiesDir)Mira.Android.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <Import Project="$(MiraBuildPropertiesDir)Mira.Android.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <TreatWarningAsError>false</TreatWarningAsError>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ImportGroup Label="Shared">
+    <Import Project="..\Shared\Arcana.vcxitems" Label="Shared" />
+    <Import Project="..\..\..\External\GSL.vcxitems" Label="Shared" />
+    <Import Project="..\..\..\External\Cereal.vcxitems" Label="Shared" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <TargetName>Arcana</TargetName>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MiraBuildTargetsDir)Mira.Android.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\..\..\..\Packages\boost.headers.2018.4.30.1\build\boost.headers.targets" Condition="Exists('..\..\..\..\Packages\boost.headers.2018.4.30.1\build\boost.headers.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\..\Packages\boost.headers.2018.4.30.1\build\boost.headers.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\Packages\boost.headers.2018.4.30.1\build\boost.headers.targets'))" />
+  </Target>
+</Project>

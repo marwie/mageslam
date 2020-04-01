@@ -1,3 +1,5 @@
+set(LIBRARY_NAME "MAGESLAM")
+
 set(SOURCES
     "Source/Analysis/binary_iterators.h"
     "Source/Analysis/DataFlow.cpp"
@@ -47,24 +49,24 @@ set(SOURCES
     "Source/Device/IMUCharacterization.h"
     "Source/Device/SupportedDevices.cpp"
     "Source/Device/SupportedDevices.h"
-    "Source/Fuse/AnalogCAIMU.cpp"
-    "Source/Fuse/AnalogCAIMU.h"
-    "Source/Fuse/AnalogCASIMU.cpp"
-    "Source/Fuse/AnalogCASIMU.h"
-    "Source/Fuse/AnalogVFTFilter.cpp"
-    "Source/Fuse/AnalogVFTFilter.h"
-    "Source/Fuse/Fuser.cpp"
-    "Source/Fuse/Fuser.h"
-    "Source/Fuse/FuserFunctions.cpp"
-    "Source/Fuse/FuserFunctions.h"
-    "Source/Fuse/ImuMath.h"
-    "Source/Fuse/Interfaces.h"
-    "Source/Fuse/PoseInterpolator.cpp"
-    "Source/Fuse/PoseInterpolator.h"
-    "Source/Fuse/ScaleEstimator.cpp"
-    "Source/Fuse/ScaleEstimator.h"
-    "Source/Fuse/UnfilteredIMU.cpp"
-    "Source/Fuse/UnfilteredIMU.h"
+    "Source/Fuser/AnalogCAIMU.cpp"
+    "Source/Fuser/AnalogCAIMU.h"
+    "Source/Fuser/AnalogCASIMU.cpp"
+    "Source/Fuser/AnalogCASIMU.h"
+    "Source/Fuser/AnalogVFTFilter.cpp"
+    "Source/Fuser/AnalogVFTFilter.h"
+    "Source/Fuser/Fuser.cpp"
+    "Source/Fuser/Fuser.h"
+    "Source/Fuser/FuserFunctions.cpp"
+    "Source/Fuser/FuserFunctions.h"
+    "Source/Fuser/ImuMath.h"
+    "Source/Fuser/Interfaces.h"
+    "Source/Fuser/PoseInterpolator.cpp"
+    "Source/Fuser/PoseInterpolator.h"
+    "Source/Fuser/ScaleEstimator.cpp"
+    "Source/Fuser/ScaleEstimator.h"
+    "Source/Fuser/UnfilteredIMU.cpp"
+    "Source/Fuser/UnfilteredIMU.h"
     "Source/Image/AnalyzedImage.h"
     "Source/Image/ImageData.h"
     "Source/Image/ImageFactory.h"
@@ -100,7 +102,7 @@ set(SOURCES
     "Source/Map/SpanningTree.cpp"
     "Source/Map/SpanningTree.h"
     "Source/Map/ThreadSafeMap.cpp"
-    "Source/Map/TnreadSafeMap.h"
+    "Source/Map/ThreadSafeMap.h"
     "Source/Map/ThreadSafePoseHistory.cpp"
     "Source/Map/ThreadSafePoseHistory.h"
     "Source/Mapping/MapPointKeyframeAssociations.h"
@@ -132,7 +134,7 @@ set(SOURCES
     "Source/Proxies/MapPointProxy.h"
     "Source/Proxies/Proxy.h"
     "Source/Proxies/ProxyFactory.h"
-    "Source/Serialization/binary_magestreaam.h"
+    "Source/Serialization/binary_magestream.h"
     "Source/Serialization/BinarySerializer.cpp"
     "Source/Serialization/BinarySerializer.h"
     "Source/Serialization/cv_serialization.h"
@@ -229,3 +231,10 @@ set(SOURCES
     "Source/MageSlam.h"
     "Source/MageUtil.cpp"
     "Source/MageUtil.h")
+
+add_library(${LIBRARY_NAME} ${SOURCES})
+
+target_include_directories(${LIBRARY_NAME} PRIVATE "Source")
+
+set_property(TARGET ${LIBRARY_NAME} PROPERTY FOLDER Core)
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${SOURCES})
