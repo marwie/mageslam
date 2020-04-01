@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{4704328D-338C-4E6C-AD39-C116173E501E}</ItemsProjectGuid>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildThisFileFullPath) has already been imported. Please double check and remove any redundant imports." Condition="'$(MageSlamLibImported)' == 'true'" />
+  <PropertyGroup>
+    <MageSlamLibImported>true</MageSlamLibImported>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <MageSlamLibDirectory>$(MSBuildThisFileDirectory)</MageSlamLibDirectory>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MageSlamLibDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(MageSlamLibDirectory)MAGESLaMLib.vcxproj" Condition="'$(ConfigurationType)' == 'DynamicLibrary' Or '$(ConfigurationType)' == 'Application'">
+      <Project>{12fcbdc3-a9e0-4fe2-8699-07c52e40c176}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ImportGroup Label="Shared">
+    <Import Project="..\..\BundlerLib\UWP\BundlerLib.UWP.Reference.vcxitems" Label="Shared" Condition="'$(BundlerLibImported)' != 'true'" />
+    <Import Project="..\..\FuserLib\FuserLib.Reference.vcxitems" Label="Shared" Condition="'$(FuserLibImported)' != 'true'" />
+    <Import Project="..\..\..\External\mira.analog.mirror\AnalogLib.Reference.vcxitems" Label="Shared" Condition="'$(AnalogLibImported)' != 'true'" />
+  </ImportGroup>
+</Project>
