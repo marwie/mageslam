@@ -1,0 +1,6 @@
+[submodule "Dependencies/GSL"]
+	path = Dependencies/GSL
+	url = https://github.com/Microsoft/GSL
+[submodule "Dependencies/cereal"]
+	path = Dependencies/cereal
+	url = https://github.com/USCiLab/cereal
