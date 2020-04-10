@@ -1,7 +1,4 @@
-#include "pch.h"
 #include "OnlineBowFeatureMatcher.h"
-
-
 
 namespace mage
 {

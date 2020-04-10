@@ -158,7 +158,7 @@ namespace mira
 
         gsl::span<const property_bag*> groups() const
         {
-            return { const_cast<property_bag const**>(m_groups.data()), (ptrdiff_t)m_groups.size() };
+            return { const_cast<property_bag const**>(m_groups.data()), (gsl::span<const property_bag*>::size_type)m_groups.size() };
         }
 
         // serialization function

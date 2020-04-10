@@ -1,5 +1,3 @@
-#include "pch.h"
-
 #include "Platform.h"
 
 #include "Utils\Logging.h"
