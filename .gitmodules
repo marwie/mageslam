@@ -4,3 +4,6 @@
 [submodule "Dependencies/cereal"]
 	path = Dependencies/cereal
 	url = https://github.com/USCiLab/cereal
+[submodule "Dependencies/eigen-git-mirror"]
+	path = Dependencies/eigen-git-mirror
+	url = https://github.com/eigenteam/eigen-git-mirror
