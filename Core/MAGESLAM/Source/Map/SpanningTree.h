@@ -11,7 +11,7 @@
 #pragma once
 #include <set>
 #include <memory>
-#include <Eigen/Sparse>
+#include <Eigen/SparseCore>
 
 namespace mage
 {

@@ -16,7 +16,7 @@
 #include <set>
 #include <unordered_map>
 
-#include <Eigen/Sparse>
+#include <Eigen/SparseCore>
 
 #include "MageSettings.h"
 #include "Data\Data.h"

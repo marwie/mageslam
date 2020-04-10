@@ -15,7 +15,7 @@
 #include <memory>
 #include <set>
 
-#include <Eigen/Sparse>
+#include <Eigen/SparseCore>
 
 namespace mage
 {
