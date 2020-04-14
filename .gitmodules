@@ -7,3 +7,6 @@
 [submodule "Dependencies/eigen-git-mirror"]
 	path = Dependencies/eigen-git-mirror
 	url = https://github.com/eigenteam/eigen-git-mirror
+[submodule "Dependencies/g2o"]
+	path = Dependencies/g2o
+	url = https://github.com/RainerKuemmerle/g2o

@@ -242,7 +242,8 @@ target_include_directories(${LIBRARY_NAME} PRIVATE "Source")
 target_link_libraries(${LIBRARY_NAME} 
     PRIVATE Arcana
     PRIVATE opencv_world
-    PRIVATE Eigen)
+    PRIVATE Eigen
+    PRIVATE BundlerLib)
 
 target_compile_definitions(${LIBRARY_NAME} PRIVATE NOMINMAX)
 
