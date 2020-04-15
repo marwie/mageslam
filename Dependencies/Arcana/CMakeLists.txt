@@ -85,5 +85,7 @@ target_link_libraries(${LIBRARY_NAME} PUBLIC
     cereal
     GSL)
 
+target_compile_definitions(${LIBRARY_NAME} PUBLIC "NOMINMMAX")
+
 set_property(TARGET ${LIBRARY_NAME} PROPERTY FOLDER Dependencies)
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${SOURCES})

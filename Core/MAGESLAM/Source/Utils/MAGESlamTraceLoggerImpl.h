@@ -3,11 +3,12 @@
 //
 #pragma once
 
+// TODO: Tracing
 #include <TraceLogger.h>
 
 namespace mage
 {
-    TRACELOGGING_DECLARE_PROVIDER(m_etwScanProviderHandle);
+    // TRACELOGGING_DECLARE_PROVIDER(m_etwScanProviderHandle);
 
     class MAGESlamTraceLoggerImpl : public Tracing::TraceLoggerImpl<MAGESlamTraceLoggerImpl>
     {

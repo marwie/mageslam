@@ -52,21 +52,21 @@ set(SOURCES
     "Source/Device/IMUCharacterization.h"
     "Source/Device/SupportedDevices.cpp"
     "Source/Device/SupportedDevices.h"
-    "Source/Fuser/AnalogCAIMU.cpp"
-    "Source/Fuser/AnalogCAIMU.h"
-    "Source/Fuser/AnalogCASIMU.cpp"
-    "Source/Fuser/AnalogCASIMU.h"
-    "Source/Fuser/AnalogVFTFilter.cpp"
-    "Source/Fuser/AnalogVFTFilter.h"
+    # "Source/Fuser/AnalogCAIMU.cpp"
+    # "Source/Fuser/AnalogCAIMU.h"
+    # "Source/Fuser/AnalogCASIMU.cpp"
+    # "Source/Fuser/AnalogCASIMU.h"
+    # "Source/Fuser/AnalogVFTFilter.cpp"
+    # "Source/Fuser/AnalogVFTFilter.h"
     "Source/Fuser/Fuser.cpp"
     "Source/Fuser/Fuser.h"
-    "Source/Fuser/FuserFunctions.cpp"
+    # "Source/Fuser/FuserFunctions.cpp"
     "Source/Fuser/FuserFunctions.h"
     "Source/Fuser/ImuMath.h"
     "Source/Fuser/Interfaces.h"
     "Source/Fuser/PoseInterpolator.cpp"
     "Source/Fuser/PoseInterpolator.h"
-    "Source/Fuser/ScaleEstimator.cpp"
+    # "Source/Fuser/ScaleEstimator.cpp"
     "Source/Fuser/ScaleEstimator.h"
     "Source/Fuser/UnfilteredIMU.cpp"
     "Source/Fuser/UnfilteredIMU.h"
@@ -239,13 +239,16 @@ add_library(${LIBRARY_NAME} ${SOURCES})
 
 target_include_directories(${LIBRARY_NAME} PRIVATE "Source")
 
-target_link_libraries(${LIBRARY_NAME} 
+target_link_libraries(${LIBRARY_NAME}
+    PRIVATE Platform
     PRIVATE Arcana
     PRIVATE opencv_world
     PRIVATE Eigen
-    PRIVATE BundlerLib)
+    PRIVATE Tracing
+    PRIVATE BundlerLib
+    PRIVATE FuserLib)
 
-target_compile_definitions(${LIBRARY_NAME} PRIVATE NOMINMAX)
+target_compile_definitions(${LIBRARY_NAME} PRIVATE NOMINMAX _ENABLE_EXTENDED_ALIGNED_STORAGE)
 
 set_property(TARGET ${LIBRARY_NAME} PROPERTY FOLDER Core)
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${SOURCES})

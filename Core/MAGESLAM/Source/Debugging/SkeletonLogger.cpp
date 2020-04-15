@@ -2,6 +2,8 @@
 
 #include <sstream>
 
+// TODO: Tracing
+
 #include "Data/Pose.h"
 #include "Data/Types.h"
 #include "Debugging/SkeletonKey.h"
@@ -33,12 +35,12 @@ namespace mage
 
     void SkeletonLogger::Log(const char *data)
     {
-        TraceLoggingWrite(m_etwScanProviderHandle, "SkeletonLogging", TraceLoggingString(data));
+        // TraceLoggingWrite(m_etwScanProviderHandle, "SkeletonLogging", TraceLoggingString(data));
     }
 
     void SkeletonLogger::Log(const void *data, size_t length)
     {
-        TraceLoggingWrite(m_etwScanProviderHandle, "SkeletonLogging", TraceLoggingBinary(data, (UINT16)length));
+        // TraceLoggingWrite(m_etwScanProviderHandle, "SkeletonLogging", TraceLoggingBinary(data, (UINT16)length));
     }
 
     // ---------- TRACKING THREAD ----------
@@ -173,7 +175,7 @@ namespace mage
             memcpy(sendBuffer + prefix.length(), &buffer[pos], dataLen);
            
             // Prevent the EtwClient in the magedebugger tool overwhelmed by messages in a short time
-            Sleep(1);
+            // TOOD: Tracing Sleep(1);
                         
             Log(sendBuffer, prefix.length() + dataLen);
             pos += dataLen;

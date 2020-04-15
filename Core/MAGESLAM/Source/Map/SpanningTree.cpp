@@ -366,7 +366,7 @@ namespace mage
         {
             if (!m_Root.IsValid())
             {
-                OutputDebugStringA("Bad root");
+                // TODO: Tracing OutputDebugStringA("Bad root");
                 covisibility.DebugOutput();
                 DebugOutput();
                 return false;
@@ -376,7 +376,7 @@ namespace mage
             std::set<Id<Keyframe>> keyframesVisited;
             if (false == ValidSpanningTreeTest({}, m_Root, memory, keyframesVisited))
             {
-                OutputDebugStringA("Cycle found");
+                // TODO: Tracing OutputDebugStringA("Cycle found");
                 covisibility.DebugOutput();
                 DebugOutput();
                 return false;
@@ -384,7 +384,7 @@ namespace mage
 
             if (keyframesVisited.size() != covisKeyframes.size())
             {
-                OutputDebugStringA("Bad count");
+                // TODO: Tracing OutputDebugStringA("Bad count");
                 covisibility.DebugOutput();
                 DebugOutput();
                 return false;
@@ -394,7 +394,7 @@ namespace mage
             {
                 if (keyframesVisited.end() == keyframesVisited.find(curKeyframe))
                 {
-                    OutputDebugStringA("Didn't visit all nodes");
+                    // TODO: Tracing OutputDebugStringA("Didn't visit all nodes");
                     covisibility.DebugOutput();
                     DebugOutput();
                     return false;

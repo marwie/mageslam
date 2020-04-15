@@ -2,6 +2,8 @@ add_subdirectory(BoostHeaders)
 add_subdirectory(cereal EXCLUDE_FROM_ALL)
 add_subdirectory(GSL)
 add_subdirectory(Arcana)
+add_subdirectory(Tracing)
+add_subdirectory(Platform)
 
 add_library(Eigen INTERFACE)
 target_include_directories(Eigen INTERFACE "eigen-git-mirror/")
@@ -20,3 +22,4 @@ target_link_libraries(g2o INTERFACE
 target_include_directories(g2o INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/g2o" "${CMAKE_CURRENT_BINARY_DIR}/g2o")
 
 add_subdirectory(BundlerLib)
+add_subdirectory(FuserLib)
