@@ -58,7 +58,8 @@ set(SOURCES
     # "Source/Fuser/AnalogCASIMU.h"
     # "Source/Fuser/AnalogVFTFilter.cpp"
     # "Source/Fuser/AnalogVFTFilter.h"
-    "Source/Fuser/Fuser.cpp"
+    # "Source/Fuser/Fuser.cpp"
+    "Source/Fuser/FuserStubs.cpp"
     "Source/Fuser/Fuser.h"
     # "Source/Fuser/FuserFunctions.cpp"
     "Source/Fuser/FuserFunctions.h"
@@ -146,7 +147,7 @@ set(SOURCES
     "Source/Stereo/StereoMapInit.h"
     "Source/Tasks/BaseWorker.cpp"
     "Source/Tasks/BaseWorker.h"
-    "Source/Tasks/DynamicIMUPosePriorProvider.cpp"
+    # "Source/Tasks/DynamicIMUPosePriorProvider.cpp"
     "Source/Tasks/DynamicIMUPosePriorProvider.h"
     "Source/Tasks/FuserWorker.cpp"
     "Source/Tasks/FuserWorker.h"
@@ -240,13 +241,13 @@ add_library(${LIBRARY_NAME} ${SOURCES})
 target_include_directories(${LIBRARY_NAME} PRIVATE "Source")
 
 target_link_libraries(${LIBRARY_NAME}
-    PRIVATE Platform
-    PRIVATE Arcana
-    PRIVATE opencv_world
-    PRIVATE Eigen
-    PRIVATE Tracing
-    PRIVATE BundlerLib
-    PRIVATE FuserLib)
+    PUBLIC Platform
+    PUBLIC Arcana
+    PUBLIC opencv_world
+    PUBLIC Eigen
+    PUBLIC Tracing
+    PUBLIC BundlerLib
+    PUBLIC FuserLib)
 
 target_compile_definitions(${LIBRARY_NAME} PRIVATE NOMINMAX _ENABLE_EXTENDED_ALIGNED_STORAGE)
 

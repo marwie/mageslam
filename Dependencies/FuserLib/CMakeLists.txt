@@ -5,14 +5,14 @@ set(SOURCES
     "LegacySerialization.h"
     "pch.cpp"
     "pch.h"
-    "SensorFilter.cpp"
+    # "SensorFilter.cpp"
     "SensorFilter.h"
     "SensorSample.cpp"
     "SensorSample.h"
     "SensorSampleQueue.cpp"
     "SensorSampleQueue.h"
     "SensorSampleSerializable.h"
-    "SimpleIMUFilter.cpp"
+    # "SimpleIMUFilter.cpp"
     "SimpleIMUFilter.h"
     "TimeUnits.h")
 

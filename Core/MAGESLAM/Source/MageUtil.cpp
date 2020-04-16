@@ -6,6 +6,9 @@
 #include "Tracking/Reprojection.h"
 #include "Device/CameraCalibration.h"
 
+// TODO: Tracing
+TRACELOGGING_DEFINE_RUNTIME_TRACKING_STORAGE;
+
 namespace mage
 {
     mage::Rect CalculateOverlapCropSourceInTarget(const mage::Matrix& targetToSourceMat, const std::shared_ptr<const mage::calibration::CameraModel>& targetModel,

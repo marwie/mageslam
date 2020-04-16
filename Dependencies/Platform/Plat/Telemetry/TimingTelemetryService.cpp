@@ -8,7 +8,7 @@
 
 #include "Plat/MiraAssert.h"
 #include <arcana/math.h>
-#include <arcana/utils/algorithm.h>
+//#include <arcana/utils/algorithm.h>
 #include <mutex>
 #include <unordered_map>
 
@@ -22,7 +22,7 @@ namespace mira
 
         TimingTelemetryService::AggregatedResult aggregate(gsl::span<TimeUnitMillisecondsF> samples, gsl::span<const TimeUnitMillisecondsF> histogramBuckets)
         {
-            MIRA_EXPECTS(!samples.empty());
+            /*MIRA_EXPECTS(!samples.empty());
 
             TimingTelemetryService::AggregatedResult result;
             result.NumSamples = gsl::narrow_cast<int>(samples.size());
@@ -49,7 +49,8 @@ namespace mira
                 }
             }
 
-            return result;
+            return result;*/
+            return{};
         }
     }
 
