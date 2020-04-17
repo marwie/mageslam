@@ -26,7 +26,7 @@ namespace mage
         m_filterType{ FilterType(fuserSettings.FilterType.value) },
         m_worldIMUToWorldMageRotationOnly(cv::Matx33f::eye())
     {
-        throw std::runtime_error{ "Fuser stub." };
+        // TODO: Fuser throw std::runtime_error{ "Fuser stub." };
     }
 
     // called when the first mage pose is returned as we wont have a pair of poses available

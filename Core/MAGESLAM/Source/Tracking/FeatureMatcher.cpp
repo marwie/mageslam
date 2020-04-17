@@ -88,7 +88,7 @@ namespace mage
         std::vector<size_t> imageBUnassociatedIndexes;
         imageBUnassociatedIndexes.reserve(imageBMaskTrueCount);
 
-        cv::Mat descriptorMatrixA{ (int)imageAMaskTrueCount, 32, CV_8UC1 };
+        cv::Mat descriptorMatrixA((int)imageAMaskTrueCount, 32, CV_8UC1);
         for (size_t i = 0, j = 0; i < imageAMask.size(); ++i)
         {
             if (imageAMask[i])
@@ -100,7 +100,7 @@ namespace mage
         }
         assert(imageAUnassociatedIndexes.size() == imageAMaskTrueCount);
 
-        cv::Mat descriptorMatrixB{ (int)imageBMaskTrueCount, 32, CV_8UC1 };
+        cv::Mat descriptorMatrixB((int)imageBMaskTrueCount, 32, CV_8UC1);
         for (size_t i = 0, j = 0; i < imageBMask.size(); ++i)
         {
             if (imageBMask[i])
