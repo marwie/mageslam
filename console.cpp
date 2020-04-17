@@ -290,12 +290,12 @@ void main()
 
     mira::CameraSettings cameraSettings{};
 
-    uint64_t correlationId = 0;
+    uint64_t idx = 0;
 
     ProcessFrames("C:\\Users\\jumurray.REDMOND\\Desktop\\0025_Bananas\\131067625136085151.mp4", [&](cv::Mat mat)
     {
-        mage::FrameId frameId{ correlationId++, mage::CameraIdentity::MONO };
-        auto timePoint = std::chrono::system_clock::now();
+        std::chrono::system_clock::time_point timePoint{ std::chrono::milliseconds(33 * idx) };
+        mage::FrameId frameId{ idx++, mage::CameraIdentity::MONO };
         mage::MAGESlam::FrameFormat format{ frameId, cameraModel, timePoint, cameraSettings };
 
         // TODO: Convert mat into configuratin (size, pixel format) expected.
