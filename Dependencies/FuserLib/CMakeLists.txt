@@ -1,5 +1,5 @@
 set(SOURCES
-    "AnalogConversions.h"
+    #"AnalogConversions.h"
     "FuserLib.h"
     "LegacySerialization.cpp"
     "LegacySerialization.h"

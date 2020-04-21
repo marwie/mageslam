@@ -1,5 +1,5 @@
 #include "ThreadSafePoseHistory.h"
-#include "Utils\ScopeTimer.h"
+#include "Utils\Logging.h"
 #include "Utils\thread_memory.h"
 
 using namespace std;

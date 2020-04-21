@@ -5,7 +5,6 @@
 #pragma once
 
 #include <Plat/FormatString/FormatString.h>
-#include <Plat/Tracing/Tracing.h>
 
 /*
     Usage:

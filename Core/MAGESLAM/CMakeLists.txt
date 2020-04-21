@@ -218,11 +218,8 @@ set(SOURCES
     "Source/Utils/Logging.h"
     "Source/Utils/MageConversions.cpp"
     "Source/Utils/MageConversions.h"
-    "Source/Utils/MAGESlamTraceLoggerImpl.cpp"
-    "Source/Utils/MAGESlamTraceLoggerImpl.h"
     "Source/Utils/not_null.h"
     "Source/Utils/range.h"
-    "Source/Utils/ScopeTimer.h"
     "Source/Utils/single_item_concurrent_queue.h"
     "Source/Utils/stack_vector.h"
     "Source/Utils/thread_memory.h"
@@ -245,7 +242,6 @@ target_link_libraries(${LIBRARY_NAME}
     PUBLIC Arcana
     PUBLIC opencv_world
     PUBLIC Eigen
-    PUBLIC Tracing
     PUBLIC BundlerLib
     PUBLIC FuserLib)
 

@@ -2,12 +2,9 @@
 #include "MageUtil.h"
 
 #include "Utils/cv.h"
-#include "Utils/ScopeTimer.h"
+#include "Utils/Logging.h"
 #include "Tracking/Reprojection.h"
 #include "Device/CameraCalibration.h"
-
-// TODO: Tracing
-TRACELOGGING_DEFINE_RUNTIME_TRACKING_STORAGE;
 
 namespace mage
 {

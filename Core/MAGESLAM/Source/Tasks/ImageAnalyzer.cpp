@@ -2,7 +2,7 @@
 
 #include "arcana/analysis/determinator.h"
 #include "MageSettings.h"
-#include "Utils/ScopeTimer.h"
+#include "Utils/Logging.h"
 #include "MageContext.h"
 #include "MageSlam.h"
 #include "Image/ImagePreprocessor.h"

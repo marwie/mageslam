@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "Utils\cv.h"
-#include "Utils\ScopeTimer.h"
+#include "Utils\Logging.h"
 #include "Reprojection.h"
 
 namespace mage

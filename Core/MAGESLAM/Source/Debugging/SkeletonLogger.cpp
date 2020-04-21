@@ -9,7 +9,6 @@
 #include "Debugging/SkeletonKey.h"
 #include "Map/CovisibilityGraph.h"
 #include "Utils/cv.h"
-#include "Utils/MAGESlamTraceLoggerImpl.h"
 
 using namespace std;
 
