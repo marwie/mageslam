@@ -8,12 +8,8 @@ namespace mira
     {
         Unknown,
         Lumia950,
-        A_EV2_RGB,
-        A_EV2_WFOV,
         SurfacePro3,
         SurfaceBook,
-        A_EV3_RGB,
-        A_EV3_WFOV,
     };
 
     inline constexpr char const* ToString(CameraType type)
@@ -24,14 +20,6 @@ namespace mira
             return "Unknown";
         case CameraType::Lumia950:
             return "Lumia950";
-        case CameraType::A_EV2_RGB:
-            return "A_EV2_RGB";
-        case CameraType::A_EV2_WFOV:
-            return "A_EV2_WFOV";
-        case CameraType::A_EV3_RGB:
-            return "A_EV3_RGB";
-        case CameraType::A_EV3_WFOV:
-            return "A_EV3_WFOV";
         case CameraType::SurfaceBook:
             return "SurfaceBook";
         case CameraType::SurfacePro3:
@@ -45,11 +33,8 @@ namespace mira
     {
         Unknown,
         Lumia950,
-        A_EV2,
         SurfacePro3,
         SurfaceBook,
-        A_EV3,
-        AnalogSynth,
         Middlebury,
     };
 
