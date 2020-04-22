@@ -138,11 +138,8 @@ namespace mage
     {
         BINARY,
         PNG,
-        XEF, // deprecated
         LIVE,
-        STEREO, // deprecated
         BOB,
-        ANALOGSYNTH,
         MIDDLEBURY,
     };
 

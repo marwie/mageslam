@@ -610,7 +610,7 @@ namespace mage
         metricWorldMageToCamera(2, 3) *= scaleMageToMeters;
 
         cv::Matx66d metricWorldMageToCameraCovariance = m_originWorldMageToCameraCovariance;
-        //don't scale rotation (analog se3 holds translation in the upper 3x3 (in the algebra) and lower 3x3 rotation (in the algebra)
+        //don't scale rotation
         for (int idxRow = 0; idxRow <3; idxRow++)
         {
             for (int idxCol = 0; idxCol < 3; idxCol++)

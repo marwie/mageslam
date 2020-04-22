@@ -22,7 +22,7 @@ namespace mira
                     bool WhiteBalanceValid : 1;
                     bool LensPositionValid : 1;
                     bool IsoSpeedValid : 1;
-                    bool IsoAnalogGainValid : 1;
+                    bool IsoExternalGainValid : 1;
                     bool IsoDigitalGainValid : 1;
                 } bits;
                 uint32_t data;
@@ -36,13 +36,13 @@ namespace mira
             boost::optional<HundredsNanoseconds> exposureTime,
             boost::optional<uint32_t> lensPosition,
             boost::optional<uint32_t> isoSpeed,
-            boost::optional<float> isoAnalogGain,
+            boost::optional<float> isoExternalGain,
             boost::optional<float> isoDigitalGain)
             : WhiteBalance{ whiteBalance },
             ExposureTime{ exposureTime },
             LensPosition{ lensPosition },
             IsoSpeed{ isoSpeed },
-            IsoAnalogGain{ isoAnalogGain },
+            IsoExternalGain{ isoExternalGain },
             IsoDigitalGain{ isoDigitalGain }
         {}
 
@@ -66,9 +66,9 @@ namespace mira
             IsoSpeed = isoSpeed;
         }
 
-        void SetIsoAnalogGain(const boost::optional<float> isoAnalogGain)
+        void SetIsoExternalGain(const boost::optional<float> isoExternalGain)
         {
-            IsoAnalogGain = isoAnalogGain;
+            IsoExternalGain = isoExternalGain;
         }
 
         void SetIsoDigitalGain(const boost::optional<float> isoDigitalGain)
@@ -96,9 +96,9 @@ namespace mira
             return IsoSpeed;
         }
 
-        boost::optional<float> GetIsoAnalogGain() const
+        boost::optional<float> GetIsoExternalGain() const
         {
-            return IsoAnalogGain;
+            return IsoExternalGain;
         }
 
         boost::optional<float> GetIsoDigitalGain() const
@@ -114,7 +114,7 @@ namespace mira
                 !!WhiteBalance,
                 !!LensPosition,
                 !!IsoSpeed,
-                !!IsoAnalogGain,
+                !!IsoExternalGain,
                 !!IsoDigitalGain
             };
         }
@@ -126,7 +126,7 @@ namespace mira
         boost::optional<HundredsNanoseconds>    ExposureTime{};
         boost::optional<uint32_t>               LensPosition{};
         boost::optional<uint32_t>               IsoSpeed{};
-        boost::optional<float>                  IsoAnalogGain{};
+        boost::optional<float>                  IsoExternalGain{};
         boost::optional<float>                  IsoDigitalGain{};
     };
 
@@ -137,7 +137,7 @@ namespace mira
             lhs.WhiteBalance == rhs.WhiteBalance &&
             lhs.LensPosition == rhs.LensPosition &&
             lhs.IsoSpeed == rhs.IsoSpeed &&
-            lhs.IsoAnalogGain == rhs.IsoAnalogGain &&
+            lhs.IsoExternalGain == rhs.IsoExternalGain &&
             lhs.IsoDigitalGain == rhs.IsoDigitalGain;
     }
 

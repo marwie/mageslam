@@ -16,15 +16,11 @@
 #include "LoopClosureWorker.h"
 #include "MotionModelPriorProvider.h"
 #include "IMUPosePriorProvider.h"
-// TODO: Fuser #include "DynamicIMUPosePriorProvider.h"
 
 #include "Platform/Platform.h"
 
 #include "Utils/MageConversions.h"
 #include "Utils/Logging.h"
-
-// TODO: Fuser #include "Fuser/AnalogCASIMU.h"
-
 
 #include <arcana/analysis/object_trace.h>
 #include <Analysis/DataPoints.h>
@@ -57,7 +53,7 @@ namespace mage
         std::unique_ptr<InitializationWorker> m_initWorker;
         std::unique_ptr<StereoInitializationWorker> m_stereoInitWorker;
 
-        // TODO: Fuser std::unique_ptr<AnalogCASIMU> m_analogCas;
+        // TODO: Fuser std::unique_ptr<ExternalCASIMU> m_externalCas;
 
         std::unique_ptr<MotionModelPriorProvider> m_motionModelProvider;
         std::unique_ptr<IMUPosePriorProvider> m_imuPriorProvider;
@@ -453,11 +449,11 @@ namespace mage
                 LogMessage<>(L"Pose Prior: Visual Inertial");
 
                 // TODO: Fuser
-                /*m_analogCas = std::make_unique<AnalogCASIMU>(
+                /*m_externalCas = std::make_unique<ExternalCASIMU>(
                     m_context.IMUCharacterization,
                     m_settings.RuntimeSettings.PosePriorSettings.AssumeIMUAndCameraAreAtSamePosition);
 
-                m_imuPriorProvider = std::make_unique<IMUPosePriorProvider>(m_analogCas.get());*/
+                m_imuPriorProvider = std::make_unique<IMUPosePriorProvider>(m_externalCas.get());*/
                 m_imuReceivers.push_back(m_imuPriorProvider.get());
 
                 m_priorProvider = m_imuPriorProvider.get();

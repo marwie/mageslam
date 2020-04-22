@@ -180,7 +180,7 @@ namespace mage
                 mira::HundredsNanoseconds exposureTime;
                 uint32_t lensPosition;
                 uint32_t isoSpeed;
-                float isoAnalogGain;
+                float isoExternalGain;
                 float isoDigitalGain;
 
                 deSerializer.read<uint32_t>(fields.data);
@@ -188,7 +188,7 @@ namespace mage
                 deSerializer.read<hundred_nanoseconds>(exposureTime);
                 deSerializer.read<uint32_t>(lensPosition);
                 deSerializer.read<uint32_t>(isoSpeed);
-                deSerializer.read<float>(isoAnalogGain);
+                deSerializer.read<float>(isoExternalGain);
                 deSerializer.read<float>(isoDigitalGain);
                 
                 const auto& bits = fields.bits;
@@ -197,7 +197,7 @@ namespace mage
                     bits.ExposureTimeValid ? exposureTime : boost::optional<mira::HundredsNanoseconds>{},
                     bits.LensPositionValid ? lensPosition : boost::optional<uint32_t>{},
                     bits.IsoSpeedValid ? isoSpeed : boost::optional<uint32_t>{},
-                    bits.IsoAnalogGainValid ? isoAnalogGain : boost::optional<float>{},
+                    bits.IsoExternalGainValid ? isoExternalGain : boost::optional<float>{},
                     bits.IsoDigitalGainValid ? isoDigitalGain : boost::optional<float>{}
                 };
             }
@@ -470,7 +470,7 @@ namespace mage
             serializer.write<hundred_nanoseconds>(cameraSettings.GetExposureTime().value_or(mira::HundredsNanoseconds{}));
             serializer.write<uint32_t>(cameraSettings.GetLensPosition().value_or(0));
             serializer.write<uint32_t>(cameraSettings.GetIsoSpeed().value_or(0));
-            serializer.write<float>(cameraSettings.GetIsoAnalogGain().value_or(0.0f));
+            serializer.write<float>(cameraSettings.GetIsoExternalGain().value_or(0.0f));
             serializer.write<float>(cameraSettings.GetIsoDigitalGain().value_or(0.0f));
         }
 

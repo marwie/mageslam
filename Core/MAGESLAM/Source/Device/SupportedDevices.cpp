@@ -82,7 +82,6 @@ namespace mage
 
             cameraDevice.CameraType = mira::CameraType::Lumia950;
 
-            //these calibration numbers came from Analog, 09/27/16
             cameraDevice.Model = calibration::LinearFocalLengthModel(
                 { -0.0001100515625f, 0.81877777291667f },   //fx M, B
                 { -0.0001882685185f, 1.45169039537037f },   //fy M, B
@@ -108,7 +107,7 @@ namespace mage
             //cv::Matx44f rot180X = mage::RotationXForCoordinateFrames(mira::deg2rad(mira::HALF_CIRCLE_DEGREES<float>));
             //cv::Matx44f bodyIMUToBodyCameraRotation = rot180X * rotNeg90Z;
 
-            // Ran the analog calibration tool with data using their 3d calibration marker board thanks to Eric Huang.
+            // Ran the calibration tool with data using their 3d calibration marker board thanks to Eric Huang.
             // These values are taken straight from the calibration.json file "Rt" property.
             cv::Matx44f bodyCameraToBodyIMU{
                 -0.0023918196093291044, -0.99980247020721436, 0.019730480387806892, 0.02890799380838871,

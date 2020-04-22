@@ -59,7 +59,7 @@ namespace mage
         return config;
     }
 
-    ST::SensorTime::time_t ToAnalogSensorTime(const SensorSample::Timestamp& timestamp)
+    ST::SensorTime::time_t ToExternalSensorTime(const SensorSample::Timestamp& timestamp)
     {
         auto microseconds = std::chrono::duration_cast<std::chrono::microseconds>(timestamp.time_since_epoch());
         return ST::SensorTime::fromMicroseconds(microseconds.count());
