@@ -1,19 +1,15 @@
 set(SOURCES
-    #"AnalogConversions.h"
     "FuserLib.h"
     "LegacySerialization.cpp"
     "LegacySerialization.h"
     "pch.cpp"
     "pch.h"
-    # "SensorFilter.cpp"
     "SensorFilter.h"
     "SensorSample.cpp"
     "SensorSample.h"
     "SensorSampleQueue.cpp"
     "SensorSampleQueue.h"
     "SensorSampleSerializable.h"
-    # "SimpleIMUFilter.cpp"
-    "SimpleIMUFilter.h"
     "TimeUnits.h")
 
 

@@ -87,7 +87,7 @@ namespace mage
         constexpr SensorSample::Timestamp::duration limitToCorrelate = std::chrono::microseconds(100); // not a setting that will be tweaked
 
         fevSamples.clear();
-        fevSamples.reserve(3);      
+        fevSamples.reserve(3);
 
         {
             std::lock_guard<std::shared_mutex> guard(m_sampleQueueMutex);
