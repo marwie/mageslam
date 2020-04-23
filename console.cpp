@@ -1,4 +1,4 @@
-#include "Core/MAGESLAM/Source/MageSlam.h"
+#include <MageSlam.h>
 
 #include <opencv2/opencv.hpp>
 
