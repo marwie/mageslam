@@ -15,9 +15,9 @@ namespace mira
         sha1_t computer;
         computer.process_bytes(data, size);
 
-        std::array<unsigned int, 5> digest;
-        computer.get_digest((sha1_t::digest_type)digest);
-        return digest;
+        sha1_t::digest_type digest;
+        computer.get_digest(digest);
+        return{ digest[0], digest[1], digest[2], digest[3], digest[4] };
     }
 
     struct continuous_sha1::impl
@@ -40,8 +40,8 @@ namespace mira
 
     std::array<unsigned int, 5> continuous_sha1::get_digest() const
     {
-        std::array<unsigned int, 5> digest;
-        m_impl->computer.get_digest((sha1_t::digest_type)digest);
-        return digest;
+        sha1_t::digest_type digest;
+        m_impl->computer.get_digest(digest);
+        return{ digest[0], digest[1], digest[2], digest[3], digest[4] };
     }
 }

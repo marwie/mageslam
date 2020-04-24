@@ -11,6 +11,7 @@
 // TODO:  feed back to Boost that 4457 is firing
 #pragma warning (push)
 #pragma warning (disable:4457)
+#include <boost/geometry/strategies/strategies.hpp>
 #include <boost\geometry\index\rtree.hpp>
 #pragma warning (pop)
 
