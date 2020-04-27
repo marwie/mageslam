@@ -3,7 +3,6 @@
 
 set(LIBRARY_NAME "MAGESLAM")
 
-set(OpenCV_DIR "C:\\bin\\opencv-3.4\\build\\")
 find_package(OpenCV REQUIRED)
 
 set(SOURCES
