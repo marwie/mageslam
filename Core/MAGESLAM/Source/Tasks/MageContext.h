@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 #pragma once
 
 #include <atomic>
@@ -5,7 +8,6 @@
 
 #include "BoW/BaseBow.h"
 #include "Debugging/Introspection.h"
-#include "Utils/cvmarkersobj.h"
 #include "Image/ImageFactory.h"
 #include "Map/ThreadSafeMap.h"
 #include "Map/ThreadSafePoseHistory.h"
@@ -19,12 +21,6 @@ namespace mage
 
     struct MageContext
     {
-        /*
-            TODO: DELETE Concurrency markers for visualizing cuncurrency while
-            profiling.
-        */
-        Concurrency::diagnostic::marker_series Series{};
-
         /*
             The global image factory that allocates our images.
         */

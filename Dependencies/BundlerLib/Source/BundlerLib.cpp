@@ -1,4 +1,7 @@
-﻿#include "BundlerLib.h"
+﻿// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
+#include "BundlerLib.h"
 
 #include <Eigen/Core>
 #include <Eigen/StdVector>

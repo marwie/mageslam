@@ -1,8 +1,6 @@
-//------------------------------------------------------------------------------
-// MapInitialization.cpp
-//
-// Copyright (C) Microsoft Corporation. All rights reserved.
-//------------------------------------------------------------------------------
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 #include "Tracking\ComputeEssential.h"
 #include "Tracking\MapInitialization.h"
 #include "Mapping\NewMapPointsCreation.h"

@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 #include "ImageAnalyzer.h"
 
 #include "arcana/analysis/determinator.h"

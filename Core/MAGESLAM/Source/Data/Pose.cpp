@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 //------------------------------------------------------------------------------
 // Pose.h
 //
@@ -5,8 +8,6 @@
 // it is the transform that will bring things into a camera relative space, not 
 // the transform that would position a proxy object into the orientation of the
 // camera
-//
-// Copyright (C) Microsoft Corporation. All rights reserved.
 //------------------------------------------------------------------------------
 
 #include "Pose.h"

@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 #include "determinator.h"
 #include <assert.h>  // for assert
 

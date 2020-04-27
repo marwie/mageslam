@@ -1,7 +1,8 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 //------------------------------------------------------------------------------
 // Intrinsics.h
-//
-// Copyright (C) Microsoft Corporation. All rights reserved.
 //------------------------------------------------------------------------------
 
 #pragma once

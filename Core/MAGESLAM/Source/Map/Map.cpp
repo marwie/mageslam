@@ -1,11 +1,13 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 //------------------------------------------------------------------------------
 // Map.cpp
 //
 // the map is a singleton class that holds information about estimated camera poses 
 // and observed world points
-//
-// Copyright (C) Microsoft Corporation. All rights reserved.
 //------------------------------------------------------------------------------
+
 #include "CovisibilityGraph.h"
 #include "Data/Data.h"
 #include "Data/Keyframe.h"

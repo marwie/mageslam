@@ -1,10 +1,7 @@
-//------------------------------------------------------------------------------
-// FeatureMatcher.cpp
-//
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 // The feature matcher finds matches for the descriptors between two frames.
-//
-// Copyright (C) Microsoft Corporation. All rights reserved.
-//------------------------------------------------------------------------------
 
 #include "FeatureMatcher.h"
 #include "MageSettings.h"

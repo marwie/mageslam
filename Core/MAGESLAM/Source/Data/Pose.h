@@ -1,9 +1,10 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 //------------------------------------------------------------------------------
 // Pose.h
 //
 // Stores the camera pose as a 3d position and quaternion rotation.
-//
-// Copyright (C) Microsoft Corporation. All rights reserved.
 //------------------------------------------------------------------------------
 
 #pragma once

@@ -1,6 +1,5 @@
-//
-// Copyright (C) Microsoft Corporation. All rights reserved.
-//
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
 
 #include "MageConversions.h"
 #include <arcana/math.h>

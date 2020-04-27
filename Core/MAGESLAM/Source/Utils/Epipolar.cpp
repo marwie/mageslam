@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 #include "Epipolar.h"
 #include "Data/Pose.h"
 #include "Device/CameraCalibration.h"

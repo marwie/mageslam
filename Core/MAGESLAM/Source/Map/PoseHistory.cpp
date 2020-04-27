@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 #include "PoseHistory.h"
 
 #include "VolumeOfInterest\VolumeOfInterest.h"

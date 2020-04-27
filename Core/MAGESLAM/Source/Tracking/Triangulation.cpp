@@ -1,8 +1,6 @@
-//------------------------------------------------------------------------------
-// Triangulation.cpp
-//
-// Copyright (C) Microsoft Corporation. All rights reserved.
-//------------------------------------------------------------------------------
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 #include "Triangulation.h"
 
 #include <opencv2\core.hpp>
@@ -58,6 +56,6 @@ namespace mage
         }
 
         // get the center of the two closest points
-        return (cameraWorldPos1 + (sc * u) +cameraWorldPos2 + (tc * v))*0.5f; // =  (L1(sc) + L2(tc))/2 .... mid point of line
+        return (cameraWorldPos1 + (sc * u) +cameraWorldPos2 + (tc * v))*0.5f; // =ï¿½ (L1(sc) + L2(tc))/2 .... mid point of line
     }
 }

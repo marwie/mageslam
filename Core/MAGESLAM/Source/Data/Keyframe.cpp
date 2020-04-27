@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 #include "Keyframe.h"
 #include "Tracking\KeyframeBuilder.h"
 #include "Pose.h"

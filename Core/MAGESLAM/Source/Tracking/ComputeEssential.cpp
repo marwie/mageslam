@@ -1,6 +1,4 @@
 /*
-Copyright (C) Microsoft Corporation. All rights reserved.
-
 We are using the OpenCV implementation for computing the essential matrix via the five point algorithm
 We have modified the code for performance considerations and to better specialize it for our needs.
 

@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 #pragma once
 
 #include "bob_stream_file.h"           // for bob_stream_file, bob_stream_fi...

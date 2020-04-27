@@ -1,10 +1,8 @@
-//------------------------------------------------------------------------------
-// FeatureMatcher.h
-//
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 // The feature matcher finds matches for the descriptors between two frames.
-//
-// Copyright (C) Microsoft Corporation. All rights reserved.
-//------------------------------------------------------------------------------
+
 #pragma once
 
 #include "Image\KeypointSpatialIndex.h"

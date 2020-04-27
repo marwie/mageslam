@@ -1,13 +1,14 @@
-#pragma once
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 //------------------------------------------------------------------------------
 // SpanningTree.h
 //
 // the spanning tree contains a spanning tree of the covisibility graph with the edges
 // connecting keyframes with the highest number of shared mappoints. it is used as 
 // part of the essential graph and is owned by the map.
-//
-// Copyright (C) Microsoft Corporation. All rights reserved.
 //------------------------------------------------------------------------------
+
 #pragma once
 #include <set>
 #include <memory>

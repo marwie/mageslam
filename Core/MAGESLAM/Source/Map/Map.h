@@ -1,11 +1,13 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 //------------------------------------------------------------------------------
 // Map.h
 //
 // the map is a singleton class that holds information about estimated camera poses 
 // and observed world points
-//
-// Copyright (C) Microsoft Corporation. All rights reserved.
 //------------------------------------------------------------------------------
+
 #pragma once
 
 #include <future>

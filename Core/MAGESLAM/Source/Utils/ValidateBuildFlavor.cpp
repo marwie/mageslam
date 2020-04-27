@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 #include "ValidateBuildFlavor.h"
 #include <stdexcept>
 #include <assert.h>

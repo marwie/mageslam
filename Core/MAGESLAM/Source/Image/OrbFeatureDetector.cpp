@@ -1,11 +1,12 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 //------------------------------------------------------------------------------
 // OrbFeatureDetector.cpp
 //
 // The feature detector detects the orb features in an image and 
 // also computes the  BRIEF descriptors for them. The init settings 
 // control the properties of the features.
-//
-// Copyright (C) Microsoft Corporation. All rights reserved.
 //------------------------------------------------------------------------------
 
 

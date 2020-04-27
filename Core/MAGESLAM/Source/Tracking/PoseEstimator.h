@@ -1,11 +1,8 @@
-//------------------------------------------------------------------------------
-// PoseEstimator.h
-//
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 // Given a set of 3d to 2d correspondences, this class calculates
 // the camera pose by solving a PnP [problem inside a RANSAC scheme.
-//
-// Copyright (C) Microsoft Corporation. All rights reserved.
-//------------------------------------------------------------------------------
 
 #pragma once
 

@@ -1,10 +1,12 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 //------------------------------------------------------------------------------
 // SpanningTree.h
 //
 // the spanning tree holds links between keyframes that share the most mappoints
-//
-// Copyright (C) Microsoft Corporation. All rights reserved.
 //------------------------------------------------------------------------------
+
 #include "assert.h"
 #include "Map.h"
 #include "SpanningTree.h"

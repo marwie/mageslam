@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 #include "PoseEstimator.h"
 #include "MageSettings.h"
 #include "Map/ThreadSafeMap.h"

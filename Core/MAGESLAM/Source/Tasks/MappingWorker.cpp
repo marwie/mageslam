@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 #include "MappingWorker.h"
 
 #include "Tracking/TrackLocalMap.h"

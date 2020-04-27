@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 #include "DeNoising.h"
 
 #include <opencv2\core.hpp>

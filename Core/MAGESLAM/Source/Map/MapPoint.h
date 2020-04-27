@@ -1,13 +1,14 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 //------------------------------------------------------------------------------
 // MapPoint.h
 //
 // Mappoints are 3D points that have been estimated from triangulating
 // the positions of the same 2D image space feature viewed from multiple images
-//
-// Copyright (C) Microsoft Corporation. All rights reserved.
 //------------------------------------------------------------------------------
-#pragma once
 
+#pragma once
 
 #include "Image\ORBDescriptor.h"
 #include "Data\Types.h"

@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 #include "signal.h"
 #include "cancellation.h"
 #include <chrono>          // for milliseconds

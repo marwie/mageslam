@@ -1,8 +1,6 @@
-//------------------------------------------------------------------------------
-// Reprojection.cpp
-//
-// Copyright (C) Microsoft Corporation. All rights reserved.
-//------------------------------------------------------------------------------
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 #include "Reprojection.h"
 #include "Device/CameraCalibration.h"
 

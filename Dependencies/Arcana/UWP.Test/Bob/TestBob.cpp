@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 #include "CppUnitTest.h"
 
 #include "arcana\bob\bob.h"

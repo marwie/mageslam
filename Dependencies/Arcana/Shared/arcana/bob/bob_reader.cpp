@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 #include "bob_reader.h"
 #include <cereal/archives/portable_binary.hpp>  // for PortableBinaryInputAr...
 #include <algorithm>                            // for min_element

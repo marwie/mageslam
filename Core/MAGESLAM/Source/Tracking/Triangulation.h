@@ -1,8 +1,6 @@
-//------------------------------------------------------------------------------
-// Triangulation.h
-//
-// Copyright (C) Microsoft Corporation. All rights reserved.
-//------------------------------------------------------------------------------
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 #pragma once
 #include <opencv2\core\core.hpp>
 #include <opencv2\features2d\features2d.hpp>

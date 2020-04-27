@@ -1,9 +1,10 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 //------------------------------------------------------------------------------
 // KeypointSpatialIndex.h
 //
 // Allows to construction, query, and removal of Keypoint entries based on pixel position.
-//
-// Copyright (C) Microsoft Corporation. All rights reserved.
 //------------------------------------------------------------------------------
 
 #pragma once

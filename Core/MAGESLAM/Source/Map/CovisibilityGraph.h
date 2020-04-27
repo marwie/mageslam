@@ -1,11 +1,13 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
 //------------------------------------------------------------------------------
 // CovisibilityGraph.h
 //
 // the covisibility graph relates keyframes that have a significant number of mappoints
 // visible in both. it is owned by the map
-//
-// Copyright (C) Microsoft Corporation. All rights reserved.
 //------------------------------------------------------------------------------
+
 #pragma once
 
 #include "MageSettings.h"
