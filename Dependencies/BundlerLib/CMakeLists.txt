@@ -1,3 +1,6 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
 set(LIBRARY_NAME "BundlerLib")
 
 set(SOURCES

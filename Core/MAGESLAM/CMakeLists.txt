@@ -1,3 +1,6 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
 set(LIBRARY_NAME "MAGESLAM")
 
 set(OpenCV_DIR "C:\\bin\\opencv-3.4\\build\\")
