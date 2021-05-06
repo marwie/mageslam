@@ -76,7 +76,7 @@ namespace mage
     struct MappingWorker::Impl
     {
         // Max size 72 is required for x64 builds
-        mira::background_dispatcher<72> Dispatcher;
+        mira::dispatcher<72>& Dispatcher;
         mira::determinator& Determinator;
         MageContext& Context;
         const MageSlamSettings& Settings;
@@ -89,11 +89,12 @@ namespace mage
         std::atomic<bool> MappingWorkAvailable{ false };
 
         MappingWorker::Impl(
+            mira::dispatcher<72>& mappingDispatcher,
             mira::determinator& determinator,
             MageContext& context,
             const MageSlamSettings& settings,
             const PerCameraSettings& cameraSettings)
-            :   Dispatcher{},
+            :   Dispatcher{ mappingDispatcher },
                 Determinator{ determinator },
                 Context{ context },
                 Settings{ settings },
@@ -130,12 +131,13 @@ namespace mage
     };
 
     MappingWorker::MappingWorker(
+        mira::dispatcher<72>& mappingDispatcher,
         mira::determinator& determinator,
         MageContext& context,
         const MageSlamSettings& settings,
         const PerCameraSettings& cameraSettings)
         : BaseWorker{ 100 * 1024, 1000 * 1024 },
-        m_impl{ std::make_unique<Impl>(determinator, context, settings, cameraSettings) }
+        m_impl{ std::make_unique<Impl>(mappingDispatcher, determinator, context, settings, cameraSettings) }
     {
         m_impl->CosVisThreashold = settings.CovisibilitySettings.CovisMinThreshold;
     }

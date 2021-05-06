@@ -27,6 +27,8 @@ namespace mage
     {
     public:
         ImageAnalyzer(
+            mira::dispatcher<72>& mainDispatcher,
+            mira::dispatcher<72>& analyzerDispatcher,
             mira::determinator& determinator,
             MageContext& context,
             gsl::span<const MAGESlam::CameraConfiguration> configurations,

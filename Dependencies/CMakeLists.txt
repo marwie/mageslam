@@ -9,7 +9,7 @@ add_subdirectory(Arcana)
 add_library(Eigen INTERFACE)
 target_include_directories(Eigen INTERFACE "eigen-git-mirror/")
 # Prevents the inclusion of any non-permissively licensed code from Eigen.
-target_compile_definitions(Eigen INTERFACE EIGEN_MPL2_ONLY)
+target_compile_definitions(Eigen INTERFACE EIGEN_MPL2_ONLY EIGEN_DONT_PARALLELIZE)
 
 option(G2O_NO_IMPLICIT_OWNERSHIP_OF_OBJECTS "Disables memory management in the graph types, this requires the callers to manager the memory of edges and nodes" ON)
 option(BUILD_SHARED_LIBS "Build Shared Libraries (preferred and required for the g2o plugin system)" OFF)

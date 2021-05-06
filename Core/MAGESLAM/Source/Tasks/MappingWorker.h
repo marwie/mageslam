@@ -13,6 +13,7 @@ namespace mage
     {
     public:
         MappingWorker(
+            mira::dispatcher<72>& mappingDispatcher,
             mira::determinator& determinator,
             MageContext& context,
             const MageSlamSettings& settings,

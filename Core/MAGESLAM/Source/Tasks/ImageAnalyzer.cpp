@@ -61,16 +61,18 @@ namespace mage
         std::map<CameraIdentity, ImagePreprocessor> Preprocessors;
 
         // Max size 72 is required for x64 builds
-        mira::background_dispatcher<72> MainDispatcher;
+        mira::dispatcher<72>& MainDispatcher;
 
         // Max size 72 is required for x64 builds
-        mira::background_dispatcher<72> BackgroundDispatcher;
+        mira::dispatcher<72>& BackgroundDispatcher;
         memory_pool BackgroundMemory{ 100 * 1024, 5 * 1000 * 1024 };
         
         std::vector<MAGESlam::CameraConfiguration> Configurations;
 
-        Impl(mira::determinator& determinator, MageContext& context, const MageSlamSettings& settings, gsl::span<const MAGESlam::CameraConfiguration> configurations)
-            : Determinator{ determinator }
+        Impl(mira::dispatcher<72>& mainDispatcher, mira::dispatcher<72>& analyzerDispatcher, mira::determinator& determinator, MageContext& context, const MageSlamSettings& settings, gsl::span<const MAGESlam::CameraConfiguration> configurations)
+            : MainDispatcher{ mainDispatcher }
+            , BackgroundDispatcher{ analyzerDispatcher }
+            , Determinator{ determinator }
             , Context{ context }
             , Settings{ settings }
             , Configurations{ configurations.begin(), configurations.end() }
@@ -86,9 +88,9 @@ namespace mage
         }
     };
    
-    ImageAnalyzer::ImageAnalyzer(mira::determinator& determinator, MageContext& context, gsl::span<const MAGESlam::CameraConfiguration> configurations, const MageSlamSettings& settings)
+    ImageAnalyzer::ImageAnalyzer(mira::dispatcher<72>& mainDispatcher, mira::dispatcher<72>& analyzerDispatcher, mira::determinator& determinator, MageContext& context, gsl::span<const MAGESlam::CameraConfiguration> configurations, const MageSlamSettings& settings)
         : BaseWorker{ 100 * 1024, 5 * 1000 * 1024 }
-        , m_impl{ std::make_unique<Impl>(determinator, context, settings, configurations) }
+        , m_impl{ std::make_unique<Impl>(mainDispatcher, analyzerDispatcher, determinator, context, settings, configurations) }
     {}
 
     mira::task<FrameAnalyzed> ImageAnalyzer::ProcessFrame(const std::shared_ptr<FrameData>& frame)

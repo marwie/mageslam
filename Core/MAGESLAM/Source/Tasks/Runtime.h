@@ -8,6 +8,7 @@
 #include "MageSlam.h"
 
 #include <arcana/scheduling/state_machine.h>
+#include <arcana/threading/dispatcher.h>
 #include <gsl/gsl>
 #include <memory>
 
@@ -22,7 +23,15 @@ namespace mage
     class Runtime
     {
     public:
-        Runtime(const MageSlamSettings& settings, MageContext& context, Fuser& fuser, mira::state_machine_driver& driver);
+        struct ThreadingModel
+        {
+            // Max size 72 is required for x64 builds
+            using DispatcherT = mira::dispatcher<72>;
+            DispatcherT& RuntimeDispatcher;
+            DispatcherT& TrackingDispatcher;
+            DispatcherT& MappingDispatcher;
+        };
+        Runtime(const MageSlamSettings& settings, MageContext& context, Fuser& fuser, mira::state_machine_driver& driver, ThreadingModel& threadingModel);
         ~Runtime();
 
         void Run(gsl::span<const MAGESlam::CameraConfiguration> cameras);

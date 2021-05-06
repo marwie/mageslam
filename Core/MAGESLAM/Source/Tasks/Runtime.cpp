@@ -37,15 +37,13 @@ namespace mage
         Fuser& m_fuser;
         mira::state_machine_driver& m_driver;
 
-        // Max size 72 is required for x64 builds
-        mira::background_dispatcher<72> m_runtimeDispatcher;
-        mira::background_dispatcher<72> m_trackingDispatcher;
+        ThreadingModel::DispatcherT& m_runtimeDispatcher;
+        ThreadingModel::DispatcherT& m_trackingDispatcher;
 
         TrackingMediator m_trackingMediator;
         mira::determinator& m_trackingDeterminator = mira::determinator::create("TrackingThread");
 
-        // Max size 72 is required for x64 builds
-        mira::background_dispatcher<72> m_mappingDispatcher;
+        ThreadingModel::DispatcherT& m_mappingDispatcher;
         mira::determinator& m_mappingDeterminator = mira::determinator::create("MappingThread");
 
         std::vector<PoseRefined> m_pendingKeyframes;
@@ -90,17 +88,27 @@ namespace mage
             const MageSlamSettings& settings,
             MageContext& context,
             Fuser& fuser,
-            mira::state_machine_driver& driver)
+            mira::state_machine_driver& driver,
+            ThreadingModel& threadingModel)
             :   BaseWorker{ 100 * 1024, 10 * 1000 * 1024 },
                 m_settings{ settings },
                 m_context{ context },
                 m_fuser{ fuser },
                 m_driver{ driver },
-                m_trackingMediator{ m_trackingDispatcher }
+                m_trackingMediator{ m_trackingDispatcher },
+                m_runtimeDispatcher{ threadingModel.RuntimeDispatcher },
+                m_trackingDispatcher{ threadingModel.TrackingDispatcher },
+                m_mappingDispatcher{ threadingModel.TrackingDispatcher }
         {
-            m_runtimeDispatcher.queue([]() { mage::platform::set_thread_name("Mage Runtime Thread"); });
-            m_trackingDispatcher.queue([]() { mage::platform::set_thread_name("Mage Tracking Thread"); });
-            m_mappingDispatcher.queue([]() { mage::platform::set_thread_name("Mage Mapping Thread"); });
+            m_runtimeDispatcher.queue([]() {
+                mage::platform::set_thread_name("Mage Runtime Thread");
+            });
+            m_trackingDispatcher.queue([]() {
+                mage::platform::set_thread_name("Mage Tracking Thread");
+            });
+            m_mappingDispatcher.queue([]() {
+                mage::platform::set_thread_name("Mage Mapping Thread");
+            });
         }
 
         template<typename ResultT, typename FactoryT>
@@ -324,12 +332,12 @@ namespace mage
             if (m_settings.StereoSettings.UseStereoInit)
             {
                 m_mappingWorker = std::make_unique<MappingWorker>(
-                    m_mappingDeterminator, m_context, m_settings, GetSettingsForCamera(m_settings, m_settings.StereoSettings.PrimaryTrackingCamera));
+                    m_mappingDispatcher, m_mappingDeterminator, m_context, m_settings, GetSettingsForCamera(m_settings, m_settings.StereoSettings.PrimaryTrackingCamera));
             }
             else
             {
                 m_mappingWorker = std::make_unique<MappingWorker>(
-                    m_mappingDeterminator, m_context, m_settings, GetSettingsForCamera(m_settings, mage::CameraIdentity::MONO));
+                    m_mappingDispatcher, m_mappingDeterminator, m_context, m_settings, GetSettingsForCamera(m_settings, mage::CameraIdentity::MONO));
             }
 
             m_loopClosureWorker = std::make_unique<LoopClosureWorker>(m_context, m_settings);
@@ -441,7 +449,7 @@ namespace mage
         {
             m_cameraConfigurations = std::vector<MAGESlam::CameraConfiguration>(cameras.begin(), cameras.end());
 
-            m_imageAnalyzer = std::make_unique<ImageAnalyzer>(mira::determinator::create("ImageAnalyzer"), m_context, cameras, m_settings);
+            m_imageAnalyzer = std::make_unique<ImageAnalyzer>(m_trackingDispatcher, m_trackingDispatcher, mira::determinator::create("ImageAnalyzer"), m_context, cameras, m_settings);
 
             m_fuserWorker = std::make_unique<FuserWorker>(m_trackingMediator, m_trackingDeterminator, m_fuser, m_context, m_settings);
 
@@ -692,8 +700,8 @@ namespace mage
         }
     };
 
-    Runtime::Runtime(const MageSlamSettings& settings, MageContext& context, Fuser& fuser, mira::state_machine_driver& driver)
-        :   m_impl{std::make_unique<Impl>(settings, context, fuser, driver)}
+    Runtime::Runtime(const MageSlamSettings& settings, MageContext& context, Fuser& fuser, mira::state_machine_driver& driver, ThreadingModel& threadingModel)
+        :   m_impl{std::make_unique<Impl>(settings, context, fuser, driver, threadingModel)}
     {}
 
     Runtime::~Runtime()

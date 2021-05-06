@@ -30,17 +30,70 @@
 
 #include "Tracking/BoundingPlaneDepths.h"
 
+#include "arcana/threading/dispatcher.h"
+
 using namespace std;
 
 namespace
 {
     const uint32_t TARGET_FRAME_RATE = 30;
+
+    struct MultiThreadedModel
+    {
+        void Run(const std::future<mage::MAGESlam::Tracking>&)
+        {
+        }
+
+        mage::Runtime::ThreadingModel GetRuntimeThreadingModel()
+        {
+            return{ RuntimeDispatcher, TrackingDispatcher, MappingDispatcher };
+        }
+
+        mira::background_dispatcher<72> RuntimeDispatcher{};
+        mira::background_dispatcher<72> TrackingDispatcher{};
+        mira::background_dispatcher<72> MappingDispatcher{};
+    };
+
+    struct BackgroundThreadedModel
+    {
+        void Run(const std::future<mage::MAGESlam::Tracking>&)
+        {
+        }
+
+        mage::Runtime::ThreadingModel GetRuntimeThreadingModel()
+        {
+            return{ Dispatcher, Dispatcher, Dispatcher };
+        }
+
+        mira::background_dispatcher<72> Dispatcher{};
+    };
+
+    struct SingleThreadedModel
+    {
+        void Run(const std::future<mage::MAGESlam::Tracking>& future)
+        {
+            std::chrono::milliseconds span{ 0 };
+            while (future.wait_for(span) == std::future_status::timeout)
+            {
+                Dispatcher.blocking_tick(mira::cancellation::none());
+            }
+        }
+
+        mage::Runtime::ThreadingModel GetRuntimeThreadingModel()
+        {
+            return{ Dispatcher, Dispatcher, Dispatcher };
+        }
+
+        mira::manual_dispatcher<72> Dispatcher{};
+    };
 }
 
 namespace mage
 {
     struct MAGESlam::Impl
     {
+        using ThreadingModelT = SingleThreadedModel;
+
         const MageSlamSettings m_settings;
         const device::IMUCharacterization m_imuCharacterization;
 
@@ -58,6 +111,7 @@ namespace mage
 
         std::unique_ptr<MageContext> m_context;
 
+        std::unique_ptr<ThreadingModelT> m_threadingModel;
         std::unique_ptr<Runtime> m_runtime;
        
         Impl(const MageSlamSettings& settings, gsl::span<const CameraConfiguration> cameras, const device::IMUCharacterization& imuCharacterization)
@@ -97,7 +151,8 @@ namespace mage
             platform::profile_memory();
 #endif
 
-            m_runtime = std::make_unique<Runtime>(m_settings, *m_context, *m_fuser, m_driver);
+            m_threadingModel = std::make_unique<ThreadingModelT>();
+            m_runtime = std::make_unique<Runtime>(m_settings, *m_context, *m_fuser, m_driver, m_threadingModel->GetRuntimeThreadingModel());
 
             m_runtime->Run(m_cameraConfigurations);
         }
@@ -185,6 +240,7 @@ namespace mage
         auto future = frameData->GetFuture();
 
         m_impl->m_runtime->TrackMono(move(frameData));
+        m_impl->m_threadingModel->Run(future);
 
         return future;
     }
