@@ -340,7 +340,7 @@ namespace mage
                     m_mappingDispatcher, m_mappingDeterminator, m_context, m_settings, GetSettingsForCamera(m_settings, mage::CameraIdentity::MONO));
             }
 
-            m_loopClosureWorker = std::make_unique<LoopClosureWorker>(m_context, m_settings);
+            m_loopClosureWorker = std::make_unique<LoopClosureWorker>(m_mappingDispatcher, m_context, m_settings);
 
             Pending() += TrackingSchedule().then(mira::inline_scheduler, mira::cancellation::none(), [](const mira::expected<void>& result)
             {

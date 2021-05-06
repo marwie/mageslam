@@ -6,6 +6,8 @@
 #include "BaseWorker.h"
 #include "MageContext.h"
 
+#include <arcana/threading/dispatcher.h>
+
 namespace
 {
     struct LoopClosureRelocalizationClusters;
@@ -27,6 +29,7 @@ namespace mage
     {
     public:
         LoopClosureWorker(
+            mira::dispatcher<72>& dispatcher,
             MageContext& context,
             const MageSlamSettings& settings);
 

@@ -54,7 +54,7 @@ namespace mage
     struct LoopClosureWorker::Impl
     {
         // Max size 72 is required for x64 builds
-        mira::background_dispatcher<72> Dispatcher;
+        mira::dispatcher<72>& Dispatcher;
         mira::determinator& Determinator;
         MageContext& Context;
         const MageSlamSettings& Settings;
@@ -64,9 +64,10 @@ namespace mage
 
         mira::task<void> Previous = mira::task_from_result();
 
-        Impl(const MageSlamSettings& settings,
+        Impl(mira::dispatcher<72>& dispatcher,
+            const MageSlamSettings& settings,
             MageContext& context)
-            :   Dispatcher{},
+            :   Dispatcher{ dispatcher },
                 Determinator{ mira::determinator::create("LoopClosure") },
                 Context{ context },
                 Settings{ settings },
@@ -78,10 +79,11 @@ namespace mage
     };
 
     LoopClosureWorker::LoopClosureWorker(
+        mira::dispatcher<72>& dispatcher,
         MageContext& context,
         const MageSlamSettings& settings)
         : BaseWorker{ 100 * 1024, 1000 * 1024 },
-        m_impl{ std::make_unique<Impl>(settings, context) }
+        m_impl{ std::make_unique<Impl>(dispatcher, settings, context) }
     {
     }
 
