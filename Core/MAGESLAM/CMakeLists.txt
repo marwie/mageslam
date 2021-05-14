@@ -207,7 +207,7 @@ set(SOURCES
     "Source/VolumeOfInterest/VolumeOfInterest.cpp"
     "Source/VolumeOfInterest/VolumeOfInterest.h"
     "Source/MageSettings.h"
-    "Source/MageSlam.cpp"
+    "Source/MAGESlam.cpp"
     "Source/MageSlam.h"
     "Source/MageUtil.cpp"
     "Source/MageUtil.h")

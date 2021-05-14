@@ -2,8 +2,8 @@
 // Licensed under the MIT License.
 
 #include "ThreadSafePoseHistory.h"
-#include "Utils\Logging.h"
-#include "Utils\thread_memory.h"
+#include "Utils/Logging.h"
+#include "Utils/thread_memory.h"
 
 using namespace std;
 
@@ -11,7 +11,7 @@ namespace mage
 {
     struct ThreadSafePoseHistoryTempData
     {
-        ThreadSafePoseHistoryTempData::ThreadSafePoseHistoryTempData(const KeyframeProxy& keyframeProxy, gsl::span<const KeyframeReprojection> covisibleKeyframes, InternalDepth depth, thread_memory memory)
+        ThreadSafePoseHistoryTempData(const KeyframeProxy& keyframeProxy, gsl::span<const KeyframeReprojection> covisibleKeyframes, InternalDepth depth, thread_memory memory)
             :   frame{ keyframeProxy },
                 depth{ std::move(depth) }
         {

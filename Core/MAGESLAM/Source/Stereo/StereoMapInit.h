@@ -3,11 +3,11 @@
 
 #pragma once
 
-#include "utils\thread_memory.h"
-#include "arcana\analysis\determinator.h"
+#include "Utils/thread_memory.h"
+#include "arcana/analysis/determinator.h"
 
-#include <opencv2\core\types.hpp>
-#include <boost\optional.hpp>
+#include <opencv2/core/types.hpp>
+#include <boost/optional.hpp>
 
 namespace UnitTests
 {

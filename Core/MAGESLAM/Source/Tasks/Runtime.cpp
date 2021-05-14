@@ -15,7 +15,7 @@
 #include "PoseEstimationWorker.h"
 #include "TrackLocalMapWorker.h"
 #include "MappingWorker.h"
-#include "Fuserworker.h"
+#include "FuserWorker.h"
 #include "LoopClosureWorker.h"
 #include "MotionModelPriorProvider.h"
 #include "IMUPosePriorProvider.h"
@@ -72,7 +72,7 @@ namespace mage
 
         struct
         {
-            std::atomic<bool> Pending = false;
+            std::atomic<bool> Pending{ false };
         } AnalysisData = {};
 
         struct
@@ -81,7 +81,7 @@ namespace mage
             bool IsLost = false;
             size_t LostCount = 0;
 
-            std::atomic<bool> Pending = false;
+            std::atomic<bool> Pending{ false };
         } TrackingData = {};
 
         Impl(
@@ -284,11 +284,11 @@ namespace mage
 
                 frame.Set({ mage::ToMageMat(result->Frame->GetPose().GetViewMatrix()), TrackingState::TRACKING });
             }
-            else if (result.error() == mira::errc::skipped)
+            else if (result.error() == static_cast<std::io_errc>(mira::errc::skipped))
             {
                 frame.Set({ mage::CreateIdentityMageMatrix(), TrackingState::SKIPPED });
             }
-            else if (result.error() == mira::errc::not_enough_input)
+            else if (result.error() == static_cast<std::io_errc>(mira::errc::not_enough_input))
             {
                 frame.Set({ mage::CreateIdentityMageMatrix(), TrackingState::INITIALIZING });
             }

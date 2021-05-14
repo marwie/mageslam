@@ -3,13 +3,13 @@
 
 #pragma once
 
-#include "Data\Types.h"
+#include "Data/Types.h"
 #include "MageSettings.h"
-#include "Image\ORBDescriptor.h"
+#include "Image/ORBDescriptor.h"
 #include "BaseFeatureMatcher.h"
 
 #include <vector>
-#include <gsl\gsl>
+#include <gsl/gsl>
 #include <memory>
   
 namespace mage

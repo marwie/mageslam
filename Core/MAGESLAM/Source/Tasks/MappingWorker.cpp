@@ -5,7 +5,6 @@
 
 #include "Tracking/TrackLocalMap.h"
 #include "Mapping/NewMapPointsCreation.h"
-#include "Analysis/binary_iterators.h"
 
 #include "Platform/Platform.h"
 
@@ -82,13 +81,13 @@ namespace mage
         const MageSlamSettings& Settings;
         const PerCameraSettings& CameraSettings;
 
-        mira::task<Id<Keyframe>> Previous = mira::task_from_result(Id<Keyframe>::id());
+        mira::task<Id<Keyframe>> Previous = mira::task_from_result<Id<Keyframe>>({});
         int FramesProcessed = 0;
         unsigned int CosVisThreashold{};
         boost::optional<float> CurrentLambda{};
         std::atomic<bool> MappingWorkAvailable{ false };
 
-        MappingWorker::Impl(
+        Impl(
             mira::dispatcher<72>& mappingDispatcher,
             mira::determinator& determinator,
             MageContext& context,

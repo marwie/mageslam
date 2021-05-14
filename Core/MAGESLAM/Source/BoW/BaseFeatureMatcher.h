@@ -3,8 +3,8 @@
 
 #pragma once
 
-#include "Data\Types.h"
-#include "Image\ORBDescriptor.h"
+#include "Data/Types.h"
+#include "Image/ORBDescriptor.h"
 #include <vector>
 
 namespace mage

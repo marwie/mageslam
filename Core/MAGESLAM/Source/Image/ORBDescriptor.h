@@ -3,9 +3,9 @@
 
 #pragma once
 
-#include <opencv2\core.hpp>
+#include <opencv2/core.hpp>
 
-#include "arcana\utils\Serialization\serializable.h"
+#include "arcana/utils/Serialization/serializable.h"
 
 namespace mage
 {

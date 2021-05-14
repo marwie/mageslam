@@ -1,30 +1,30 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-#include "Tracking\ComputeEssential.h"
-#include "Tracking\MapInitialization.h"
-#include "Mapping\NewMapPointsCreation.h"
-#include "Tracking\Triangulation.h"
-#include "Tracking\Reprojection.h"
+#include "Tracking/ComputeEssential.h"
+#include "Tracking/MapInitialization.h"
+#include "Mapping/NewMapPointsCreation.h"
+#include "Tracking/Triangulation.h"
+#include "Tracking/Reprojection.h"
 #include "MageSettings.h"
-#include "Utils\Epipolar.h"
-#include "Map\Map.h"
-#include "Map\MapPoint.h"
+#include "Utils/Epipolar.h"
+#include "Map/Map.h"
+#include "Map/MapPoint.h"
 #include "KeyframeBuilder.h"
-#include "Utils\format.h"
-#include "Utils\cv.h"
+#include "Utils/format.h"
+#include "Utils/cv.h"
 #include "FeatureMatcher.h"
-#include "BundleAdjustment\BundleAdjust.h"
-#include "Debugging\SkeletonLogger.h"
-#include "arcana\analysis\determinator.h"
-#include "Analysis\binary_iterators.h"
+#include "BundleAdjustment/BundleAdjust.h"
+#include "Debugging/SkeletonLogger.h"
+#include "arcana/analysis/determinator.h"
+#include "Analysis/binary_iterators.h"
 
-#include <opencv2\core.hpp>
-#include <opencv2\imgproc.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/imgproc.hpp>
 
-#include "Utils\Logging.h"
+#include "Utils/Logging.h"
 
-#include <boost\format.hpp>
+#include <boost/format.hpp>
 
 #include <chrono>
 #include <assert.h>
@@ -1062,7 +1062,7 @@ namespace mage
                 [](const auto& point3D)
             {
                 // MapInitialization map points are special and get treated as though they have been adjusted once already (which is technically true)
-                return MapPointTrackingProxy::CreateNew(point3D.second, 1);
+                return MapPointTrackingProxy::CreateNew(point3D.second, /*TODO: Emscripten*/ static_cast<unsigned int>(1));
             });
 
             DETERMINISTIC_CHECK(m_determinator, initializationData.Frames.begin(), initializationData.Frames.end());

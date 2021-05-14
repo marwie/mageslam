@@ -7,7 +7,7 @@
 #include <ostream>
 #include <assert.h>
 #include <chrono>
-#include <cereal\cereal.hpp>
+#include <cereal/cereal.hpp>
 
 namespace mage
 {

@@ -4,7 +4,7 @@
 #pragma once
 
 #include <memory>
-#include <experimental\filesystem>
+#include <experimental/filesystem>
 
 #include "MageSlam.h"
 #include "Introspector.h"
@@ -59,7 +59,7 @@ namespace mage
         ~FossilizedSkeletonKey();
 
         void GetViewMatrices(std::vector<Matrix>& viewMatrices) const;
-        void FossilizedSkeletonKey::GetMapPoints(std::vector<Position>& positions) const;
+        void GetMapPoints(std::vector<Position>& positions) const;
 
     private:
         FossilizedSkeletonKey(const MAGESlam::FossilizedMap& mage);

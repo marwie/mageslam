@@ -16,11 +16,11 @@
 #include "Device/CameraCalibration.h"
 #include "OpenCVModified.h"
 
-#include "Utils\thread_memory.h"
+#include "Utils/thread_memory.h"
 
 #include "ImageFactory.h"
 
-#include <opencv2\core\types.hpp>
+#include <opencv2/core/types.hpp>
 
 namespace UnitTests
 {

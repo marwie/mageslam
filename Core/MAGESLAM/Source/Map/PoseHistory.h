@@ -3,9 +3,9 @@
 
 #pragma once
 
-#include "Data\HistoricalPose.h"
+#include "Data/HistoricalPose.h"
 #include "MageSettings.h"
-#include "boost\format.hpp"
+#include "boost/format.hpp"
 
 // forward-declare the friend class method for accessing root objects in unit tests
 namespace UnitTests

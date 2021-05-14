@@ -3,8 +3,8 @@
 
 #include "BinarySerializer.h"
 
-#include "Map\ThreadSafeMap.h"
-#include "Serialization\binary_magestream.h"
+#include "Map/ThreadSafeMap.h"
+#include "Serialization/binary_magestream.h"
 
 #include <fstream>
 #include <chrono>

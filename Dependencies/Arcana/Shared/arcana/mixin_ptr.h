@@ -19,7 +19,7 @@ namespace mira
 
         operator bool() const
         {
-            return std::get<0>(m_ptr) != nullptr;
+            return std::get<0>(m_ptrs) != nullptr;
         }
 
         template<typename T>

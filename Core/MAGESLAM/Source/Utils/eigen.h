@@ -39,13 +39,13 @@ namespace mage
     template<typename T>
     inline typename T::ConstMapType ToCMap(const T& element)
     {
-        return T::ConstMapType{ element.data() };
+        return typename T::ConstMapType{ element.data() };
     }
 
     template<typename T>
     inline typename T::MapType ToMap(T& element)
     {
-        return T::MapType{ element.data() };
+        return typename T::MapType{ element.data() };
     }
 
 }

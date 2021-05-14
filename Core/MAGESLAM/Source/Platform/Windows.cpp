@@ -3,7 +3,7 @@
 
 #include "Platform.h"
 
-#include "Utils\Logging.h"
+#include "Utils/Logging.h"
 
 #ifdef WINAPI_FAMILY_APP
 

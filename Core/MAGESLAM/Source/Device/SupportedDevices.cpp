@@ -6,7 +6,7 @@
 #include "Utils/Constants.h"
 #include "Utils/MageConversions.h"
 #include "arcana/math.h"
-#include <Plat/Device/device.h>
+#include <Plat/Device/Device.h>
 #include <math.h>
 
 namespace mage
@@ -133,8 +133,8 @@ namespace mage
             imuCharacterization.GyroBiasSigma = mira::deg2rad(20.0f) * 1e-3f;    // 20 degrees/sec = (20 * 3.14) / 180 mrad/s
             imuCharacterization.MagBiasSigma = 30.0f;                           //microtesla
 
-            imuCharacterization.BodyIMUToBodyCamera = ArrayFromMat(bodyIMUToBodyCamera);
-            imuCharacterization.BodyCameraToBodyIMU = ArrayFromMat(bodyCameraToBodyIMU);
+            imuCharacterization.BodyIMUToBodyCamera = ArrayFromMat<float, size_t(4), size_t(4)>(bodyIMUToBodyCamera);
+            imuCharacterization.BodyCameraToBodyIMU = ArrayFromMat<float, size_t(4), size_t(4)>(bodyCameraToBodyIMU);
 
             return imuCharacterization;
         }

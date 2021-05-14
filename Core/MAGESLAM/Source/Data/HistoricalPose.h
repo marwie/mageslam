@@ -4,15 +4,15 @@
 #pragma once
 
 #include "Device/CameraCalibration.h"
-#include "Data\Types.h"
-#include "Data\Operators.h"
-#include "Mapping\MapPointKeyframeAssociations.h"
-#include "Utils\cv.h"
-#include "arcana\containers\sorted_vector.h"
-#include "Proxies\Proxy.h"
-#include "Proxies\KeyframeFields.h"
-#include "opencv2\core\core.hpp"
-#include "Data\InternalDepth.h"
+#include "Data/Types.h"
+#include "Data/Operators.h"
+#include "Mapping/MapPointKeyframeAssociations.h"
+#include "Utils/cv.h"
+#include "arcana/containers/sorted_vector.h"
+#include "Proxies/Proxy.h"
+#include "Proxies/KeyframeFields.h"
+#include "opencv2/core/core.hpp"
+#include "Data/InternalDepth.h"
 
 #include <chrono>
 

@@ -7,7 +7,7 @@
 
 #include "PoseHistory.h"
 #include "MappingKeyframe.h"
-#include "BundleAdjustment\BundleAdjust.h"
+#include "BundleAdjustment/BundleAdjust.h"
 
 #include <queue>
 

@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "arcana\utils\serialization\custom_serialization.h"
+#include "arcana/utils/serialization/custom_serialization.h"
 #include <assert.h>
 
 #include <algorithm>

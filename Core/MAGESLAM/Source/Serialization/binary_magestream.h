@@ -3,8 +3,8 @@
 
 #pragma once
 
-#include "Utils\buffer.h"
-#include "arcana\utils\serialization\base_stream.h"
+#include "Utils/buffer.h"
+#include "arcana/utils/serialization/base_stream.h"
 
 #include <ostream>
 #include <iomanip>

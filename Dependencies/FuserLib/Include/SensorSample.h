@@ -8,6 +8,7 @@
 #include <istream>
 #include <cereal/cereal.hpp>
 #include <arcana/macros.h>
+#include <cassert>
 
 namespace mage
 {

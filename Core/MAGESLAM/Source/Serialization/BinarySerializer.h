@@ -4,11 +4,11 @@
 #pragma once
 
 #include <iosfwd>
-#include <gsl\gsl>
+#include <gsl/gsl>
 #include <vector>
 
-#include "Data\Data.h"
-#include "Data\TimeUnits.h"
+#include "Data/Data.h"
+#include "Data/TimeUnits.h"
 
 #include <Plat/CameraDevice/CameraSettings.h>
 

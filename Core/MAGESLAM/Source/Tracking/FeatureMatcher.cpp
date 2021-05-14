@@ -11,7 +11,6 @@
 #include "BoW/BaseBow.h"
 
 #include <iterator>
-#include <intrin.h>
 
 #include <opencv2/core/hal/hal.hpp>
 

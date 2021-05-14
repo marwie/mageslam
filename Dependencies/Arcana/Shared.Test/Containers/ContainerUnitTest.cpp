@@ -1,8 +1,8 @@
 #include <CppUnitTest.h>
 
-#include "arcana\containers\sorted_vector.h"
-#include "arcana\containers\unique_vector.h"
-#include "arcana\containers\ticketed_collection.h"
+#include "arcana/containers/sorted_vector.h"
+#include "arcana/containers/unique_vector.h"
+#include "arcana/containers/ticketed_collection.h"
 
 #include <numeric>
 #include <algorithm>

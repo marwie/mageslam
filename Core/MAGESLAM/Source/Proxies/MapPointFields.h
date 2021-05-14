@@ -5,10 +5,10 @@
 
 #include "GenericFields.h"
 
-#include "Data\Types.h"
-#include "Map\MapPoint.h"
+#include "Data/Types.h"
+#include "Map/MapPoint.h"
 
-#include "arcana\utils\serialization\serializable.h"
+#include "arcana/utils/serialization/serializable.h"
 
 namespace mage
 {

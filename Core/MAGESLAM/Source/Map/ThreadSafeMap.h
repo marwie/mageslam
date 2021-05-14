@@ -9,26 +9,26 @@
 #include "MappingKeyframe.h"
 #include "InitializationData.h"
 
-#include "Tracking\KeyframeBuilder.h"
+#include "Tracking/KeyframeBuilder.h"
 
-#include "Mapping\MapPointKeyframeAssociations.h"
+#include "Mapping/MapPointKeyframeAssociations.h"
 
-#include "BoW\OnlineBow.h"
-#include "BoW\BaseFeatureMatcher.h"
+#include "BoW/OnlineBow.h"
+#include "BoW/BaseFeatureMatcher.h"
 
 #include "BundleAdjustment\BundleAdjust.h"
 
-#include "Data\Types.h"
-#include "Data\Pose.h"
-#include "Data\Data.h"
-#include "Data\MapState.h"
+#include "Data/Types.h"
+#include "Data/Pose.h"
+#include "Data/Data.h"
+#include "Data/MapState.h"
 
-#include "Utils\historical_queue.h"
-#include "Utils\collection.h"
+#include "Utils/historical_queue.h"
+#include "Utils/collection.h"
 
-#include <arcana\threading\blocking_concurrent_queue.h>
+#include <arcana/threading/blocking_concurrent_queue.h>
 
-#include <gsl\gsl>
+#include <gsl/gsl>
 
 #include <shared_mutex>
 #include <vector>

@@ -14,7 +14,7 @@
 
 #include "MageSettings.h"
 
-#include "Utils\Logging.h"
+#include "Utils/Logging.h"
 
 #include <inttypes.h>
 #include <list>

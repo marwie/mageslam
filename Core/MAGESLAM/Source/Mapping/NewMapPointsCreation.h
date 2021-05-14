@@ -3,11 +3,11 @@
 
 #pragma once
 
-#include "Bow\BaseBow.h"
-#include "Tracking\TrackLocalMap.h"
-#include "Image\AnalyzedImage.h"
+#include "Bow/BaseBow.h"
+#include "Tracking/TrackLocalMap.h"
+#include "Image/AnalyzedImage.h"
 
-#include <gsl\gsl>
+#include <gsl/gsl>
 
 #include <memory>
 #include <vector>

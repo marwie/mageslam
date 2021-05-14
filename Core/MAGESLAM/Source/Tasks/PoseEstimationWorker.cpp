@@ -3,7 +3,7 @@
 
 #include "PoseEstimationWorker.h"
 
-#include "Utils\Logging.h"
+#include "Utils/Logging.h"
 
 #include "MageContext.h"
 

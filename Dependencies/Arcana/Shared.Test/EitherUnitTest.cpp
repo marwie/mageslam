@@ -1,6 +1,6 @@
 #include <CppUnitTest.h>
 
-#include <arcana\either.h>
+#include <arcana/either.h>
 
 #include <memory>
 

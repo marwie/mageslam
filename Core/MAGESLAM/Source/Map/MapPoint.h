@@ -10,12 +10,12 @@
 
 #pragma once
 
-#include "Image\ORBDescriptor.h"
-#include "Data\Types.h"
+#include "Image/ORBDescriptor.h"
+#include "Data/Types.h"
 #include "MageSettings.h"
 
 #include <set>
-#include <opencv2\core\core.hpp>
+#include <opencv2/core/core.hpp>
 
 namespace mage
 {

@@ -7,7 +7,7 @@
 #include <chrono>
 #include <arcana/analysis/introspector.h>
 
-#include "Utils\id_generator.h"
+#include "Utils/id_generator.h"
 
 namespace mage
 {
@@ -17,7 +17,7 @@ namespace mage
     using IdGenerator = id_generator<IdT, ScopeT>;
 
     template<typename ScopeT>
-    using Id = typename id<IdT, ScopeT>;
+    using Id = typename mage::id<IdT, ScopeT>;
 
     using KeypointDescriptorIndex = std::size_t;
 }

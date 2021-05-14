@@ -1,11 +1,11 @@
 #include <CppUnitTest.h>
 
-#include <arcana\scheduling\state_machine.h>
+#include <arcana/scheduling/state_machine.h>
 
-#include <arcana\threading\dispatcher.h>
-#include <arcana\threading\pending_task_scope.h>
+#include <arcana/threading/dispatcher.h>
+#include <arcana/threading/pending_task_scope.h>
 
-#include <arcana\messaging\mediator.h>
+#include <arcana/messaging/mediator.h>
 
 #include <memory>
 

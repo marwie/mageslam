@@ -3,11 +3,11 @@
 
 #pragma once
 
-#include <opencv2\core\core.hpp>
-#include <opencv2\features2d\features2d.hpp>
+#include <opencv2/core/core.hpp>
+#include <opencv2/features2d/features2d.hpp>
 
 #include <utility>
-#include <gsl\gsl>
+#include <gsl/gsl>
 #include <vector>
 
 namespace mage

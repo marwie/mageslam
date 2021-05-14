@@ -3,10 +3,10 @@
 
 #include "CppUnitTest.h"
 
-#include "arcana\bob\bob.h"
-#include <boost\iostreams\device\array.hpp>
-#include <cereal\cereal.hpp>
-#include <cereal\archives\portable_binary.hpp>
+#include "arcana/bob/bob.h"
+#include <boost/iostreams/device/array.hpp>
+#include <cereal/cereal.hpp>
+#include <cereal/archives/portable_binary.hpp>
 
 #include <numeric>
 #include <algorithm>

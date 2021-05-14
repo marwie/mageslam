@@ -4,10 +4,10 @@
 #include "OnlineBow.h"
 #include "OnlineBowFeatureMatcher.h"
 
-#include "Tracking\FeatureMatcher.h"
+#include "Tracking/FeatureMatcher.h"
 
-#include <arcana\iterators.h>
-#include <arcana\threading\cancellation.h>
+#include <arcana/iterators.h>
+#include <arcana/threading/cancellation.h>
 
 #include <random>
 #include <memory>

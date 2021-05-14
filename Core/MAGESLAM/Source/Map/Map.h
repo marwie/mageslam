@@ -21,10 +21,10 @@
 #include <Eigen/SparseCore>
 
 #include "MageSettings.h"
-#include "Data\Data.h"
-#include "Data\Types.h"
-#include "Mapping\MapPointKeyframeAssociations.h"
-#include "Proxies\KeyframeProxy.h"
+#include "Data/Data.h"
+#include "Data/Types.h"
+#include "Mapping/MapPointKeyframeAssociations.h"
+#include "Proxies/KeyframeProxy.h"
 
 namespace mage
 {
@@ -72,8 +72,8 @@ namespace mage
 
         bool MapPointExists(const Id<MapPoint> id) const;
 
-        Keyframe* Map::GetKeyframe(const Id<Keyframe> id);
-        const Keyframe* Map::GetKeyframe(const Id<Keyframe> id) const;
+        Keyframe* GetKeyframe(const Id<Keyframe> id);
+        const Keyframe* GetKeyframe(const Id<Keyframe> id) const;
 
         size_t GetMapPointsCount() const;
         size_t GetKeyframesCount() const;

@@ -3,18 +3,18 @@
 
 #pragma once
 
-#include "Utils\buffer.h"
+#include "Utils/buffer.h"
 #include "MageSettings.h"           // for CameraIdentity
 #include "ORBDescriptor.h"
 
-#include "Memory\allocators.h"
-#include "arcana\utils\serialization\serializable.h"
+#include "Memory/allocators.h"
+#include "arcana/utils/serialization/serializable.h"
 
-#include <opencv2\core\core.hpp>
+#include <opencv2/core/core.hpp>
 #include <stdint.h>
 #include <atomic>
 
-#include <gsl\span>
+#include <gsl/span>
 
 namespace mage
 {
@@ -35,12 +35,15 @@ namespace mage
                 m_descriptorBuffer{ maxFeatures, allocator }
         {}
 
+        // TOOD: Emscripten
+        /*
         template<typename StreamT, typename = mira::is_stream_t<StreamT>>
         ImageData(CameraIdentity cameraIdentity, size_t maxFeatures, float pyramidScale, size_t numLevels, float imageBorder, const AllocT& allocator, StreamT& stream)
             : ImageData{ cameraIdentity, imageWidth, imageHeight, maxFeatures, pyramidScale, allocator }
         {
             deserialize(stream);
         }
+        */
 
         static constexpr auto members()
         {

@@ -6,7 +6,7 @@
 #include <atomic>
 #include <mutex>
 
-#include "arcana\threading\cancellation.h"
+#include "arcana/threading/cancellation.h"
 
 namespace mira
 {

@@ -1,7 +1,7 @@
 #include <CppUnitTest.h>
 
-#include <arcana\expected.h>
-#include <arcana\errors.h>
+#include <arcana/expected.h>
+#include <arcana/errors.h>
 
 #include <memory>
 

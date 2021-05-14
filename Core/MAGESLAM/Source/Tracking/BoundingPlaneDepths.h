@@ -4,9 +4,9 @@
 #pragma once
 
 #include "MageSettings.h"
-#include "Data\InternalDepth.h"
+#include "Data/InternalDepth.h"
 
-#include "Proxies\KeyframeProxy.h"
+#include "Proxies/KeyframeProxy.h"
 
 namespace mage
 {

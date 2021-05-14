@@ -12,12 +12,12 @@
 
 #include "Pose.h"
 
-#include "Utils\cv.h"
+#include "Utils/cv.h"
 
-#include <Eigen\Dense>
-#include <Eigen\Geometry> 
-#include <opencv2\core\eigen.hpp>
-#include <opencv2\calib3d\calib3d.hpp>
+#include <Eigen/Dense>
+#include <Eigen/Geometry> 
+#include <opencv2/core/eigen.hpp>
+#include <opencv2/calib3d/calib3d.hpp>
 
 namespace mage
 {

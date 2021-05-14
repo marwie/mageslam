@@ -6,13 +6,13 @@
 #include <memory>
 #include <future>
 #include <array>
-#include <gsl\gsl>
+#include <gsl/gsl>
 
-#include <boost\optional.hpp>
+#include <boost/optional.hpp>
 
-#include "Data\Data.h"
+#include "Data/Data.h"
 #include "MageSettings.h"
-#include "Device\Device.h"
+#include "Device/Device.h"
 
 #include <SensorSample.h>
 #include <Plat/CameraDevice/CameraSettings.h>

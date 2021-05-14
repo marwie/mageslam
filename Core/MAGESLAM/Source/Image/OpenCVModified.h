@@ -46,14 +46,14 @@ Added methods : keepBestKeyPoints and subimageToImageCoordinates
 
 #pragma once
 
-#include "Utils\thread_memory.h"
+#include "Utils/thread_memory.h"
 #include "ImageData.h"
 
 #include <iterator>
 
-#include <opencv2\core\types.hpp>
+#include <opencv2/core/types.hpp>
 
-#include <gsl\gsl>
+#include <gsl/gsl>
 
 namespace UnitTests
 {

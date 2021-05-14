@@ -3,8 +3,8 @@
 
 #pragma once
 
-#include <opencv2\core.hpp>
-#include <gsl\gsl>
+#include <opencv2/core.hpp>
+#include <gsl/gsl>
 
 namespace mage
 {

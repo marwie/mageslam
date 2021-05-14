@@ -10,11 +10,11 @@
 
 #include "MageSettings.h"
 #include "MapPoint.h"
-#include "Tracking\FeatureMatcher.h"
+#include "Tracking/FeatureMatcher.h"
 #include "MappingMath.h"
 
-#include "Data\Keyframe.h"
-#include "Utils\cv.h"
+#include "Data/Keyframe.h"
+#include "Utils/cv.h"
 
 #include <assert.h>
 

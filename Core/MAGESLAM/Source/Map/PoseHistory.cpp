@@ -3,7 +3,7 @@
 
 #include "PoseHistory.h"
 
-#include "VolumeOfInterest\VolumeOfInterest.h"
+#include "VolumeOfInterest/VolumeOfInterest.h"
 
 using namespace std;
 
@@ -179,7 +179,8 @@ namespace mage
         auto keyframePointer = m_keyframes.find(keyframeId);
         assert(keyframePointer != m_keyframes.end());
 
-        keyframePointer._Ptr->WorldPosition = ToWorldPosition(keyframePose);
+        const mage::FrameWorldPosition& pose = keyframePointer->WorldPosition;
+        const_cast<mage::FrameWorldPosition&>(pose) = ToWorldPosition(keyframePose);
     }
 
     boost::optional<PoseHistory::TrackingInformation> PoseHistory::GetTrackingInformationForFrame(const FrameId& frameId) const

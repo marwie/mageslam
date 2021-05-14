@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "arcana\threading\cancellation.h"
+#include "arcana/threading/cancellation.h"
 
 #include <mutex>
 

@@ -41,15 +41,15 @@ namespace mage
         {
             if (!vec.empty())
             {
-                m_begin = collection_traits<T>::convert<typename C::value_type>(vec.data());
-                m_end = collection_traits<T>::convert<typename C::value_type>(vec.data() + vec.size());
+                m_begin = collection_traits<T>::template convert<typename C::value_type>(vec.data());
+                m_end = collection_traits<T>::template convert<typename C::value_type>(vec.data() + vec.size());
             }
         }
 
         template<typename D>
         collection(const collection<D>& vec)
-            :   m_begin{ collection_traits<T>::convert<D>(vec.m_begin) },
-                m_end{ collection_traits<T>::convert<D>(vec.m_end) },
+            :   m_begin{ collection_traits<T>::template convert<D>(vec.m_begin) },
+                m_end{ collection_traits<T>::template convert<D>(vec.m_end) },
                 m_deltap{ vec.m_deltap }
         {}
 
@@ -179,11 +179,11 @@ namespace mage
             friend struct collection;
         };
 
-        iterator<T> begin() const { return{ const_cast<collection*>(this), 0u }; }
-        iterator<T> end() const { return{ const_cast<collection*>(this), size() }; }
+        iterator begin() const { return{ const_cast<collection*>(this), 0u }; }
+        iterator end() const { return{ const_cast<collection*>(this), size() }; }
 
-        iterator<T> begin() { return{ this, 0u }; }
-        iterator<T> end() { return{ this, size() }; }
+        iterator begin() { return{ this, 0u }; }
+        iterator end() { return{ this, size() }; }
 
     private:
         T* m_begin;

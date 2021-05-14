@@ -2,20 +2,20 @@
 // Licensed under the MIT License.
 
 #include "ThreadSafeMap.h"
-#include "Data\Keyframe.h"
-#include "Tracking\Triangulation.h"
-#include "Mapping\NewMapPointsCreation.h"
-#include "BundleAdjustment\BundleAdjust.h"
+#include "Data/Keyframe.h"
+#include "Tracking/Triangulation.h"
+#include "Mapping/NewMapPointsCreation.h"
+#include "BundleAdjustment/BundleAdjust.h"
 
-#include "Data\Operators.h"
+#include "Data/Operators.h"
 
 #include <set>
 #include <algorithm>
 
-#include "Utils\Logging.h"
-#include "Utils\range.h"
+#include "Utils/Logging.h"
+#include "Utils/range.h"
 
-#include "Analysis\DataFlow.h"
+#include "Analysis/DataFlow.h"
 
 #include <arcana/analysis/xray.h>
 #include <arcana/analysis/data_point.h>

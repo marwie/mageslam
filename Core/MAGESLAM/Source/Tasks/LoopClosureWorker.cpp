@@ -221,7 +221,7 @@ namespace mage
 
         const proxy::Intrinsics intrinsics{
             {
-                ArrayFromMat(relocs.Keyframe->GetAnalyzedImage()->GetUndistortedCalibration().GetLinearIntrinsics()),
+                ArrayFromMat<float, size_t(4), size_t(1)>(relocs.Keyframe->GetAnalyzedImage()->GetUndistortedCalibration().GetLinearIntrinsics()),
                 relocs.Keyframe->GetAnalyzedImage()->GetWidth(),
                 relocs.Keyframe->GetAnalyzedImage()->GetHeight()
             } };
@@ -352,7 +352,7 @@ namespace mage
                 proxy::Image{ covisKf.GetAnalyzedImage() },
                 proxy::Pose{ covisKf.GetPose().GetInverseViewMatrix() * li.UnscaledSimilarityTransform },
                 proxy::Intrinsics{ {
-                        ArrayFromMat(covisKf.GetAnalyzedImage()->GetUndistortedCalibration().GetLinearIntrinsics()),
+                        ArrayFromMat<float, size_t(4), size_t(1)>(covisKf.GetAnalyzedImage()->GetUndistortedCalibration().GetLinearIntrinsics()),
                         covisKf.GetAnalyzedImage()->GetUndistortedCalibration().GetCalibrationWidth(),
                         covisKf.GetAnalyzedImage()->GetUndistortedCalibration().GetCalibrationHeight()
                     } },
@@ -367,7 +367,7 @@ namespace mage
             proxy::Image{ li.RelocalizedKeyframe.GetAnalyzedImage() },
             proxy::Pose{ li.RelocalizedKeyframe.GetPose() },
             proxy::Intrinsics{ {
-                    ArrayFromMat(li.RelocalizedKeyframe.GetAnalyzedImage()->GetUndistortedCalibration().GetLinearIntrinsics()),
+                    ArrayFromMat<float, size_t(4), size_t(1)>(li.RelocalizedKeyframe.GetAnalyzedImage()->GetUndistortedCalibration().GetLinearIntrinsics()),
                     li.RelocalizedKeyframe.GetAnalyzedImage()->GetUndistortedCalibration().GetCalibrationWidth(),
                     li.RelocalizedKeyframe.GetAnalyzedImage()->GetUndistortedCalibration().GetCalibrationHeight()
                 } },

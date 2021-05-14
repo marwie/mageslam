@@ -6,7 +6,7 @@
 #include <memory>
 #include <mutex>
 
-#include <arcana\threading\cancellation.h>
+#include <arcana/threading/cancellation.h>
 
 namespace mage
 {

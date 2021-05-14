@@ -3,11 +3,11 @@
 
 #pragma once
 
-#include "Data\Types.h"
+#include "Data/Types.h"
 
-#include "Containers\MapPointAssociations.h"
-#include "Proxies\MapPointProxy.h"
-#include "Data\Pose.h"
+#include "Containers/MapPointAssociations.h"
+#include "Proxies/MapPointProxy.h"
+#include "Data/Pose.h"
 
 #include <arcana/analysis/introspector.h>
 

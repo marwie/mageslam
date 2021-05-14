@@ -50,7 +50,7 @@ namespace mage
                     keyframeIndex,
                     ToCMap(pose.GetViewSpacePosition()),
                     ToCMap(rotation),
-                    ToCMap(keyframe.GetUndistortedIntrinsics().GetCoefficients()),
+                    ToCMap<4>(keyframe.GetUndistortedIntrinsics().GetCoefficients()),
                     keyframe.IsFixed());
             }
 

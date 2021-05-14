@@ -5,12 +5,12 @@
 
 #include "Device/CameraCalibration.h"
 
-#include "MAGESlam.h"
+#include "MageSlam.h"
 #include "Pose.h"
 #include "Data.h"
 
-#include "Fuser\Fuser.h"
-#include "Image\ImageFactory.h"
+#include "Fuser/Fuser.h"
+#include "Image/ImageFactory.h"
 
 #include <memory>
 #include <future>

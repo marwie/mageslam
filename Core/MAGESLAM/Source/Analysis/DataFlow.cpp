@@ -3,8 +3,8 @@
 
 #include "DataFlow.h"
 
-#include "Utils\Logging.h"
-#include "Analysis\binary_iterators.h"
+#include "Utils/Logging.h"
+#include "Analysis/binary_iterators.h"
 
 namespace mage
 {

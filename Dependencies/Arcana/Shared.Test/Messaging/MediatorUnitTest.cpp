@@ -1,8 +1,8 @@
 #include <CppUnitTest.h>
 
-#include <arcana\functional\inplace_function.h>
-#include <arcana\messaging\mediator.h>
-#include <arcana\expected.h>
+#include <arcana/functional/inplace_function.h>
+#include <arcana/messaging/mediator.h>
+#include <arcana/expected.h>
 
 #include <fstream>
 

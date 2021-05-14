@@ -7,8 +7,8 @@
 #include <limits>
 #include <vector>
 
-#include "Utils\cv.h"
-#include "Utils\Logging.h"
+#include "Utils/cv.h"
+#include "Utils/Logging.h"
 #include "Reprojection.h"
 
 namespace mage

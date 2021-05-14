@@ -5,9 +5,9 @@
 
 #include <vector>
 
-#include "Proxies\Proxy.h"
-#include "Proxies\MapPointFields.h"
-#include "Proxies\KeyframeFields.h"
+#include "Proxies/Proxy.h"
+#include "Proxies/MapPointFields.h"
+#include "Proxies/KeyframeFields.h"
 
 namespace mage
 {

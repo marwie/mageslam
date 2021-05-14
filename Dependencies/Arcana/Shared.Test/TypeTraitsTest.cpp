@@ -1,6 +1,6 @@
 #include <CppUnitTest.h>
 
-#include <arcana\type_traits.h>
+#include <arcana/type_traits.h>
 
 using Assert = Microsoft::VisualStudio::CppUnitTestFramework::Assert;
 

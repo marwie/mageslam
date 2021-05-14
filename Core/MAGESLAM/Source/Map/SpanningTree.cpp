@@ -12,11 +12,11 @@
 #include "SpanningTree.h"
 #include "CovisibilityGraph.h"
 
-#include "Data\Keyframe.h"
+#include "Data/Keyframe.h"
 
 #include "MageSettings.h"
 
-#include "Utils\Logging.h"
+#include "Utils/Logging.h"
 
 using namespace std;
 

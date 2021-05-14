@@ -6,7 +6,7 @@
 #include "allocation.h"
 
 #include <algorithm>
-#include "arcana\utils\algorithm.h"
+#include "arcana/utils/algorithm.h"
 
 namespace mage
 {

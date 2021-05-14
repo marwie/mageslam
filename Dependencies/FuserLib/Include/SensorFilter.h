@@ -5,7 +5,7 @@
 
 #include "SensorSample.h"
 
-#include <Device/ImuCharacterization.h>
+#include <Device/IMUCharacterization.h>
 #include <array>
 #include <vector>
 #include <fstream>

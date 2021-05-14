@@ -3,8 +3,8 @@
 
 #pragma once
 
-#include "Proxies\MapPointProxy.h"
-#include "Tracking\KeyframeBuilder.h"
+#include "Proxies/MapPointProxy.h"
+#include "Tracking/KeyframeBuilder.h"
 
 #include <vector>
 #include <arcana/analysis/introspector.h>

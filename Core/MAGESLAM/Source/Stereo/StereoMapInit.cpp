@@ -6,12 +6,12 @@
 #include "Utils/cv.h"
 #include "Data/Data.h"
 #include "Map/InitializationData.h"
-#include "Tracking/Keyframebuilder.h"
+#include "Tracking/KeyframeBuilder.h"
 #include "Tracking/Reprojection.h"
 #include "Tracking/FeatureMatcher.h"
 #include "Tracking/MapInitialization.h"
 #include "Device/CameraCalibration.h"
-#include "Bow/BaseBow.h"
+#include "BoW/BaseBow.h"
 #include "Image/ImagePreprocessor.h"
 #include "MageUtil.h"
 #include "Utils/Logging.h"
@@ -74,7 +74,7 @@ namespace mage
                 [](const auto& point3D)
             {
                 // MapInitialization map points are special and get treated as though they have been adjusted once already (which is technically true)
-                return MapPointTrackingProxy::CreateNew(point3D.second, 1);
+                return MapPointTrackingProxy::CreateNew(point3D.second, /*TODO: Emscripten*/ static_cast<unsigned int>(1));
             });
 
             const std::shared_ptr<KeyframeBuilder> refKeyframeBuilder = initializationData.AddKeyframeBuilder(referenceFrame, referencePose);

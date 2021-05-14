@@ -3,8 +3,8 @@
 
 #include "Triangulation.h"
 
-#include <opencv2\core.hpp>
-#include "Utils\cv.h"
+#include <opencv2/core.hpp>
+#include "Utils/cv.h"
 
 namespace mage
 {

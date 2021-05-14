@@ -6,7 +6,7 @@
 #include "BaseFeatureMatcher.h"
 #include "OnlineBow.h"
 
-#include <gsl\gsl>
+#include <gsl/gsl>
 #include <unordered_map>
 
 namespace mage

@@ -5,13 +5,13 @@
 
 #include <string>
 #include <memory>
-#include "opencv\cv.h"
-#include "Containers\GenericContainers.h"
-#include "Data\Types.h"
+#include "opencv/cv.h"
+#include "Containers/GenericContainers.h"
+#include "Data/Types.h"
 
-#include "Proxies\KeyframeProxy.h"
-#include "Debugging\SkeletonKey.h"
-#include "Map\PoseHistory.h"
+#include "Proxies/KeyframeProxy.h"
+#include "Debugging/SkeletonKey.h"
+#include "Map/PoseHistory.h"
 
 namespace mage
 {
@@ -105,7 +105,7 @@ namespace mage
                 if (!LoggingEnabled(SkeletonLoggerLevel::Mapping))
                     return;
 
-                stringstream ss;
+                std::stringstream ss;
                 ss << "volumeofinterestargs,";
 
                 ss << settings.Threshold << "," <<

@@ -39,7 +39,7 @@ namespace mira
 
         duration_ms average_ms() const
         {
-            return { m_samples == 0 ? duration_ms{ 0 } : m_total / (float)m_samples };
+            return { m_samples == 0 ? duration_ms{ 0 } : duration_ms{ m_total / (float)m_samples } };
         }
 
         duration_ms last_ms() const

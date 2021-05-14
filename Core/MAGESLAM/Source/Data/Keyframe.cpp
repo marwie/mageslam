@@ -2,9 +2,9 @@
 // Licensed under the MIT License.
 
 #include "Keyframe.h"
-#include "Tracking\KeyframeBuilder.h"
+#include "Tracking/KeyframeBuilder.h"
 #include "Pose.h"
-#include "Map\Map.h"
+#include "Map/Map.h"
 
 namespace mage
 {

@@ -3,9 +3,9 @@
 
 #pragma once
 
-#include "arcana\utils\serialization\custom_serialization.h"
+#include "arcana/utils/serialization/custom_serialization.h"
 
-#include <opencv2\core.hpp>
+#include <opencv2/core.hpp>
 
 namespace mira
 {

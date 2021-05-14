@@ -3,10 +3,10 @@
 
 #pragma once
 
-#include "Data\Types.h"
-#include "Data\Keyframe.h"
+#include "Data/Types.h"
+#include "Data/Keyframe.h"
 
-#include "arcana\utils\serialization\serializable.h"
+#include "arcana/utils/serialization/serializable.h"
 
 namespace UnitTests
 {
@@ -380,7 +380,7 @@ namespace mage
             template<typename T>
             MapPointAssociations<T> ConvertAssociations() const
             {
-                return m_mapPoints.Convert<T>();
+                return m_mapPoints.template Convert<T>();
             }
 
             void OverwriteAssociations(MapPointAssociations<MapPointT>&& assocs)

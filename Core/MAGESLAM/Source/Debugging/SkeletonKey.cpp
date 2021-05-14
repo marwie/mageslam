@@ -5,7 +5,7 @@
 
 #include "SkeletonData.h"
 #include "SkeletonLogger.h"
-#include "Utils\MageConversions.h"
+#include "Utils/MageConversions.h"
 
 using namespace std;
 

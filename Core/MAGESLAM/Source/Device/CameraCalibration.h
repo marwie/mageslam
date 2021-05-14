@@ -3,13 +3,13 @@
 
 #pragma once
 
-#include "Data\Data.h"
+#include "Data/Data.h"
 
-#include "arcana\utils\serialization\serializable.h"
-#include "arcana\type_traits.h"
-#include "Serialization\cv_serialization.h"
+#include "arcana/utils/serialization/serializable.h"
+#include "arcana/type_traits.h"
+#include "Serialization/cv_serialization.h"
 
-#include <opencv2\core\types.hpp>
+#include <opencv2/core/types.hpp>
 #include <array>
 
 namespace mage
@@ -47,7 +47,7 @@ namespace mage
         uint32_t GetCalibrationWidth() const { return m_width; }
         uint32_t GetCalibrationHeight() const { return m_height; }
 
-        Intrinsics CameraCalibration::GetScaledIntrinsics(float scale) const;
+        Intrinsics GetScaledIntrinsics(float scale) const;
         CameraCalibration GetScaledCalibration(float scale) const;
 
         // vector of distortion coefficients in opencv ordering K0 K1 P1 P2 K2 [K3, K4, K5]

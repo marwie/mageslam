@@ -5,11 +5,11 @@
 
 #pragma once
 
-#include "Image\KeypointSpatialIndex.h"
-#include "Image\ORBDescriptor.h"
-#include "Data\Types.h"
+#include "Image/KeypointSpatialIndex.h"
+#include "Image/ORBDescriptor.h"
+#include "Data/Types.h"
 
-#include <opencv2\features2d\features2d.hpp>
+#include <opencv2/features2d/features2d.hpp>
 
 namespace mage
 {

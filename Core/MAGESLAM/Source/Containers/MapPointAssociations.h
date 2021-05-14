@@ -3,9 +3,9 @@
 
 #pragma once
 
-#include "Data\Types.h"
+#include "Data/Types.h"
 
-#include "Image\AnalyzedImage.h"
+#include "Image/AnalyzedImage.h"
 
 #include <functional>
 
@@ -129,7 +129,4 @@ namespace mage
     };
 
     class MapPoint;
-
-    // declare the template instantiations that this class supports
-    extern template MapPointAssociations<MapPoint const*>;
 }

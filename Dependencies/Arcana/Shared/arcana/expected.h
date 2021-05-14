@@ -6,6 +6,7 @@
 #include "either.h"
 
 #include <assert.h>
+#include <ios>
 #include <system_error>
 
 namespace mira
@@ -36,7 +37,7 @@ namespace mira
                 std::is_error_code_enum<std::decay_t<ErrorT>>::value ||
                 std::is_error_condition_enum<std::decay_t<ErrorT>>::value>>
         expected(ErrorT errorEnum)
-            : m_data{ std::make_error_code(errorEnum) }
+            : m_data{ std::make_error_code(static_cast<std::io_errc>(errorEnum)) }
         {}
 
         expected(const error_type& ec)

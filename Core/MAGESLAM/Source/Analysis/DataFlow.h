@@ -6,8 +6,8 @@
 #include <functional>
 #include <tuple>
 
-#include "arcana\utils\stl_shim.h"
-#include "Analysis\binary_iterators.h"
+#include "arcana/utils/stl_shim.h"
+#include "Analysis/binary_iterators.h"
 
 namespace mage
 {

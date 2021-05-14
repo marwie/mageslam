@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 #include "KeyframeBuilder.h"
-#include "Debugging\SkeletonLogger.h"
+#include "Debugging/SkeletonLogger.h"
 
 using namespace std;
 
@@ -16,7 +16,7 @@ namespace mage
         const shared_ptr<const AnalyzedImage>& image,
         const mage::Pose& pose,
         const vector<MapPointAssociations<MapPointTrackingProxy>::Association>& mapPoints)
-        : KeyframeProxy{ s_generator.generate(), proxy::Image{image}, proxy::Pose{pose}, proxy::Intrinsics{{ ArrayFromMat(image->GetUndistortedCalibration().GetLinearIntrinsics()), image->GetWidth(), image->GetHeight()}}, proxy::Associations<MapPointTrackingProxy>{ image, mapPoints }, proxy::PoseConstraints{ false } }
+        : KeyframeProxy{ s_generator.generate(), proxy::Image{image}, proxy::Pose{pose}, proxy::Intrinsics{{ ArrayFromMat<float, size_t(4), size_t(1)>(image->GetUndistortedCalibration().GetLinearIntrinsics()), image->GetWidth(), image->GetHeight()}}, proxy::Associations<MapPointTrackingProxy>{ image, mapPoints }, proxy::PoseConstraints{ false } }
     {
         SkeletonLogger::ImageLogging::LogImage(*this);
     }
@@ -24,7 +24,7 @@ namespace mage
     KeyframeBuilder::KeyframeBuilder(
         const shared_ptr<const AnalyzedImage>& image,
         const mage::Pose& pose) 
-        : KeyframeProxy{ s_generator.generate(), proxy::Image{ image }, proxy::Pose{ pose }, proxy::Intrinsics{{ ArrayFromMat(image->GetUndistortedCalibration().GetLinearIntrinsics()), image->GetWidth(),image->GetHeight()}}, proxy::Associations<MapPointTrackingProxy>{ image }, proxy::PoseConstraints{false}}
+        : KeyframeProxy{ s_generator.generate(), proxy::Image{ image }, proxy::Pose{ pose }, proxy::Intrinsics{{ ArrayFromMat<float, size_t(4), size_t(1)>(image->GetUndistortedCalibration().GetLinearIntrinsics()), image->GetWidth(),image->GetHeight()}}, proxy::Associations<MapPointTrackingProxy>{ image }, proxy::PoseConstraints{false}}
     {
         SkeletonLogger::ImageLogging::LogImage(*this);
     }

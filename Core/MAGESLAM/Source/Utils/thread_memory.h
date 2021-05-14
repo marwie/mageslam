@@ -3,9 +3,9 @@
 
 #pragma once
 
-#include "Memory\allocation_scope.h"
-#include "Memory\allocators.h"
-#include "Containers\GenericContainers.h"
+#include "Memory/allocation_scope.h"
+#include "Memory/allocators.h"
+#include "Containers/GenericContainers.h"
 
 namespace mage
 {

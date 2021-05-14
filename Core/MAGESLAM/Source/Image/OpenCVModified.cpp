@@ -49,12 +49,12 @@ Added methods : SubimageToImageCoordinates
 #endif
 
 #include "OpenCVModified.h"
-#include "Utils\Logging.h"
-#include <arcana\math.h>
+#include "Utils/Logging.h"
+#include <arcana/math.h>
 
-#include <opencv2\core\core.hpp>
-#include <opencv2\features2d\features2d.hpp>
-#include <opencv2\imgproc\imgproc.hpp>
+#include <opencv2/core/core.hpp>
+#include <opencv2/features2d/features2d.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 
 using namespace cv;
 using namespace std;

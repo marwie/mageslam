@@ -8,7 +8,7 @@
 #include <locale>
 #include <assert.h>
 
-#include <arcana\type_traits.h>
+#include <arcana/type_traits.h>
 
 namespace mage
 {

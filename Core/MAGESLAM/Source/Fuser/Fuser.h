@@ -6,9 +6,9 @@
 #include "FuserLib.h"
 #include <MageSlam.h>
 #include <FuserLib.h>
-#include <data\Pose.h>
-#include <opencv2\core\core.hpp>
-#include "Tracking\PoseEstimator.h"
+#include <data/Pose.h>
+#include <opencv2/core/core.hpp>
+#include "Tracking/PoseEstimator.h"
 
 namespace UnitTests
 {

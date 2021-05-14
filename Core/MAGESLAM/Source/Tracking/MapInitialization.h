@@ -2,24 +2,24 @@
 // Licensed under the MIT License.
 
 #pragma once
-#include "Data\Intrinsics.h"
-#include "Data\Pose.h"
+#include "Data/Intrinsics.h"
+#include "Data/Pose.h"
 #include "Device/CameraCalibration.h"
 #include "MageSettings.h"
-#include "Device\IMUCharacterization.h"
+#include "Device/IMUCharacterization.h"
 
-#include "Map\Map.h"
-#include "Map\ThreadSafeMap.h"
-#include "Bow\BaseBow.h"
+#include "Map/Map.h"
+#include "Map/ThreadSafeMap.h"
+#include "BoW/BaseBow.h"
 
-#include "Image\AnalyzedImage.h"
+#include "Image/AnalyzedImage.h"
 
-#include "Proxies\MapPointProxy.h"
+#include "Proxies/MapPointProxy.h"
 
-#include <opencv2\core\core.hpp>
-#include <opencv2\features2d\features2d.hpp>
+#include <opencv2/core/core.hpp>
+#include <opencv2/features2d/features2d.hpp>
 #include <memory>
-#include <gsl\gsl>
+#include <gsl/gsl>
 
 namespace UnitTests
 {

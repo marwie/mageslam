@@ -5,12 +5,12 @@
 #include <memory>
 
 #include "KeyframeBuilder.h"
-#include "Map\ThreadSafeMap.h"
+#include "Map/ThreadSafeMap.h"
 #include "MageSettings.h"
-#include "Tracking\KeyframeBuilder.h"
-#include "Tracking\Reprojection.h"
+#include "Tracking/KeyframeBuilder.h"
+#include "Tracking/Reprojection.h"
 #include "MageSettings.h"
-#include "Device\device.h"
+#include "Device/device.h"
 
 #include <array>
 

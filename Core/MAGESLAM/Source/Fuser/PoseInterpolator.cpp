@@ -25,7 +25,8 @@ namespace mage
 
         mage::Pose m_previousPose;
 
-        std::vector<std::pair<E::Vector3d, mage::SensorSample::Timestamp>, E::aligned_allocator<E::Vector3d>> m_positionHistory;
+        using PoseHistoryElementT = std::pair<std::pair<E::Vector3d, mage::SensorSample::Timestamp>;
+        std::vector<PoseHistoryElementT, E::aligned_allocator<PoseHistoryElementT>> m_positionHistory;
 
         Eigen::Vector3d Acceleration = Eigen::Vector3d::Zero();
         Eigen::Vector3d Velocity = Eigen::Vector3d::Zero();

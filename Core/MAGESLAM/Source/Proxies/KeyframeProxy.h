@@ -3,8 +3,8 @@
 
 #pragma once
 
-#include "Proxies\Proxy.h"
-#include "Proxies\KeyframeFields.h"
+#include "Proxies/Proxy.h"
+#include "Proxies/KeyframeFields.h"
 
 #include "MapPointProxy.h"
 

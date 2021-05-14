@@ -3,10 +3,10 @@
 
 #include "DeNoising.h"
 
-#include <opencv2\core.hpp>
+#include <opencv2/core.hpp>
 
-#include "Utils\Logging.h"
-#include <arcana\threading\parallel.h>
+#include "Utils/Logging.h"
+#include <arcana/threading/parallel.h>
 
 #include <unordered_map>
 #include <tuple>
@@ -15,7 +15,7 @@
 #pragma warning (push)
 #pragma warning (disable:4457)
 #include <boost/geometry/strategies/strategies.hpp>
-#include <boost\geometry\index\rtree.hpp>
+#include <boost/geometry/index/rtree.hpp>
 #pragma warning (pop)
 
 #include <tuple>

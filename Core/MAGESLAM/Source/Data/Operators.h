@@ -4,8 +4,8 @@
 #pragma once
 
 #include "Keyframe.h"
-#include "Tracking\KeyframeBuilder.h"
-#include "Map\MapPoint.h"
+#include "Tracking/KeyframeBuilder.h"
+#include "Map/MapPoint.h"
 
 #include <memory>
 

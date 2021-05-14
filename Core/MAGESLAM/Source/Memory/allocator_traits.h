@@ -122,8 +122,27 @@ namespace mage
                 }
             }
 
+            // Copied from __construct_backward above, used by Emscripten
+            template<typename T>
+            static void __construct_backward_with_exception_guarantees(allocator_type& alloc, T* __begin1, T* __end1, T* __end2)
+            {
+                while (__end1 != __begin1)
+                {
+                    construct(alloc, __end2-1, std::move_if_noexcept(*--__end1));
+                    --__end2;
+                }
+            }
+
             template<typename T>
             static void __construct_forward(allocator_type& alloc, T* __begin1, T* __end1, T* __begin2)
+            {
+                for (; __begin1 != __end1; ++__begin1, ++__begin2)
+                    construct(alloc, __begin2, std::move_if_noexcept(*__begin1));
+            }
+
+            // Copied from __construct_forward above, used by Emscripten
+            template<typename T>
+            static void __construct_forward_with_exception_guarantees(allocator_type& alloc, T* __begin1, T* __end1, T* __begin2)
             {
                 for (; __begin1 != __end1; ++__begin1, ++__begin2)
                     construct(alloc, __begin2, std::move_if_noexcept(*__begin1));

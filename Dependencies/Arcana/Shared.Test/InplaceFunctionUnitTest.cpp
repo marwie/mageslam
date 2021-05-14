@@ -1,6 +1,6 @@
 #include <CppUnitTest.h>
 
-#include <arcana\functional\inplace_function.h>
+#include <arcana/functional/inplace_function.h>
 
 #include <memory>
 

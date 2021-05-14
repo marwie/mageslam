@@ -3,14 +3,14 @@
 
 #pragma once
 
-#include "Image\AnalyzedImage.h"
-#include "Data\Types.h"
-#include "Data\Keyframe.h"
-#include "Data\Pose.h"
-#include "Map\MapPoint.h"
-#include "Proxies\MapPointProxy.h"
-#include "Containers\MapPointAssociations.h"
-#include "Proxies\KeyframeProxy.h"
+#include "Image/AnalyzedImage.h"
+#include "Data/Types.h"
+#include "Data/Keyframe.h"
+#include "Data/Pose.h"
+#include "Map/MapPoint.h"
+#include "Proxies/MapPointProxy.h"
+#include "Containers/MapPointAssociations.h"
+#include "Proxies/KeyframeProxy.h"
 
 #include <memory>
 #include <functional>

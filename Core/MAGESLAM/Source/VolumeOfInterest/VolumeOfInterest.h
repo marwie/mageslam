@@ -3,11 +3,11 @@
 
 #pragma once
 
-#include <gsl\gsl>
+#include <gsl/gsl>
 
-#include "Data\Data.h"
-#include "Data\Pose.h"
-#include "opencv\cv.h"
+#include "Data/Data.h"
+#include "Data/Pose.h"
+#include "opencv/cv.h"
 #include "MageSettings.h"
 
 namespace mage

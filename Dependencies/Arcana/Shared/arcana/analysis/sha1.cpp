@@ -2,11 +2,11 @@
 // Licensed under the MIT License.
 
 #include "sha1.h"
-
+/*
 //#pragma warning (push)
 //#pragma warning (disable:4245)
 //#pragma warning (disable:4244)
-#include <boost\uuid\sha1.hpp>
+#include <boost/uuid/sha1.hpp>
 //#pragma warning (pop)
 
 namespace mira
@@ -48,3 +48,4 @@ namespace mira
         return{ digest[0], digest[1], digest[2], digest[3], digest[4] };
     }
 }
+*/

@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "Data\Types.h"
+#include "Data/Types.h"
 
 namespace mage
 {

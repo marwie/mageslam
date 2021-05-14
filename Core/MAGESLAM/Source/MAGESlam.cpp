@@ -152,7 +152,8 @@ namespace mage
 #endif
 
             m_threadingModel = std::make_unique<ThreadingModelT>();
-            m_runtime = std::make_unique<Runtime>(m_settings, *m_context, *m_fuser, m_driver, m_threadingModel->GetRuntimeThreadingModel());
+            auto runtimeThreadingModel = m_threadingModel->GetRuntimeThreadingModel();
+            m_runtime = std::make_unique<Runtime>(m_settings, *m_context, *m_fuser, m_driver, runtimeThreadingModel);
 
             m_runtime->Run(m_cameraConfigurations);
         }

@@ -9,13 +9,13 @@
 
 #include "KeypointSpatialIndex.h"
 
-#include <boost\function_output_iterator.hpp>
+#include <boost/function_output_iterator.hpp>
 // TODO:  feed back to Boost that 4457 is firing
 #pragma warning (push, 1)
 #pragma warning (disable:4457)
 #include <boost/geometry/algorithms/equals.hpp>
 #include <boost/geometry/strategies/strategies.hpp>
-#include <boost\geometry\index\rtree.hpp>
+#include <boost/geometry/index/rtree.hpp>
 #pragma warning (pop)
 
 using namespace cv;

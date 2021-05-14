@@ -68,7 +68,7 @@ namespace mage
         settings.ScaleFactor,
         settings.NumLevels,
         settings.PatchSize,
-        settings.FastThreshold,
+        static_cast<unsigned int>(settings.FastThreshold),
         settings.UseOrientation,
         settings.FeatureFactor,
         settings.FeatureStrength,

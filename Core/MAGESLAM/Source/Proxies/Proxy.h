@@ -36,16 +36,16 @@ namespace mage
         using MutableViewT = MutableView<T, Properties...>;
 
         Proxy(const T& original)
-            : Id{ original }, Properties{ original }...
+            : proxy::Id<T>{ original }, Properties{ original }...
         {}
 
         Proxy(const T* original)
-            : Id{ *original }, Properties{ *original }...
+            : proxy::Id<T>{ *original }, Properties{ *original }...
         {}
 
         template<typename StreamT, typename = mira::is_stream_t<StreamT>>
         Proxy(StreamT& stream)
-            : Id{ stream }, Properties{ stream }...
+            : proxy::Id<T>{ stream }, Properties{ stream }...
         {}
 
         /*
@@ -57,7 +57,7 @@ namespace mage
         */
         template<typename ...Others>
         explicit Proxy(const Proxy<T, Others...>& proxy)
-            : Id{ proxy.GetId() }, Properties{ proxy }...
+            : proxy::Id<T>{ proxy.GetId() }, Properties{ proxy }...
         {}
         
         /*
@@ -69,13 +69,13 @@ namespace mage
         template<typename ...CreationProperties>
         static Proxy CreateNew(CreationProperties&&... args)
         {
-            return ProxyFactory<T>::CreateNew<Proxy>(std::forward<CreationProperties>(args)...);
+            return ProxyFactory<T>::template CreateNew<Proxy>(std::forward<CreationProperties>(args)...);
         }
 
         template<typename ProxyT>
         const ProxyT& As() const
         {
-            return *ProxyT::ViewT{ *this };
+            return *typename ProxyT::ViewT{ *this };
         }
 
         template<typename One, typename... Args>
@@ -91,13 +91,14 @@ namespace mage
 
         template<typename ...Args>
         explicit Proxy(const mage::Id<T>& id, Args&&... args)
-            : Id{ id }, Properties{ std::forward<Args>(args) }...
+            : proxy::Id<T>{ id }, Properties{ std::forward<Args>(args) }...
         {}
 
     protected:
         friend class ProxyFactory<T>;
 
-        template<typename T, typename ...Properties>
+        // TODO: Emscripten
+        //template<typename T, typename ...Properties>
         friend class Proxy;
     };
 
@@ -134,7 +135,7 @@ namespace mage
         static constexpr
         auto convert(InputT* input)
         {
-            static_assert(ProxyTraits<std::remove_const_t<InputT>>::is_castable_to<T, Properties...>(), "Can't convert proxy types");
+            static_assert(ProxyTraits<std::remove_const_t<InputT>>::template is_castable_to<T, Properties...>(), "Can't convert proxy types");
             return reinterpret_cast<Proxy<T, Properties...>*>(input);
         }
     };
@@ -146,7 +147,7 @@ namespace mage
         static constexpr
             auto convert(InputT* input)
         {
-            static_assert(ProxyTraits<std::remove_const_t<InputT>>::is_castable_to<T, Properties...>(), "Can't convert proxy types");
+            static_assert(ProxyTraits<std::remove_const_t<InputT>>::template is_castable_to<T, Properties...>(), "Can't convert proxy types");
             return reinterpret_cast<const Proxy<T, Properties...>*>(input);
         }
     };

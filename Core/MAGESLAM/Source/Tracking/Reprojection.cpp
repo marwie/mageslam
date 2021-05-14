@@ -4,8 +4,8 @@
 #include "Reprojection.h"
 #include "Device/CameraCalibration.h"
 
-#include <opencv2\core.hpp>
-#include <opencv2\calib3d.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/calib3d.hpp>
 
 namespace mage
 {
