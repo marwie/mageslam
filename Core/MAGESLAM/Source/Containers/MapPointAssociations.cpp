@@ -375,6 +375,11 @@ namespace mage
     }
 
     // instantiate the template definitions that this class supports
+    template MapPointAssociations<MapPoint const*>;
+
+    template MapPointAssociations<Proxy<MapPoint>>;
+    template MapPointAssociations<MapPointProxy>;
+    template MapPointAssociations<MapPointTrackingProxy>;
     
     template MapPointAssociations<Proxy<MapPoint>> MapPointAssociations<MapPoint const*>::Convert<Proxy<MapPoint>>() const;
     template MapPointAssociations<MapPointProxy> MapPointAssociations<MapPoint const*>::Convert<MapPointProxy>() const;
