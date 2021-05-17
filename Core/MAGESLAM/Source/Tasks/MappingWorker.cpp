@@ -247,7 +247,8 @@ namespace mage
 
             DETERMINISTIC_CHECK(m_impl->Determinator, m_impl->CosVisThreashold);
             DETERMINISTIC_CHECK(m_impl->Determinator, baData.MapPoints);
-            DETERMINISTIC_CHECK(m_impl->Determinator, baData.MapPointAssociations);
+            // TODO: Emscripten 
+            //DETERMINISTIC_CHECK(m_impl->Determinator, baData.MapPointAssociations);
             DETERMINISTIC_CHECK(m_impl->Determinator, baData.Keyframes);
 
             // if the size of the localmap is small, then we can do more iterations without

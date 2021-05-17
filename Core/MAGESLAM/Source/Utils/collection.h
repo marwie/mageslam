@@ -79,7 +79,6 @@ namespace mage
             return result;
         }
 
-        template<typename T>
         struct iterator : std::iterator<std::random_access_iterator_tag, T>
         {
             using value_type = T;

@@ -155,10 +155,8 @@ namespace mage
         inline void binary_iterate(const UnAssociatedMask& data, mira::binary_iterator<mira::determinator::iterator_callback>& itr)
         {
             itr.iterate(data.GetUnassociatedKeypointCount());
-            
             // TODO: Emscripten
             //itr.iterate(data.GetUnassociatedKeypointMask());
-            throw;
         }
 
         template<typename IterT>
