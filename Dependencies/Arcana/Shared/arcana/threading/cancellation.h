@@ -64,7 +64,6 @@ namespace mira
 
     protected:
         cancellation() = default;
-        cancellation& operator=(const cancellation&) = default;
 
         ~cancellation()
         {

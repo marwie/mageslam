@@ -10,7 +10,7 @@
 #include "Tracking/KeyframeBuilder.h"
 #include "Tracking/Reprojection.h"
 #include "MageSettings.h"
-#include "Device/device.h"
+#include "Device/Device.h"
 
 #include <array>
 

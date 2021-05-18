@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "Bow/BaseBow.h"
+#include "BoW/BaseBow.h"
 #include "Tracking/TrackLocalMap.h"
 #include "Image/AnalyzedImage.h"
 
