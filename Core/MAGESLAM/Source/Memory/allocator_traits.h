@@ -5,7 +5,7 @@
 
 #include <stdint.h>
 
-#include "arcana\utils\algorithm.h"
+#include "arcana/utils/algorithm.h"
 #include "std_allocator.h"
 
 namespace mage

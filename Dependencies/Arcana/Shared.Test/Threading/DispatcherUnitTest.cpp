@@ -1,6 +1,6 @@
 #include <CppUnitTest.h>
 
-#include <arcana\threading\dispatcher.h>
+#include <arcana/threading/dispatcher.h>
 
 #include <numeric>
 #include <algorithm>

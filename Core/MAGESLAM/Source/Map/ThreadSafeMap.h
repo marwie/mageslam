@@ -16,7 +16,7 @@
 #include "BoW/OnlineBow.h"
 #include "BoW/BaseFeatureMatcher.h"
 
-#include "BundleAdjustment\BundleAdjust.h"
+#include "BundleAdjustment/BundleAdjust.h"
 
 #include "Data/Types.h"
 #include "Data/Pose.h"

@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include "Utils\thread_memory.h"
+#include "Utils/thread_memory.h"
 
 #include <memory>
 #include <vector>

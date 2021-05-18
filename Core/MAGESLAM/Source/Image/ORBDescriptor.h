@@ -5,7 +5,7 @@
 
 #include <opencv2/core.hpp>
 
-#include "arcana/utils/Serialization/serializable.h"
+#include "arcana/utils/serialization/serializable.h"
 
 namespace mage
 {
