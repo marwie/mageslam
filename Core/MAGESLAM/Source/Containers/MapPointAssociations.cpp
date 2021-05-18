@@ -175,27 +175,24 @@ namespace mage
         }
     }
 
-    namespace
+    inline bool equals(MapPoint const* left, MapPoint const* right)
     {
-        inline bool equals(MapPoint const* left, MapPoint const* right)
-        {
-            return left->GetId() == right->GetId();
-        }
+        return left->GetId() == right->GetId();
+    }
 
-        inline bool equals(const proxy::Id<MapPoint>& left, const proxy::Id<MapPoint>& right)
-        {
-            return left.GetId() == right.GetId();
-        }
+    inline bool equals(const proxy::Id<MapPoint>& left, const proxy::Id<MapPoint>& right)
+    {
+        return left.GetId() == right.GetId();
+    }
 
-        inline Id<MapPoint> fetch_id(MapPoint const* mp)
-        {
-            return mp->GetId();
-        }
+    inline Id<MapPoint> fetch_id(MapPoint const* mp)
+    {
+        return mp->GetId();
+    }
 
-        inline Id<MapPoint> fetch_id(const proxy::Id<MapPoint>& mp)
-        {
-            return mp.GetId();
-        }
+    inline Id<MapPoint> fetch_id(const proxy::Id<MapPoint>& mp)
+    {
+        return mp.GetId();
     }
 
     template<typename MapPointT>
@@ -373,11 +370,11 @@ namespace mage
     }
 
     // instantiate the template definitions that this class supports
-    template MapPointAssociations<MapPoint const*>;
+    template class MapPointAssociations<MapPoint const*>;
 
-    template MapPointAssociations<Proxy<MapPoint>>;
-    template MapPointAssociations<MapPointProxy>;
-    template MapPointAssociations<MapPointTrackingProxy>;
+    template class MapPointAssociations<Proxy<MapPoint>>;
+    template class MapPointAssociations<MapPointProxy>;
+    template class MapPointAssociations<MapPointTrackingProxy>;
     
     template MapPointAssociations<Proxy<MapPoint>> MapPointAssociations<MapPoint const*>::Convert<Proxy<MapPoint>>() const;
     template MapPointAssociations<MapPointProxy> MapPointAssociations<MapPoint const*>::Convert<MapPointProxy>() const;
