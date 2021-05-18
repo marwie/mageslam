@@ -9,8 +9,8 @@
 #include "Data/Pose.h"
 
 #include "KeyframeBuilder.h"
-#include "utils/cv.h"
-#include "utils/historical_queue.h"
+#include "Utils/cv.h"
+#include "Utils/historical_queue.h"
 #include <opencv2/core/core.hpp>
 #include <memory>
 #include <list>

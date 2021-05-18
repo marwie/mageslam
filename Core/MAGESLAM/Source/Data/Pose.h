@@ -69,9 +69,11 @@ namespace mage
     template<typename ArchiveT>
     void introspect_object(mira::introspector<ArchiveT>& intro, const Pose& object)
     {
+        auto viewSpacePosition = object.GetViewSpacePosition().val;
+        auto viewSpaceRodriguesRotation = object.GetViewSpaceRodriguesRotation().val;
         intro(
-            cereal::make_nvp("ViewSpacePosition", gsl::make_span(object.GetViewSpacePosition().val)),
-            cereal::make_nvp("ViewSpaceRodriguesRotation", gsl::make_span(object.GetViewSpaceRodriguesRotation().val))
+            cereal::make_nvp("ViewSpacePosition", gsl::make_span(viewSpacePosition)),
+            cereal::make_nvp("ViewSpaceRodriguesRotation", gsl::make_span(viewSpaceRodriguesRotation))
         );
     }
 }
