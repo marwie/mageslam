@@ -178,7 +178,8 @@ namespace mage
             {
                 m_priorProvider->OnTrackingLost();
 
-                estimationTask = m_poseEstimator->EstimatePose(analyzed, m_trackLocalMapWorker->GetHistory(), boost::none);
+                std::optional<mage::Pose> prior{};
+                estimationTask = m_poseEstimator->EstimatePose(analyzed, m_trackLocalMapWorker->GetHistory(), prior);
             }
             else
             {

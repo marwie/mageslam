@@ -7,7 +7,7 @@
 #include <Eigen/Geometry>
 
 #include "Utils/cv.h"
-#include <boost/optional.hpp>
+#include <optional>
 
 #include <arcana/containers/sorted_vector.h>
 #include <arcana/analysis/object_trace.h>

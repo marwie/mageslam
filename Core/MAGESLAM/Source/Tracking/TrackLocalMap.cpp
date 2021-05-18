@@ -19,8 +19,6 @@
 #include "Analysis/DataPoints.h"
 #include <arcana/analysis/object_trace.h>
 
-using namespace std;
-
 namespace mage
 {
     TrackLocalMap::TrackLocalMap(const MageSlamSettings& settings, const device::IMUCharacterization& imuCharacterization, mira::determinator& determinator)
@@ -113,7 +111,7 @@ namespace mage
 
         std::map<Id<MapPoint>, KeypointDescriptorIndex> poseEstimationOutlierMatches;
 
-        vector<bool> unassociatedMask = currentFrame.GetUnassociatedKeypointMask();
+        std::vector<bool> unassociatedMask = currentFrame.GetUnassociatedKeypointMask();
         {
             SCOPE_TIMER(TrackLocalMap::GatherMapPointsFromCovis);
 
@@ -334,7 +332,7 @@ namespace mage
         float pyramidScale,
         size_t numLevels,
         const OrbMatcherSettings& orbMatcherSettings,
-        const vector<bool>& unassociatedMask,
+        const std::vector<bool>& unassociatedMask,
         thread_memory memory,
         bool& predicted,
         KeypointDescriptorIndex& keypointDescriptorIndex)
@@ -394,7 +392,7 @@ namespace mage
         SCOPE_TIMER(TrackLocalMap::PrepareForRecentMapPointScoring);
 
         // remove the map points that should no longer be tracked for successes
-        auto noLongerTrackPoints = memory.stack_vector<pair<const Id<MapPoint>, unsigned int>>(max(m_recentlyCreatedMapPointIds.size(), recentlyCreatedMapPoints.size()));
+        auto noLongerTrackPoints = memory.stack_vector<std::pair<const Id<MapPoint>, unsigned int>>(std::max(m_recentlyCreatedMapPointIds.size(), recentlyCreatedMapPoints.size()));
         std::set_difference(m_recentlyCreatedMapPointIds.begin(), m_recentlyCreatedMapPointIds.end(),
             recentlyCreatedMapPoints.begin(), recentlyCreatedMapPoints.end(),
             mira::emplace_inserter(noLongerTrackPoints));
@@ -405,7 +403,7 @@ namespace mage
         }
 
         // add the map points we are now tracking for successes
-        auto newTrackPoints = memory.stack_vector<pair<const Id<MapPoint>, unsigned int>>(max(m_recentlyCreatedMapPointIds.size(), recentlyCreatedMapPoints.size()));
+        auto newTrackPoints = memory.stack_vector<std::pair<const Id<MapPoint>, unsigned int>>(std::max(m_recentlyCreatedMapPointIds.size(), recentlyCreatedMapPoints.size()));
         std::set_difference(recentlyCreatedMapPoints.begin(), recentlyCreatedMapPoints.end(),
             m_recentlyCreatedMapPointIds.begin(), m_recentlyCreatedMapPointIds.end(),
             mira::emplace_inserter(newTrackPoints));
@@ -480,7 +478,7 @@ namespace mage
 
         {
             SCOPE_TIMER(TrackLocalMap::StepBundleAdjustment);
-            vector<float> huberWidths(numIterations, huberWidth);
+            std::vector<float> huberWidths(numIterations, huberWidth);
             ba->StepBundleAdjustment(huberWidths, maxOutlierErrorSquared, outlierIndices);
         }
 

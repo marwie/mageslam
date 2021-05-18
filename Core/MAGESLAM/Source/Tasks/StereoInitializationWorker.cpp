@@ -61,8 +61,7 @@ namespace mage
 
             auto initializationData = m_impl->Tracker->Initialize(frames.One.Analyzed, frames.Two.Analyzed, wfovToRGB, memory);
 
-            bool initialized = initializationData.is_initialized();
-            if (!initialized)
+            if (!initializationData)
             {
                 return mira::errc::not_enough_input;
             }

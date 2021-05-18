@@ -9,8 +9,6 @@
 #include <fstream>
 #include <chrono>
 
-using namespace std;
-
 constexpr char MAGE_STAMP[] = "MAGE";
 constexpr int MAGE_STAMP_LENGTH = 4;
 
@@ -196,12 +194,12 @@ namespace mage
                 
                 const auto& bits = fields.bits;
                 cameraSettings = mira::CameraSettings{
-                    bits.WhiteBalanceValid ? whiteBalance : boost::optional<uint32_t>{},
-                    bits.ExposureTimeValid ? exposureTime : boost::optional<mira::HundredsNanoseconds>{},
-                    bits.LensPositionValid ? lensPosition : boost::optional<uint32_t>{},
-                    bits.IsoSpeedValid ? isoSpeed : boost::optional<uint32_t>{},
-                    bits.IsoExternalGainValid ? isoExternalGain : boost::optional<float>{},
-                    bits.IsoDigitalGainValid ? isoDigitalGain : boost::optional<float>{}
+                    bits.WhiteBalanceValid ? whiteBalance : std::optional<uint32_t>{},
+                    bits.ExposureTimeValid ? exposureTime : std::optional<mira::HundredsNanoseconds>{},
+                    bits.LensPositionValid ? lensPosition : std::optional<uint32_t>{},
+                    bits.IsoSpeedValid ? isoSpeed : std::optional<uint32_t>{},
+                    bits.IsoExternalGainValid ? isoExternalGain : std::optional<float>{},
+                    bits.IsoDigitalGainValid ? isoDigitalGain : std::optional<float>{}
                 };
             }
 
@@ -387,7 +385,7 @@ namespace mage
             return DeSerializeFrameData(deSerializer, headerData);
         }
 
-        bool DeSerializeHeaderData(istream& inputFile, HeaderData& data)
+        bool DeSerializeHeaderData(std::istream& inputFile, HeaderData& data)
         {
             binary_magestream<std::istream> deSerializer{ inputFile };
 
@@ -396,7 +394,7 @@ namespace mage
             return isMageBin;
         }
 
-        void SerializeCaptureHeaderData(fstream& outputFile, const HeaderData& data)
+        void SerializeCaptureHeaderData(std::fstream& outputFile, const HeaderData& data)
         {
             binary_magestream<std::ostream> serializer{ outputFile };
 
@@ -464,7 +462,7 @@ namespace mage
             serializer.write(data.FormatOfPixels);
         }
 
-        void SerializeCameraSettings(fstream& outputStream, const mira::CameraSettings& cameraSettings)
+        void SerializeCameraSettings(std::fstream& outputStream, const mira::CameraSettings& cameraSettings)
         {
             binary_magestream<std::iostream> serializer{ outputStream };
 
@@ -477,7 +475,7 @@ namespace mage
             serializer.write<float>(cameraSettings.GetIsoDigitalGain().value_or(0.0f));
         }
 
-        void SerializeFrameData(fstream& outputFile, const FileFrameData& data)
+        void SerializeFrameData(std::fstream& outputFile, const FileFrameData& data)
         {
             binary_magestream<std::iostream> serializer{ outputFile };
 

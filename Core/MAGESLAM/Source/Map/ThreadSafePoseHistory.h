@@ -44,7 +44,7 @@ namespace mage
         /*
         Call this method to retreive an updated pose for the specified frameId
         */
-        boost::optional<PoseHistory::TrackingInformation> GetTrackingInformationForFrame(const FrameId frameId) const
+        std::optional<PoseHistory::TrackingInformation> GetTrackingInformationForFrame(const FrameId frameId) const
         {
             return GetTrackingInformationForFrames({ &frameId, 1 })[0];
         }
@@ -52,18 +52,18 @@ namespace mage
         /*
         Call this method to retreive an updated pose for all the specified frameIds
         */
-        std::vector<boost::optional<PoseHistory::TrackingInformation>> GetTrackingInformationForFrames(gsl::span<const FrameId> frameIds) const;
+        std::vector<std::optional<PoseHistory::TrackingInformation>> GetTrackingInformationForFrames(gsl::span<const FrameId> frameIds) const;
 
-        boost::optional<Pose> GetPoseForFrame(const FrameId frameId) const
+        std::optional<Pose> GetPoseForFrame(const FrameId frameId) const
         {
             auto info = GetTrackingInformationForFrame(frameId);
-            if (info.is_initialized())
+            if (info)
             {
                 return{ info->Pose };
             }
             else
             {
-                return boost::none;
+                return {};
             }
         }
 

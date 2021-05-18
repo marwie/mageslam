@@ -84,7 +84,7 @@ namespace mage
         mira::task<Id<Keyframe>> Previous = mira::task_from_result<Id<Keyframe>>({});
         int FramesProcessed = 0;
         unsigned int CosVisThreashold{};
-        boost::optional<float> CurrentLambda{};
+        std::optional<float> CurrentLambda{};
         std::atomic<bool> MappingWorkAvailable{ false };
 
         Impl(

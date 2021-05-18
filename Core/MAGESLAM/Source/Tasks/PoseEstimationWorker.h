@@ -23,7 +23,7 @@ namespace mage
             MageContext& context,
             const MageSlamSettings& settings);
 
-        mira::task<std::shared_ptr<const PoseEstimated>> EstimatePose(const FrameAnalyzed& frame, const TrackingFrameHistory& history, const boost::optional<Pose>& posePrior);
+        mira::task<std::shared_ptr<const PoseEstimated>> EstimatePose(const FrameAnalyzed& frame, const TrackingFrameHistory& history, const std::optional<Pose>& posePrior);
 
         ~PoseEstimationWorker();
 

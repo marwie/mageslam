@@ -15,7 +15,7 @@
 #include <memory>
 #include <list>
 #include <chrono>
-#include <boost/optional.hpp>
+#include <optional>
  
 namespace UnitTests
 {
@@ -86,7 +86,7 @@ namespace mage
             thread_memory memory,
             KeyframeEstimate::MutableViewT keyframe);
 
-        boost::optional<size_t> TryEstimatePoseFromCandidates(
+        std::optional<size_t> TryEstimatePoseFromCandidates(
             BaseBow& ,
             const collection<KeyframeProxy>& candidates,
             mira::determinator& determinator,

@@ -12,14 +12,12 @@
 #include <random>
 #include <memory>
 
-using namespace std;
-
 namespace mage
 {
     struct OnlineBow::Node
     {
         unsigned int nodeID;
-        vector<unsigned int> childrenIDs;
+        std::vector<unsigned int> childrenIDs;
         unsigned int parentID;
 
         // The weight of a node reflects the frequency of occurence of a Node in the training set
@@ -50,7 +48,7 @@ namespace mage
         float nodeValue;
 
         // The feature descriptors indexes of the keyframe assigned to the Node
-        vector<ptrdiff_t> indexes;
+        std::vector<ptrdiff_t> indexes;
 
         Entry(float value)
         {
@@ -64,7 +62,7 @@ namespace mage
         m_training.reserve(m_settings.TrainingFrames * numFeatures);
     }
 
-    OnlineBow::OnlineBow(const BagOfWordsSettings& settings, const vector<Node>& treeNodes)
+    OnlineBow::OnlineBow(const BagOfWordsSettings& settings, const std::vector<Node>& treeNodes)
         : BaseBow{ settings }
     {
         for (const auto& node : treeNodes)
@@ -76,7 +74,7 @@ namespace mage
 
     void OnlineBow::AddTrainingDescriptors(gsl::span<const ORBDescriptor> descriptors)
     {
-        unique_lock<shared_mutex> lock{ m_mutex };
+        std::unique_lock<std::shared_mutex> lock{ m_mutex };
         if (!m_isTrainingDone)
         {
             copy(descriptors.begin(), descriptors.end(), mira::emplace_inserter(m_training));
@@ -93,13 +91,13 @@ namespace mage
 
     void OnlineBow::AddImage(const Id<Keyframe> id, const AnalyzedImage& image)
     {
-        unique_lock<shared_mutex> lock{ m_mutex };
+        std::unique_lock<std::shared_mutex> lock{ m_mutex };
         InsertDescriptors(id, image.GetDescriptors());
     }
 
     void OnlineBow::RemoveImage(const Id<Keyframe> id)
     {
-        unique_lock<shared_mutex> lock{ m_mutex };
+        std::unique_lock<std::shared_mutex> lock{ m_mutex };
 
         for (auto& pair : m_NodeKeyframeMap)
         {
@@ -112,9 +110,9 @@ namespace mage
         m_imageSet.erase(id);
     }
 
-    size_t OnlineBow::QueryFeatures(const ORBDescriptor& desc, const Id<Keyframe>& kfId, vector<ptrdiff_t>& features) const
+    size_t OnlineBow::QueryFeatures(const ORBDescriptor& desc, const Id<Keyframe>& kfId, std::vector<ptrdiff_t>& features) const
     {
-        shared_lock<shared_mutex> lock{ m_mutex };
+        std::shared_lock<std::shared_mutex> lock{ m_mutex };
         assert(m_imageSet.find(kfId) != m_imageSet.end() && "we should never query for a keyframe that isn't in the BOW");
 
         features.clear();
@@ -132,16 +130,16 @@ namespace mage
         return features.size();
     }
 
-    unique_ptr<BaseFeatureMatcher> OnlineBow::CreateFeatureMatcher(const Id<Keyframe>& id, gsl::span<const ORBDescriptor> features) const
+    std::unique_ptr<BaseFeatureMatcher> OnlineBow::CreateFeatureMatcher(const Id<Keyframe>& id, gsl::span<const ORBDescriptor> features) const
     {
-        shared_lock<shared_mutex> lock{ m_mutex };
-        return make_unique<OnlineBowFeatureMatcher>(*this, id, features);
+        std::shared_lock<std::shared_mutex> lock{ m_mutex };
+        return std::make_unique<OnlineBowFeatureMatcher>(*this, id, features);
     }
 
     std::unique_ptr<BaseBow> OnlineBow::CreateTemporaryBow() const
     {
-       shared_lock<shared_mutex> lock{ m_mutex };
-       unique_ptr<OnlineBow> tempBow(new OnlineBow(m_settings, m_nodes));
+       std::shared_lock<std::shared_mutex> lock{ m_mutex };
+       std::unique_ptr<OnlineBow> tempBow(new OnlineBow(m_settings, m_nodes));
        return tempBow;
     }
 
@@ -152,13 +150,13 @@ namespace mage
     we use the similarity between a keyframe's nodeValues and the unknown image's nodeValues of the leafNodes they both associated with to 
     calculate a similarity score for all possible keyframes.
     */
-    vector<BaseBow::QueryMatch> OnlineBow::QueryUnknownImage(gsl::span<const ORBDescriptor> descriptors, size_t maxResults) const
+    std::vector<BaseBow::QueryMatch> OnlineBow::QueryUnknownImage(gsl::span<const ORBDescriptor> descriptors, size_t maxResults) const
     {
-        shared_lock<shared_mutex> lock{ m_mutex };
-        vector<QueryMatch> results;
+        std::shared_lock<std::shared_mutex> lock{ m_mutex };
+        std::vector<QueryMatch> results;
 
         // Create a map of <nodeId, nodeValue> for the current query image
-        unordered_map<unsigned int, float> curMap;
+        std::unordered_map<unsigned int, float> curMap;
         float sum = 0;
 
         for (ptrdiff_t i = 0; i < descriptors.size(); ++i)
@@ -189,7 +187,7 @@ namespace mage
         }
 
         // A map of KeyFrameID <==> score for the existing KeyFrames
-        unordered_map<Id<Keyframe>, float> map;
+        std::unordered_map<Id<Keyframe>, float> map;
 
         // Iterate all the Nodes in the created map of the current unknown image
         // Calculate a score for all the keyframes which are associated with those Nodes
@@ -242,18 +240,18 @@ namespace mage
         }
 
         // Put the map in a vector and sort it according to the score
-        vector<pair<Id<Keyframe>, float>> sortedvector;
+        std::vector<std::pair<Id<Keyframe>, float>> sortedvector;
         sortedvector.reserve(map.size());
         float qualifyingScore = maxScore * m_settings.QualifyingCandidateScore;
 
-        copy_if(map.begin(), map.end(), back_inserter(sortedvector), [qualifyingScore](const pair<Id<Keyframe>, float>& entry)
+        copy_if(map.begin(), map.end(), back_inserter(sortedvector), [qualifyingScore](const std::pair<Id<Keyframe>, float>& entry)
         {
             return entry.second >= qualifyingScore;
         });
 
         // The one with higher score is in front of the one with lower score
         // The one with higher score means it is more similar to the current image
-        sort(sortedvector.begin(), sortedvector.end(), [](const pair<Id<Keyframe>, float>& a, const pair<Id<Keyframe>, float>& b)
+        sort(sortedvector.begin(), sortedvector.end(), [](const std::pair<Id<Keyframe>, float>& a, const std::pair<Id<Keyframe>, float>& b)
         {
             return a.second > b.second;
         });
@@ -265,14 +263,14 @@ namespace mage
         }
 
         results.reserve(distance(sortedvector.begin(), end));
-        transform(sortedvector.begin(), end, back_inserter(results), [](const pair<Id<Keyframe>, float>& pair) { return QueryMatch{ pair.first, pair.second }; });
+        transform(sortedvector.begin(), end, back_inserter(results), [](const std::pair<Id<Keyframe>, float>& pair) { return QueryMatch{ pair.first, pair.second }; });
 
         return results;
     }
 
     void OnlineBow::Clear()
     {
-        unique_lock<shared_mutex> lock{ m_mutex };
+        std::unique_lock<std::shared_mutex> lock{ m_mutex };
         m_imageSet.clear();
         m_descriptorsCount.clear();
         m_training.clear();
@@ -282,7 +280,7 @@ namespace mage
 
     bool OnlineBow::IsTrainingDone() const
     {
-        shared_lock<shared_mutex> lock{ m_mutex };
+        std::shared_lock<std::shared_mutex> lock{ m_mutex };
         return m_isTrainingDone;
     }
 
@@ -293,7 +291,7 @@ namespace mage
         // Go down tree until the current node is the leaf node.
         while (!m_nodes[curId].childrenIDs.empty())
         {
-            auto best_d = numeric_limits<int>::max();
+            auto best_d = std::numeric_limits<int>::max();
 
             // Find the child node, whose descriptor is closest to the desc.
             for (unsigned int childIdx : m_nodes[curId].childrenIDs)
@@ -342,11 +340,11 @@ namespace mage
         const size_t nImages = m_descriptorsCount.size();
 
         // A map of leafNodeID <==> the number of training image assigned to this LeafNode
-        unordered_map<unsigned int, unsigned int> leafNodeImageMap;
+        std::unordered_map<unsigned int, unsigned int> leafNodeImageMap;
         
         // Every training image will assign its descriptors to a set of leaf nodes
         // leafNodeFound is the set of leafNode IDs, which are associated with every training image.
-        set<unsigned int> leafNodeFound;
+        std::set<unsigned int> leafNodeFound;
 
         // "start" represents every training image's first descriptor's index in "m_training" 
         unsigned int start = 0;
@@ -373,7 +371,7 @@ namespace mage
                     auto it = leafNodeImageMap.find(leafNodeID);
                     if (it == leafNodeImageMap.end())
                     {
-                        leafNodeImageMap.insert(pair<unsigned int, unsigned int>(leafNodeID, 1));
+                        leafNodeImageMap.insert(std::pair<unsigned int, unsigned int>(leafNodeID, 1));
                     }
                     else
                     {
@@ -393,15 +391,15 @@ namespace mage
         }
     }
 
-    void OnlineBow::InitializeTraining(gsl::span<const ORBDescriptor> descriptors, vector<ORBDescriptor>& clusters)
+    void OnlineBow::InitializeTraining(gsl::span<const ORBDescriptor> descriptors, std::vector<ORBDescriptor>& clusters)
     {
-        vector<ORBDescriptor::Ref> refs;
-        transform(descriptors.begin(), descriptors.end(), mira::emplace_inserter(refs), [](const auto& desc)
+        std::vector<ORBDescriptor::Ref> refs;
+        std::transform(descriptors.begin(), descriptors.end(), mira::emplace_inserter(refs), [](const auto& desc)
         {
             return desc.AsRef();
         });
 
-        shuffle(refs.begin(), refs.end(), mt19937{ /*random_device{}()*/ });
+        shuffle(refs.begin(), refs.end(), std::mt19937{ /*random_device{}()*/ });
 
 
         for (size_t i = 0; i < m_settings.TrainingTreeBranchingFactor && i < refs.size(); i++)
@@ -413,7 +411,7 @@ namespace mage
     void OnlineBow::InsertDescriptors(const Id<Keyframe>& id, gsl::span<const ORBDescriptor> descriptors)
     {
         // store the address of all the nodeValue, normalize the nodeValues in the end 
-        vector<float*> pts;
+        std::vector<float*> pts;
         
         float sum = 0;
 
@@ -450,10 +448,10 @@ namespace mage
 
     void OnlineBow::Kmean(unsigned int parent_id, gsl::span<const ORBDescriptor> descriptors, unsigned int current_level)
     {
-        vector<ORBDescriptor> kmeans;
+        std::vector<ORBDescriptor> kmeans;
         kmeans.reserve(m_settings.TrainingTreeBranchingFactor);
         InitializeTraining(descriptors, kmeans);
-        vector<vector<unsigned int>> groups;
+        std::vector<std::vector<unsigned int>> groups;
         IterateClusteringKmean(descriptors, kmeans, groups);
         
         for (auto& mean : kmeans)
@@ -471,7 +469,7 @@ namespace mage
             {
                 unsigned int id = m_nodes[parent_id].childrenIDs[i];
 
-                vector<ORBDescriptor> child_features;
+                std::vector<ORBDescriptor> child_features;
                 child_features.reserve(groups[i].size());
 
                 transform(groups[i].begin(), groups[i].end(), back_inserter(child_features), [descriptors](unsigned int idx) { return descriptors[idx]; });
@@ -486,10 +484,10 @@ namespace mage
 
     void OnlineBow::Kmedoid(unsigned int parent_id, gsl::span<const ORBDescriptor> descriptors, unsigned int current_level)
     {
-        vector<ORBDescriptor> kmedoids;
+        std::vector<ORBDescriptor> kmedoids;
         kmedoids.reserve(m_settings.TrainingTreeBranchingFactor);
         InitializeTraining(descriptors, kmedoids);
-        vector<vector<unsigned int>> groups;
+        std::vector<std::vector<unsigned int>> groups;
         IterateClusteringKmedoid(descriptors, kmedoids, groups);
 
         for (unsigned int i = 0; i < kmedoids.size(); ++i)
@@ -507,10 +505,10 @@ namespace mage
             {
                 unsigned int id = m_nodes[parent_id].childrenIDs[i];
 
-                vector<ORBDescriptor> child_features;
+                std::vector<ORBDescriptor> child_features;
                 child_features.reserve(groups[i].size());
 
-                transform(groups[i].begin(), groups[i].end(), back_inserter(child_features), [descriptors](unsigned int idx) { return descriptors[idx]; });
+                std::transform(groups[i].begin(), groups[i].end(), std::back_inserter(child_features), [descriptors](unsigned int idx) { return descriptors[idx]; });
 
                 if (child_features.size() > 1)
                 {
@@ -524,7 +522,7 @@ namespace mage
     {
         assert(!descriptors.empty() && "No descriptor assigned to the current KmeanCenter");
 
-        vector<unsigned int> sum(ORBDescriptor::COLUMNS * ORBDescriptor::BITS_PER_COLUMN, 0);
+        std::vector<unsigned int> sum(ORBDescriptor::COLUMNS * ORBDescriptor::BITS_PER_COLUMN, 0);
 
         for (ptrdiff_t i = 0; i < indexes.size(); i++)
         {
@@ -557,7 +555,7 @@ namespace mage
         }
     }
 
-    void OnlineBow::IterateClusteringKmean(gsl::span<const ORBDescriptor> descriptors, vector<ORBDescriptor>& kmeans, vector<vector<unsigned int>>& groups)
+    void OnlineBow::IterateClusteringKmean(gsl::span<const ORBDescriptor> descriptors, std::vector<ORBDescriptor>& kmeans, std::vector<std::vector<unsigned int>>& groups)
     {
         unsigned int changedKmeanCounter = 0;
         unsigned int iterationCounter = 0;
@@ -565,7 +563,7 @@ namespace mage
         do // Repeat until kmean centers stay the same or it hits m_settings.MaxTrainingIteration
         {
             groups.clear();
-            groups.resize(kmeans.size(), vector<unsigned int>());
+            groups.resize(kmeans.size(), std::vector<unsigned int>());
             changedKmeanCounter = 0;
             iterationCounter++;
 
@@ -587,7 +585,7 @@ namespace mage
         } while (iterationCounter < m_settings.MaxTrainingIteration && changedKmeanCounter > 0);
     }
 
-    void OnlineBow::IterateClusteringKmedoid(gsl::span<const ORBDescriptor> descriptors, vector<ORBDescriptor>& kmedoids, vector<vector<unsigned int>>& groups)
+    void OnlineBow::IterateClusteringKmedoid(gsl::span<const ORBDescriptor> descriptors, std::vector<ORBDescriptor>& kmedoids, std::vector<std::vector<unsigned int>>& groups)
     {
         unsigned int changedKmediodCounter = 0;
         unsigned int iterationCounter = 0;
@@ -595,7 +593,7 @@ namespace mage
         do  // Repeat until the kmediods stay the same or it hits m_settings.MaxTrainingIteration
         {
             groups.clear();
-            groups.resize(kmedoids.size(), vector<unsigned int>());
+            groups.resize(kmedoids.size(), std::vector<unsigned int>());
             changedKmediodCounter = 0;
             iterationCounter++;
 
@@ -608,7 +606,7 @@ namespace mage
             for (size_t g_index = 0; g_index < groups.size(); g_index++)
             {
 
-                int64_t minD = numeric_limits<int64_t>::max();
+                int64_t minD = std::numeric_limits<int64_t>::max();
                 size_t minI = 0;
 
                 // TODO PERF make this better
@@ -638,13 +636,13 @@ namespace mage
         } while (iterationCounter < m_settings.MaxTrainingIteration && changedKmediodCounter > 0);
     }
 
-    int OnlineBow::FindCluster(const ORBDescriptor& desc, const vector<ORBDescriptor>& centers)
+    int OnlineBow::FindCluster(const ORBDescriptor& desc, const std::vector<ORBDescriptor>& centers)
     {
-        auto minDistance = min_element(centers.begin(), centers.end(), [&desc](const ORBDescriptor& center1, const ORBDescriptor& center2)
+        auto minDistance = std::min_element(centers.begin(), centers.end(), [&desc](const ORBDescriptor& center1, const ORBDescriptor& center2)
         {
             return GetDescriptorDistance(center1, desc) < GetDescriptorDistance(center2, desc);
         });
-        return distance(centers.begin(), minDistance);
+        return std::distance(centers.begin(), minDistance);
     }
 
     OnlineBow::~OnlineBow()

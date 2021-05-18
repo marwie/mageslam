@@ -57,7 +57,6 @@ Added methods : SubimageToImageCoordinates
 #include <opencv2/imgproc/imgproc.hpp>
 
 using namespace cv;
-using namespace std;
 
 namespace
 {

@@ -32,8 +32,6 @@
 
 #include "arcana/threading/dispatcher.h"
 
-using namespace std;
-
 namespace
 {
     const uint32_t TARGET_FRAME_RATE = 30;
@@ -118,14 +116,14 @@ namespace mage
             :   m_settings{ settings },
                 m_imuCharacterization{ imuCharacterization },
                 m_cameraConfigurations{ cameras.begin(), cameras.end() },
-                m_poseHistory{ make_unique<ThreadSafePoseHistory>(m_settings.PoseHistorySettings) }
+                m_poseHistory{ std::make_unique<ThreadSafePoseHistory>(m_settings.PoseHistorySettings) }
         {
             assert(!cameras.empty() && "Must Specify at least one camera configuration");
             //TODO figure out what to do with stereo BoW?  Initial guess is to treat the pairs as a single entity
             const PerCameraSettings& firstCameraSettings = GetSettingsForCamera(m_settings, cameras.begin()->CameraIdentity);
 
-            m_bow = make_unique<OnlineBow>(m_settings.BagOfWordsSettings, firstCameraSettings.FeatureExtractorSettings.NumFeatures);
-            m_fuser = make_unique<Fuser>(m_settings.FuserSettings, m_imuCharacterization, m_settings.PoseEstimationSettings);
+            m_bow = std::make_unique<OnlineBow>(m_settings.BagOfWordsSettings, firstCameraSettings.FeatureExtractorSettings.NumFeatures);
+            m_fuser = std::make_unique<Fuser>(m_settings.FuserSettings, m_imuCharacterization, m_settings.PoseEstimationSettings);
 
             for (const auto& cameraConfiguration : m_cameraConfigurations)
             {
@@ -143,7 +141,7 @@ namespace mage
                 m_imageFactoryMap.emplace(cameraConfiguration.CameraIdentity, std::move(factory));
             }
 
-            m_map = make_unique<ThreadSafeMap>(m_settings, *m_bow);
+            m_map = std::make_unique<ThreadSafeMap>(m_settings, *m_bow);
 
             m_context = std::make_unique<MageContext>(m_imageFactoryMap, *m_bow, *m_map, *m_poseHistory, m_imuCharacterization, m_driver);
 
@@ -185,8 +183,8 @@ namespace mage
         }
     };
 
-    function<SkeletonData (const MAGESlam&)> g_backdoor;
-    function<FossilizedSkeletonData (const MAGESlam::FossilizedMap&)> g_fossilizedBackdoor;
+    std::function<SkeletonData (const MAGESlam&)> g_backdoor;
+    std::function<FossilizedSkeletonData (const MAGESlam::FossilizedMap&)> g_fossilizedBackdoor;
 
     MAGESlam::MAGESlam(const MageSlamSettings& settings, gsl::span<const CameraConfiguration> cameraConfigurations, const device::IMUCharacterization& imuCharacterization)
         : m_impl{ std::make_unique<Impl>(settings, cameraConfigurations, imuCharacterization) }
@@ -236,11 +234,11 @@ namespace mage
             addedToFilter = m_impl->m_fuser->AddImageFence(frame.Format.Timestamp);
         }
 
-        auto frameData = make_shared<FrameData>(frame.Format, move(imageData), imageMat, *m_impl->m_fuser, addedToFilter);
+        auto frameData = std::make_shared<FrameData>(frame.Format, move(imageData), imageMat, *m_impl->m_fuser, addedToFilter);
 
         auto future = frameData->GetFuture();
 
-        m_impl->m_runtime->TrackMono(move(frameData));
+        m_impl->m_runtime->TrackMono(std::move(frameData));
         m_impl->m_threadingModel->Run(future);
 
         return future;
@@ -273,8 +271,8 @@ namespace mage
             }
         }
 
-        auto frameOne = make_shared<FrameData>(one.Format, move(imageData1), imageMat1, *m_impl->m_fuser, addedToFilter1);
-        auto frameTwo = make_shared<FrameData>(two.Format, move(imageData2), imageMat2, *m_impl->m_fuser, addedToFilter2);
+        auto frameOne = std::make_shared<FrameData>(one.Format, move(imageData1), imageMat1, *m_impl->m_fuser, addedToFilter1);
+        auto frameTwo = std::make_shared<FrameData>(two.Format, move(imageData2), imageMat2, *m_impl->m_fuser, addedToFilter2);
 
         auto results = std::make_pair(frameOne->GetFuture(), frameTwo->GetFuture());
 
@@ -283,21 +281,21 @@ namespace mage
         return results;
     }
 
-    vector<boost::optional<MAGESlam::TrackedFrame>> MAGESlam::GetTrackingResultsForFrames(const gsl::span<const FrameId> frameIds) const
+    std::vector<std::optional<MAGESlam::TrackedFrame>> MAGESlam::GetTrackingResultsForFrames(const gsl::span<const FrameId> frameIds) const
     {
         SCOPE_TIMER(MAGESlam::GetTrackingResultsForFrames);
 
         auto results = m_impl->m_poseHistory->GetTrackingInformationForFrames(frameIds);
-        vector<boost::optional<MAGESlam::TrackedFrame>> frames;
+        std::vector<std::optional<MAGESlam::TrackedFrame>> frames;
         for (const auto& result : results)
         {
-            if (result.is_initialized())
+            if (result)
             {
                 frames.emplace_back(TrackedFrame{ Tracking{ToMageMat(result->Pose.GetViewMatrix()), TrackingState::TRACKING}, result->CameraModel, result->Depth });
             }
             else
             {
-                frames.push_back(boost::none);
+                frames.push_back({});
             }
         }
 
@@ -465,24 +463,24 @@ namespace mage
         };
     }
 
-    vector<boost::optional<MAGESlam::TrackedFrame>> MAGESlam::FossilizedMap::GetTrackingResultsForFrames(const gsl::span<const FrameId> frameIds) const
+    std::vector<std::optional<MAGESlam::TrackedFrame>> MAGESlam::FossilizedMap::GetTrackingResultsForFrames(const gsl::span<const FrameId> frameIds) const
     {
         SCOPE_TIMER(MAGESlam::FossilizedMap::GetTrackingResultsForFrames);
 
-        vector<boost::optional<TrackedFrame>> frames;
+        std::vector<std::optional<TrackedFrame>> frames;
         frames.reserve(frameIds.size());
 
         for (const FrameId& frameId : frameIds)
         {
             auto trackingInformation = m_impl->History->GetTrackingInformationForFrame(frameId);
 
-            if (trackingInformation.is_initialized())
+            if (trackingInformation)
             {
                 frames.emplace_back(TrackedFrame{ Tracking{ ToMageMat(trackingInformation->Pose.GetViewMatrix()), TrackingState::TRACKING }, trackingInformation->CameraModel, trackingInformation->Depth });
             }
             else
             {
-                frames.push_back(boost::none);
+                frames.emplace_back();
             }
         }
 

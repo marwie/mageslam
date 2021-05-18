@@ -13,8 +13,6 @@
 
 using Assert = Microsoft::VisualStudio::CppUnitTestFramework::Assert;
 
-using namespace std::chrono_literals;
-
 namespace Microsoft {
     namespace VisualStudio {
         namespace CppUnitTestFramework {

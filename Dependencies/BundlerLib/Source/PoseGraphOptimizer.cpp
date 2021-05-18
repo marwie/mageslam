@@ -11,30 +11,29 @@
 #include <gsl/gsl>
 
 using namespace g2o;
-using namespace std;
 
 namespace g2o
 {
     EdgeSim3::EdgeSim3() {}
 
-    bool EdgeSim3::write(ostream&) const
+    bool EdgeSim3::write(std::ostream&) const
     {
         return false;
     }
 
-    bool EdgeSim3::read(istream&)
+    bool EdgeSim3::read(std::istream&)
     {
         return false;
     }
 
     VertexSim3Expmap::VertexSim3Expmap() {}
 
-    bool VertexSim3Expmap::write(ostream&) const
+    bool VertexSim3Expmap::write(std::ostream&) const
     {
         return false;
     }
 
-    bool VertexSim3Expmap::read(istream& /*is*/)
+    bool VertexSim3Expmap::read(std::istream& /*is*/)
     {
         return false;
     }
@@ -47,10 +46,10 @@ namespace mage
         bool graphIsDirty; // True if InitializeOptimization needs to be called before the next iteration.
         int currentId;
 
-        const unique_ptr<SparseOptimizer> Optimizer;
-        const unique_ptr<OptimizationAlgorithm> Algorithm;
-        vector<VertexSim3Expmap, Eigen::aligned_allocator<VertexSim3Expmap>> Variables;
-        vector<EdgeSim3, Eigen::aligned_allocator<EdgeSim3>> Constraints;
+        const std::unique_ptr<SparseOptimizer> Optimizer;
+        const std::unique_ptr<OptimizationAlgorithm> Algorithm;
+        std::vector<VertexSim3Expmap, Eigen::aligned_allocator<VertexSim3Expmap>> Variables;
+        std::vector<EdgeSim3, Eigen::aligned_allocator<EdgeSim3>> Constraints;
     };
 
     PoseGraphOptimizer::PoseGraphOptimizer()

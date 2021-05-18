@@ -18,8 +18,6 @@
 
 #include "Utils/Logging.h"
 
-using namespace std;
-
 namespace mage
 {
 
@@ -286,7 +284,7 @@ namespace mage
 #pragma optimize("",off)
     void SpanningTree::DebugOutput() const
     {
-        stringstream ss;
+        std::stringstream ss;
         ss << "----Begin Spanning Tree----" << std::endl;
 
         if (!m_Root.IsValid())
@@ -363,7 +361,7 @@ namespace mage
         thread_memory memory)
     {
         //every node in the covisibility graph that has a link should be present and visited by a walk of the spanning tree
-        set<Id<Keyframe>> covisKeyframes = covisibility.GetAllCovisibilityConnectedKeyframes();
+        std::set<Id<Keyframe>> covisKeyframes = covisibility.GetAllCovisibilityConnectedKeyframes();
         if (covisKeyframes.size() > 0)
         {
             if (!m_Root.IsValid())

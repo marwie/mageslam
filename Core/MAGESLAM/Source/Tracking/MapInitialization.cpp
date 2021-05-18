@@ -29,8 +29,6 @@
 #include <chrono>
 #include <assert.h>
 
-using namespace std;
-
 namespace mage
 {
     namespace
@@ -51,7 +49,7 @@ namespace mage
             return numerator * numerator / denominatorSquared;
         }
 
-        long long ComputeFrameTimeDifference(const shared_ptr<const AnalyzedImage>& frame1, const shared_ptr<const AnalyzedImage>& frame2)
+        long long ComputeFrameTimeDifference(const std::shared_ptr<const AnalyzedImage>& frame1, const std::shared_ptr<const AnalyzedImage>& frame2)
         {
             return std::chrono::duration_cast<std::chrono::milliseconds>(frame2->GetTimeStamp() - frame1->GetTimeStamp()).count();
         }
@@ -62,7 +60,7 @@ namespace mage
             float scale = static_cast<float>(cv::norm(initializationData.Frames.back()->GetPose().GetViewSpacePosition(), cv::NORM_L2));
             float minParallaxScale = settings.MapInitializationNewPointsCreationMinDistance * scale;
 
-            vector<MapPointKeyframeAssociations> newMapPoints;
+            std::vector<MapPointKeyframeAssociations> newMapPoints;
             NewMapPointsCreation(bagOfWords, Ki, cameraSettings,
                 settings.NewMapPointsCreationSettings,
                 minParallaxScale, memory, Kcs, newMapPoints);
@@ -82,7 +80,7 @@ namespace mage
         }
     }
 
-    vector<Pose> MapInitialization::FindEssentialPotientialPoses(
+    std::vector<Pose> MapInitialization::FindEssentialPotientialPoses(
         const cv::Matx33f& essentialMatrix)
     {
         cv::Mat R1, R2;
@@ -97,7 +95,7 @@ namespace mage
         const cv::Vec3f normalizedTranslationViewSpace = Normalize(cv::Vec3f{ T });
         const cv::Vec3f negT = -1 * normalizedTranslationViewSpace;
 
-        vector<Pose> poses;
+        std::vector<Pose> poses;
         poses.reserve(4);
 
         //pose of R1, T
@@ -126,9 +124,9 @@ namespace mage
         ResetMapInitialization();
     }
 
-    bool HasConsistentCheirality(const vector<Pose>& frame2Poses, /*cv::Vec3f& dominantDirection,*/
+    bool HasConsistentCheirality(const std::vector<Pose>& frame2Poses, /*cv::Vec3f& dominantDirection,*/
         const CameraCalibration& frame1Calibration, const CameraCalibration& frame2Calibration,
-        const vector<cv::Point2f>& frame1Points, const vector<cv::Point2f>& frame2Points)
+        const std::vector<cv::Point2f>& frame1Points, const std::vector<cv::Point2f>& frame2Points)
     {
         assert(frame1Points.size() == frame2Points.size());
 
@@ -178,7 +176,7 @@ namespace mage
         return true;
     }
 
-    vector<Pose> MapInitialization::FindPossiblePoses(
+    std::vector<Pose> MapInitialization::FindPossiblePoses(
         gsl::span<const cv::Point2f> frame1Points,
         gsl::span<const cv::Point2f> frame2Points,
         const CameraCalibration& frame1Calibration,
@@ -328,7 +326,7 @@ namespace mage
         const CameraCalibration& frame1Calibration,
         const CameraCalibration& frame2Calibration,
         const Pose& referencePose,
-        const vector<Pose>& poses,
+        const std::vector<Pose>& poses,
         Pose& correctPose,
         std::vector<std::pair<cv::DMatch, cv::Point3f>>& triangulated3Dpoints)
     {
@@ -343,8 +341,8 @@ namespace mage
         float selectedPoseScore = 0;
         int selectedPoseIndex = -1;
 
-        vector<pair<cv::DMatch, cv::Point3f>> selectedPosePoints;
-        vector<pair<cv::DMatch, cv::Point3f>> candidatePosePoints;
+        std::vector<std::pair<cv::DMatch, cv::Point3f>> selectedPosePoints;
+        std::vector<std::pair<cv::DMatch, cv::Point3f>> candidatePosePoints;
         candidatePosePoints.reserve(frame1Points.size());
         selectedPosePoints.reserve(frame1Points.size());
         for (uint poseIterator = 0; poseIterator < poses.size(); poseIterator++)
@@ -423,7 +421,7 @@ namespace mage
                 {
                     size_t middleIndex = candidatePosePoints.size() / 2;
                     std::nth_element(candidatePosePoints.begin(), candidatePosePoints.begin() + middleIndex, candidatePosePoints.end(),
-                        [](const pair<cv::DMatch, cv::Point3f>& matchAndPoint1, const pair<cv::DMatch, cv::Point3f>& matchAndPoint2)
+                        [](const std::pair<cv::DMatch, cv::Point3f>& matchAndPoint1, const std::pair<cv::DMatch, cv::Point3f>& matchAndPoint2)
                     {
                         return matchAndPoint1.second.z < matchAndPoint2.second.z;
                     });
@@ -442,7 +440,7 @@ namespace mage
                         else
                         {
                             // handle the case that this score isn't best, but is better than next best score
-                            nextBestPoseScore = max(nextBestPoseScore, score);
+                            nextBestPoseScore = std::max(nextBestPoseScore, score);
                         }
                     }
                 }
@@ -487,7 +485,7 @@ namespace mage
     }
 
     MapInitialization::InitializationAttemptState MapInitialization::TryInitializeMap(
-        const shared_ptr<const AnalyzedImage>& frame,
+        const std::shared_ptr<const AnalyzedImage>& frame,
         thread_memory memory,
         InitializationData& initializationData,
         BaseBow& bagOfWords)
@@ -561,7 +559,7 @@ namespace mage
         //TRAIN IMAGE: current frame
         int descriptorSizeFrame1 = gsl::narrow_cast<int>(referenceFrame.Image->GetDescriptorsCount());
         int trueCountFrame1 = 0;
-        vector<bool> flagsFrame1(descriptorSizeFrame1, false);
+        std::vector<bool> flagsFrame1(descriptorSizeFrame1, false);
         for (int i = 0; i < descriptorSizeFrame1; i++)
         {
             if (referenceFrame.Image->GetKeyPoint(i).octave == 0)
@@ -572,7 +570,7 @@ namespace mage
         }
         int descriptorSizeFrame2 = gsl::narrow_cast<int>(currentFrame.Image->GetDescriptorsCount());
         int trueCountFrame2 = 0;
-        vector<bool> flagsFrame2(descriptorSizeFrame2, false);
+        std::vector<bool> flagsFrame2(descriptorSizeFrame2, false);
         for (int i = 0; i < descriptorSizeFrame2; i++)
         {
             if (currentFrame.Image->GetKeyPoint(i).octave == 0)
@@ -608,7 +606,7 @@ namespace mage
         if (frameTimeDeltaMilliseconds >= m_settings.MinInitializationIntervalMilliseconds)
         {
             // check to make sure that enough of the common features were seen in many of the frames which we have matched
-            vector<cv::DMatch> bestMatches;
+            std::vector<cv::DMatch> bestMatches;
 
             assert(frameCount * m_settings.FeatureCovisibilityThreshold < 256);
             uint8_t goodFeatureThreshold = (uint8_t)(frameCount * m_settings.FeatureCovisibilityThreshold);
@@ -887,11 +885,11 @@ namespace mage
     }
 
     void MapInitialization::CollectMatchPoints(
-        const shared_ptr<const AnalyzedImage>& referenceFrame,
-        const shared_ptr<const AnalyzedImage>& currentFrame,
+        const std::shared_ptr<const AnalyzedImage>& referenceFrame,
+        const std::shared_ptr<const AnalyzedImage>& currentFrame,
         gsl::span<const cv::DMatch> matches,
-        vector<cv::Point2f>& frame1_points,
-        vector<cv::Point2f>& frame2_points)
+        std::vector<cv::Point2f>& frame1_points,
+        std::vector<cv::Point2f>& frame2_points)
     {
         frame1_points.reserve(matches.size());
         frame2_points.reserve(matches.size());
@@ -908,8 +906,8 @@ namespace mage
         }
     }
 
-    void MapInitialization::TriangulatePoints(const shared_ptr<const AnalyzedImage>& referenceFrame, 
-                                              const shared_ptr<const AnalyzedImage>& currentFrame,
+    void MapInitialization::TriangulatePoints(const std::shared_ptr<const AnalyzedImage>& referenceFrame,
+                                              const std::shared_ptr<const AnalyzedImage>& currentFrame,
                                               const Pose& referencePose,
                                               const Pose& currentPose,
                                               gsl::span<const cv::DMatch> matches,
@@ -917,7 +915,7 @@ namespace mage
                                               gsl::span<const cv::Point2f> frame2_points,
                                               float pixelMaxEpipolarDistance,
                                               float minAcceptanceDistanceRatio,
-                                              std::vector<pair<cv::DMatch, cv::Point3f>>& initial3DPoints)
+                                              std::vector<std::pair<cv::DMatch, cv::Point3f>>& initial3DPoints)
     {
         const cv::Matx33f& frame1InvCam = referenceFrame->GetUndistortedCalibration().GetInverseCameraMatrix();
         const cv::Matx33f& frame2InvCam = currentFrame->GetUndistortedCalibration().GetInverseCameraMatrix();
@@ -987,8 +985,8 @@ namespace mage
 
     bool MapInitialization::InitializeWithFrames(
         gsl::span<const cv::DMatch> matches,
-        const shared_ptr<const AnalyzedImage>& referenceFrame, //query
-        const shared_ptr<const AnalyzedImage>& currentFrame,   //train
+        const std::shared_ptr<const AnalyzedImage>& referenceFrame, //query
+        const std::shared_ptr<const AnalyzedImage>& currentFrame,   //train
         InitializationData& initializationData,
         thread_memory memory)
     {
@@ -997,7 +995,7 @@ namespace mage
         // TODO try to refactor so that we use KeyframeBuilders throughout instead?
         mage::temp::vector<InitializationPose> initializationPoses = memory.stack_vector<InitializationPose>(3);
 
-        std::vector<pair<cv::DMatch, cv::Point3f>> initial3DPoints;
+        std::vector<std::pair<cv::DMatch, cv::Point3f>> initial3DPoints;
         // ensure that enough matches have been accepted during the collection step
         if (matches.size() < (int)m_settings.MinFeatureMatches)
         {
@@ -1005,14 +1003,14 @@ namespace mage
             return false;
         }
 
-        vector<cv::Point2f> frame1_points;
-        vector<cv::Point2f> frame2_points;
+        std::vector<cv::Point2f> frame1_points;
+        std::vector<cv::Point2f> frame2_points;
         CollectMatchPoints(referenceFrame, currentFrame, matches, frame1_points, frame2_points);
 
         Pose referencePose{};
         Pose currentPose{};
 
-        vector<Pose> possiblePoses = FindPossiblePoses(frame1_points, frame2_points, referenceFrame->GetUndistortedCalibration(), currentFrame->GetUndistortedCalibration());
+        std::vector<Pose> possiblePoses = FindPossiblePoses(frame1_points, frame2_points, referenceFrame->GetUndistortedCalibration(), currentFrame->GetUndistortedCalibration());
         DETERMINISTIC_CHECK(m_determinator, possiblePoses.begin(), possiblePoses.end());
 
         bool foundPose = FindCorrectPose(frame1_points, frame2_points, matches, referenceFrame->GetUndistortedCalibration(), currentFrame->GetUndistortedCalibration(), referencePose, possiblePoses, currentPose, initial3DPoints);

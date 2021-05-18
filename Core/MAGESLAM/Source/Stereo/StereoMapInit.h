@@ -7,7 +7,7 @@
 #include "arcana/analysis/determinator.h"
 
 #include <opencv2/core/types.hpp>
-#include <boost/optional.hpp>
+#include <optional>
 
 namespace UnitTests
 {
@@ -24,7 +24,7 @@ namespace mage
     {
     public:
         StereoMapInit(const StereoMapInitializationSettings& settings, mira::determinator& determinator);
-        boost::optional<InitializationData> Initialize(const std::shared_ptr<AnalyzedImage>& frame0, const std::shared_ptr<AnalyzedImage>& frame1, const cv::Matx44f& frame0ToFrame1, thread_memory memory);
+        std::optional<InitializationData> Initialize(const std::shared_ptr<AnalyzedImage>& frame0, const std::shared_ptr<AnalyzedImage>& frame1, const cv::Matx44f& frame0ToFrame1, thread_memory memory);
 
     private:
 

@@ -63,7 +63,7 @@ namespace mage
             // read data from the map in a synchronization block to make the algorithm deterministic
             std::map<Id<MapPoint>, unsigned int> RecentlyCreatedMapPoints;
 
-            boost::optional<loop::vector<KeyframeReprojection>> ConnectedKeyframes;
+            std::optional<loop::vector<KeyframeReprojection>> ConnectedKeyframes;
         } Data{};
     };
 
@@ -130,7 +130,7 @@ namespace mage
                 DETERMINISTIC_CHECK(m_impl->Determinator, historicalFrame.UpdatedPose);
 
                 auto maybePose = m_impl->Context.History.GetPoseForFrame(historicalFrame.Keyframe->GetAnalyzedImage()->GetFrameId());
-                if (maybePose.is_initialized())
+                if (maybePose)
                 {
                     historicalFrame.UpdatedPose = maybePose.value();
                     DETERMINISTIC_CHECK(m_impl->Determinator, historicalFrame.UpdatedPose);
@@ -170,7 +170,7 @@ namespace mage
             DETERMINISTIC_CHECK(m_impl->Determinator, m_impl->Data.RecentlyCreatedMapPoints.begin(), m_impl->Data.RecentlyCreatedMapPoints.end());
 
             // Apply the relative pose.
-            boost::optional<Pose> basisPoseFromHistory = m_impl->Context.History.GetPoseForFrame(m_impl->Data.PoseEstimation->BasisFrameId);
+            std::optional<Pose> basisPoseFromHistory = m_impl->Context.History.GetPoseForFrame(m_impl->Data.PoseEstimation->BasisFrameId);
             assert(basisPoseFromHistory);
             auto updatedPose = m_impl->TrackLocalMap->GetUpdatedKeyframePoseRelativeToBasis(
                 m_impl->Data.PoseEstimation->Frame->GetPose(),

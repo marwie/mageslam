@@ -8,7 +8,7 @@
 #include <vector>
 #include <gsl/gsl>
 #include <assert.h>
-#include <boost/optional.hpp>
+#include <optional>
 #include "Data/Intrinsics.h"
 #include "TimeUnits.h"
 #include "MageSettings.h"
@@ -296,7 +296,7 @@ namespace mage
                 m_calibrationSize = { 0, 0 };
             }
 
-            Intrinsics CreateIntrinsics(boost::optional<uint32_t> lensPosition, size_t width, size_t height) const
+            Intrinsics CreateIntrinsics(std::optional<uint32_t> lensPosition, size_t width, size_t height) const
             {
                 assert(width / (float)height == m_calibrationSize.Width / (float)m_calibrationSize.Height && "aspect not equal need to crop to modify resolution");
                 assert(lensPosition || (m_fx.M == 0 && m_fy.M == 0));
@@ -321,23 +321,23 @@ namespace mage
                     gsl::narrow<uint32_t>(width), gsl::narrow<uint32_t>(height));
             }
 
-            std::shared_ptr<const PinholeCameraModel> CreatePinholeCameraModel(const boost::optional<uint32_t>& lensPosition, size_t width, size_t height) const
+            std::shared_ptr<const PinholeCameraModel> CreatePinholeCameraModel(const std::optional<uint32_t>& lensPosition, size_t width, size_t height) const
             {
                 return std::make_shared<const PinholeCameraModel>(CreateIntrinsics(lensPosition, width, height));
             }
 
-            std::shared_ptr<const Poly3KCameraModel> CreatePoly3kCameraModel(const boost::optional<uint32_t>& lensPosition, size_t width, size_t height) const
+            std::shared_ptr<const Poly3KCameraModel> CreatePoly3kCameraModel(const std::optional<uint32_t>& lensPosition, size_t width, size_t height) const
             {
                 return std::make_shared<const Poly3KCameraModel>(CreateIntrinsics(lensPosition, width, height), m_distortionPoly3k);
             }
 
-            std::shared_ptr<const Rational6KCameraModel> CreateRational6kCameraModel(const boost::optional<uint32_t>& lensPosition, size_t width, size_t height) const
+            std::shared_ptr<const Rational6KCameraModel> CreateRational6kCameraModel(const std::optional<uint32_t>& lensPosition, size_t width, size_t height) const
             {
                 return std::make_shared<const Rational6KCameraModel>(CreateIntrinsics(lensPosition, width, height), m_distortionRational6k);
             }
 
 
-            std::shared_ptr<const CameraModel> GetCameraModel(const boost::optional<uint32_t>& lensPosition, size_t width, size_t height)
+            std::shared_ptr<const CameraModel> GetCameraModel(const std::optional<uint32_t>& lensPosition, size_t width, size_t height)
             {
                 if (HasPoly3kModel())
                 {

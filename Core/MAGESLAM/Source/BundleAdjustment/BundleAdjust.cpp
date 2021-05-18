@@ -16,8 +16,6 @@
 #include <functional>
 #include <numeric>
 
-using namespace std;
-
 namespace mage
 {
     namespace
@@ -304,7 +302,7 @@ namespace mage
 
         int iteration = 0;
 
-        float residual_error = numeric_limits<float>::max();
+        float residual_error = std::numeric_limits<float>::max();
 
         const float outlierScaleSquare = maxOutlierErrorScaleFactor*maxOutlierErrorScaleFactor;
         bool willIterateAgain = false;
@@ -314,7 +312,7 @@ namespace mage
             {
                 SCOPE_TIMER(BundleAdjust::StepBundleAdjustment::g2o);
                 m_currentIterationOutliers.clear();
-                vector<float> huberWidths(numStepsPerRun, huberWidth);
+                std::vector<float> huberWidths(numStepsPerRun, huberWidth);
                 residual_error = bundler->StepBundleAdjustment(huberWidths, maxOutlierErrorSquared, m_currentIterationOutliers);
 
                 DETERMINISTIC_CHECK(m_determinator, m_currentIterationOutliers);
@@ -383,7 +381,7 @@ namespace mage
             {
                 SCOPE_TIMER(BundleAdjust::StepBundleAdjustment::g2o);
                 CurrentIterationOutliers.clear();
-                vector<float> huberWidths(StepsPerRun, huberWidth);
+                std::vector<float> huberWidths(StepsPerRun, huberWidth);
                 ResidualError = Bundler->StepBundleAdjustment(huberWidths, MaxOutlierErrorSquared, CurrentIterationOutliers);
 
                 DETERMINISTIC_CHECK(Determinator, CurrentIterationOutliers);

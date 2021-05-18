@@ -8,7 +8,7 @@
 #include <array>
 #include <gsl/gsl>
 
-#include <boost/optional.hpp>
+#include <optional>
 
 #include "Data/Data.h"
 #include "MageSettings.h"
@@ -114,7 +114,7 @@ namespace mage
             /*
                 Get the most up-to-date pose for the specified frame ID
             */
-            std::vector<boost::optional<MAGESlam::TrackedFrame>> GetTrackingResultsForFrames(const gsl::span<const FrameId> frameIds) const;
+            std::vector<std::optional<MAGESlam::TrackedFrame>> GetTrackingResultsForFrames(const gsl::span<const FrameId> frameIds) const;
 
             bool TryGetVolumeOfInterest(AxisAlignedVolume& volumeOfInterest) const;
 
@@ -158,7 +158,7 @@ namespace mage
         /*
             Get the most up-to-date pose for the specified frame ID
         */
-        std::vector<boost::optional<MAGESlam::TrackedFrame>> GetTrackingResultsForFrames(const gsl::span<const FrameId> frameIds) const;
+        std::vector<std::optional<MAGESlam::TrackedFrame>> GetTrackingResultsForFrames(const gsl::span<const FrameId> frameIds) const;
 
         // adds a sensor sample to the sample queue for sensor fusion
         void AddSensorSample(const SensorSample& sample);

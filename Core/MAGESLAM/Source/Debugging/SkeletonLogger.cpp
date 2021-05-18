@@ -13,8 +13,6 @@
 #include "Map/CovisibilityGraph.h"
 #include "Utils/cv.h"
 
-using namespace std;
-
 namespace mage
 {
     SkeletonLoggerLevel SkeletonLogger::s_level = SkeletonLoggerLevel::Off;
@@ -51,7 +49,7 @@ namespace mage
         if (!LoggingEnabled(SkeletonLoggerLevel::Tracking))
             return;
 
-        stringstream ss;
+        std::stringstream ss;
         ss << "depths," << reinterpret_cast<const IdT&>(keyframe.GetId()) << "," << depth.NearPlaneDepth << "," << depth.FarPlaneDepth << ",";
         Log(ss.str().c_str());
     }
@@ -62,7 +60,7 @@ namespace mage
         if (!LoggingEnabled(SkeletonLoggerLevel::Tracking))
             return;
 
-        stringstream ss;
+        std::stringstream ss;
         cv::Point3f p = pose.GetWorldSpacePosition();
         cv::Vec3f f = pose.GetWorldSpaceForward();
         cv::Vec3f r = pose.GetWorldSpaceRight();
@@ -78,7 +76,7 @@ namespace mage
         if (!LoggingEnabled(SkeletonLoggerLevel::Tracking))
             return;
 
-        stringstream ss;
+        std::stringstream ss;
         ss << "numassociated" << ordinal << "," << keyframe.GetAssociatedKeypointCount();
         Log(ss.str().c_str());
     }
@@ -88,7 +86,7 @@ namespace mage
         if (!LoggingEnabled(SkeletonLoggerLevel::Tracking))
             return;
 
-        stringstream idStream;
+        std::stringstream idStream;
         idStream << "visited";
 
         for (const Id<MapPoint>& id : mapPointIds)
@@ -104,9 +102,9 @@ namespace mage
         if (!LoggingEnabled(SkeletonLoggerLevel::Tracking))
             return;
 
-        stringstream unass;
+        std::stringstream unass;
         unass << "unassociated,";
-        stringstream assoc;
+        std::stringstream assoc;
         assoc << "associated,";
 
         auto points = keyframe.GetAnalyzedImage()->GetKeyPoints();
@@ -253,7 +251,7 @@ namespace mage
         history.DebugGetAllPoses(poses);
         auto& m_historicalPoses = history.GetHistoricalPoses();
 
-        stringstream ss;
+        std::stringstream ss;
         ss << "updatedPoses,";
 
         for (size_t i = 0; i < poses.size(); i++)
@@ -282,7 +280,7 @@ namespace mage
         if (!LoggingEnabled(SkeletonLoggerLevel::Initialization))
             return;
 
-        stringstream ss;
+        std::stringstream ss;
         ss << "initpoints,";
         for (ptrdiff_t idx = 0; idx < matches.size(); idx++)
         {
@@ -298,23 +296,23 @@ namespace mage
         if (!LoggingEnabled(SkeletonLoggerLevel::Initialization))
             return;
 
-        stringstream ss;
+        std::stringstream ss;
         ss << "initfailed," << message;
         Log(ss.str().c_str());
     }
 
     // ---------- MAP ----------
-    void SkeletonLogger::Map::LogMapPointsSnaphot(const unordered_map<Id<MapPoint>, unique_ptr<MapPoint>>& map_points)
+    void SkeletonLogger::Map::LogMapPointsSnaphot(const std::unordered_map<Id<MapPoint>, std::unique_ptr<MapPoint>>& map_points)
     {
         if (!LoggingEnabled(SkeletonLoggerLevel::Mapping))
             return;
 
-        stringstream ss;
+        std::stringstream ss;
         ss << "mappoints,";
         for (auto itr = map_points.begin(); itr != map_points.end(); itr++)
         {
             Id<MapPoint> id = itr->first;
-            const unique_ptr<MapPoint>& mp = itr->second;
+            const std::unique_ptr<MapPoint>& mp = itr->second;
 
             ss << reinterpret_cast<const IdT&>(id) << "," << mp->GetPosition().x << "," << mp->GetPosition().y << "," << mp->GetPosition().z << ",";
         }
@@ -326,7 +324,7 @@ namespace mage
         if (!LoggingEnabled(SkeletonLoggerLevel::Mapping))
             return;
 
-        stringstream ss;
+        std::stringstream ss;
         ss << "keyframes,";
         
         for (ptrdiff_t idx = 0; idx < keyframes.size(); idx++)
@@ -353,7 +351,7 @@ namespace mage
             return;
 
         size_t totalSize = sizeof(float) * dimX * dimY * dimZ;
-        stringstream identifier;
+        std::stringstream identifier;
         identifier << "confidencespace," << dimX << "," << dimY << "," << dimZ;
         LogBigBuffer({(const uint8_t *)space, (int)totalSize}, identifier.str().c_str());
     }
@@ -363,7 +361,7 @@ namespace mage
         if (!LoggingEnabled(SkeletonLoggerLevel::Mapping))
             return;
 
-        stringstream ss;
+        std::stringstream ss;
         ss << "volumeofinterest," <<
             voi.Min.X << "," <<
             voi.Min.Y << "," <<

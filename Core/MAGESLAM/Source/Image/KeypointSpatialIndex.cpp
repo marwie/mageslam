@@ -19,7 +19,6 @@
 #pragma warning (pop)
 
 using namespace cv;
-using namespace std;
 
 namespace mage
 {
@@ -27,7 +26,7 @@ namespace mage
     using indexType = boost::geometry::index::rstar<12>;
     using rtree_point = boost::geometry::model::point<float, 3, boost::geometry::cs::cartesian>;
     using rtree_box = boost::geometry::model::box<rtree_point>;
-    using rtree_value = tuple<rtree_point, size_t>;
+    using rtree_value = std::tuple<rtree_point, size_t>;
     using rtree = boost::geometry::index::rtree<rtree_value, indexType>;
     
     struct KeypointSpatialIndex::Impl
@@ -47,7 +46,7 @@ namespace mage
     {
         // TODO PERF and cleanliness:  use range adapters to create.
         // http://www.boost.org/doc/libs/1_58_0/libs/geometry/doc/html/geometry/spatial_indexes/rtree_examples/range_adaptors.html
-        vector<rtree_value> valuesStruct;
+        std::vector<rtree_value> valuesStruct;
         valuesStruct.reserve(keypoints.size());
 
         for (ptrdiff_t i = 0; i < keypoints.size(); ++i)
@@ -65,7 +64,7 @@ namespace mage
     {
         index_emplace_back& operator =(const rtree_value& value)
         {
-            results.emplace_back(get<1>(value));
+            results.emplace_back(std::get<1>(value));
             return *this;
         }
 

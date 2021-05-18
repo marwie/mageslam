@@ -67,7 +67,7 @@ namespace mage
 
         void AddHistoricalPose(const Proxy<Keyframe, proxy::Image, proxy::Pose, proxy::Intrinsics>::ViewT& frame, const std::multimap<unsigned int, Proxy<Keyframe, proxy::Pose>>& covisibleKeyframes, InternalDepth depth);
 
-        boost::optional<TrackingInformation> GetTrackingInformationForFrame(const FrameId& frameId) const;
+        std::optional<TrackingInformation> GetTrackingInformationForFrame(const FrameId& frameId) const;
 
         // call this method when the position of a keyframe has been adjusted
         void UpdateKeyframePose(const Id<Keyframe>& keyframeId, const Pose& keyframePose);

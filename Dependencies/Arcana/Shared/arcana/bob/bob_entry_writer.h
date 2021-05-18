@@ -16,7 +16,7 @@
 #include <boost/iostreams/categories.hpp>
 #include <boost/iostreams/positioning.hpp>
 #include <boost/iostreams/stream.hpp>
-#include <boost/optional.hpp>
+#include <optional>
 #include <iosfwd>
 
 namespace mira

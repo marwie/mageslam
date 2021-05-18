@@ -8,14 +8,12 @@
 #include <arcana/analysis/determinator.h>
 #include <math.h>
 
-using namespace std;
-
 namespace mage
 {
     struct VoxelSpace
     {
         cv::Vec3i dimensions;
-        vector<float>voxels;
+        std::vector<float>voxels;
 
         VoxelSpace(const cv::Vec3f dims)
             : dimensions{ (int)ceil(dims[0]), (int)ceil(dims[1]), (int)ceil(dims[2]) },
@@ -56,7 +54,7 @@ namespace mage
         // Cached values for performance.
         float distanceAlphaToOmega = FarDepth - NearDepth;
         Centroid = { WorldPosition + Forward * NearDepth * VoiSettings.KernelDepthModifier };
-        DistanceAlphaToXi = NearDepth * tan(min(VoiSettings.KernelAngleXRads, VoiSettings.KernelAngleYRads));
+        DistanceAlphaToXi = NearDepth * std::tan(std::min(VoiSettings.KernelAngleXRads, VoiSettings.KernelAngleYRads));
         ModifiedDistanceAlphaToOmega = distanceAlphaToOmega * VoiSettings.AwayProminence;
     }
 
@@ -96,7 +94,7 @@ namespace mage
         mira::determinator& determinism = mira::determinator::create("VolumeOfInterest");
 
         SkeletonLogger::PoseHistory::LogVolumeOfInterestArgs<const VOIKeyframe>(keyframes, voiSettings);
-        vector<cv::Vec3f> frustumBounds;
+        std::vector<cv::Vec3f> frustumBounds;
         for (const auto& keyframe : keyframes)
         {
             // TODO: Use keyframe-wise kernel angles when available, as opposed to a setting.
@@ -126,13 +124,13 @@ namespace mage
 
         for (const auto& point : frustumBounds)
         {
-            minX = min(minX, (point)[0]);
-            minY = min(minY, (point)[1]);
-            minZ = min(minZ, (point)[2]);
+            minX = std::min(minX, (point)[0]);
+            minY = std::min(minY, (point)[1]);
+            minZ = std::min(minZ, (point)[2]);
 
-            maxX = max(maxX, (point)[0]);
-            maxY = max(maxY, (point)[1]);
-            maxZ = max(maxZ, (point)[2]);
+            maxX = std::max(maxX, (point)[0]);
+            maxY = std::max(maxY, (point)[1]);
+            maxZ = std::max(maxZ, (point)[2]);
         }
 
         float minVoxelValue = std::numeric_limits<float>::max();
@@ -141,7 +139,7 @@ namespace mage
         // Pre-compute the scores at all keyframe centroids.  These will be used to
         // help ensure sane bounding boxes.  Use these centroids to initialize the
         // voxel mins and maxes.
-        vector<float> keyframeScores;
+        std::vector<float> keyframeScores;
         keyframeScores.reserve(keyframes.size());
         for (const VOIKeyframe& kf1 : keyframes)
         {
@@ -152,8 +150,8 @@ namespace mage
             }
             keyframeScores.push_back(pointValue);
 
-            minVoxelValue = min(pointValue, minVoxelValue);
-            maxVoxelValue = max(pointValue, maxVoxelValue);
+            minVoxelValue = std::min(pointValue, minVoxelValue);
+            maxVoxelValue = std::max(pointValue, maxVoxelValue);
         }
 
         for (int lod = voiSettings.Iterations; lod > 0; lod--)
@@ -184,8 +182,8 @@ namespace mage
                         }
 
                         voxelSpace.SetVoxel(x, y, z, voxelValue);
-                        minVoxelValue = min(minVoxelValue, voxelValue);
-                        maxVoxelValue = max(maxVoxelValue, voxelValue);
+                        minVoxelValue = std::min(minVoxelValue, voxelValue);
+                        maxVoxelValue = std::max(maxVoxelValue, voxelValue);
                     }
                 }
             }
@@ -209,13 +207,13 @@ namespace mage
                         {
                             cv::Vec3f point{ minPoint + cv::Vec3f{ x * voxelSideLength, y * voxelSideLength, z * voxelSideLength } };
 
-                            minX = min(minX, point[0] - voxelHalfSideLength);
-                            minY = min(minY, point[1] - voxelHalfSideLength);
-                            minZ = min(minZ, point[2] - voxelHalfSideLength);
+                            minX = std::min(minX, point[0] - voxelHalfSideLength);
+                            minY = std::min(minY, point[1] - voxelHalfSideLength);
+                            minZ = std::min(minZ, point[2] - voxelHalfSideLength);
 
-                            maxX = max(maxX, point[0] + voxelHalfSideLength);
-                            maxY = max(maxY, point[1] + voxelHalfSideLength);
-                            maxZ = max(maxZ, point[2] + voxelHalfSideLength);
+                            maxX = std::max(maxX, point[0] + voxelHalfSideLength);
+                            maxY = std::max(maxY, point[1] + voxelHalfSideLength);
+                            maxZ = std::max(maxZ, point[2] + voxelHalfSideLength);
                         }
                     }
                 }
@@ -228,13 +226,13 @@ namespace mage
             {
                 if (keyframeScores[idx] > threshold)
                 {
-                    minX = min(minX, keyframes[idx].Centroid[0] - voxelHalfSideLength);
-                    minY = min(minY, keyframes[idx].Centroid[1] - voxelHalfSideLength);
-                    minZ = min(minZ, keyframes[idx].Centroid[2] - voxelHalfSideLength);
+                    minX = std::min(minX, keyframes[idx].Centroid[0] - voxelHalfSideLength);
+                    minY = std::min(minY, keyframes[idx].Centroid[1] - voxelHalfSideLength);
+                    minZ = std::min(minZ, keyframes[idx].Centroid[2] - voxelHalfSideLength);
 
-                    maxX = max(maxX, keyframes[idx].Centroid[0] + voxelHalfSideLength);
-                    maxY = max(maxY, keyframes[idx].Centroid[1] + voxelHalfSideLength);
-                    maxZ = max(maxZ, keyframes[idx].Centroid[2] + voxelHalfSideLength);
+                    maxX = std::max(maxX, keyframes[idx].Centroid[0] + voxelHalfSideLength);
+                    maxY = std::max(maxY, keyframes[idx].Centroid[1] + voxelHalfSideLength);
+                    maxZ = std::max(maxZ, keyframes[idx].Centroid[2] + voxelHalfSideLength);
                 }
             }
         }

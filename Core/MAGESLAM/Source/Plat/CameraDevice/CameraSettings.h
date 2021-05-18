@@ -4,7 +4,7 @@
 #pragma once
 
 #include <Plat/TimeDefinitions.h>
-#include <boost/optional.hpp>
+#include <optional>
 #include <chrono>
 
 namespace mira
@@ -32,12 +32,12 @@ namespace mira
         CameraSettings() = default;
 
         CameraSettings(
-            boost::optional<uint32_t> whiteBalance,
-            boost::optional<HundredsNanoseconds> exposureTime,
-            boost::optional<uint32_t> lensPosition,
-            boost::optional<uint32_t> isoSpeed,
-            boost::optional<float> isoExternalGain,
-            boost::optional<float> isoDigitalGain)
+            std::optional<uint32_t> whiteBalance,
+            std::optional<HundredsNanoseconds> exposureTime,
+            std::optional<uint32_t> lensPosition,
+            std::optional<uint32_t> isoSpeed,
+            std::optional<float> isoExternalGain,
+            std::optional<float> isoDigitalGain)
             : WhiteBalance{ whiteBalance },
             ExposureTime{ exposureTime },
             LensPosition{ lensPosition },
@@ -46,62 +46,62 @@ namespace mira
             IsoDigitalGain{ isoDigitalGain }
         {}
 
-        void SetLensPosition(const boost::optional<uint32_t> lensPosition)
+        void SetLensPosition(const std::optional<uint32_t> lensPosition)
         {
             LensPosition = lensPosition;
         }
 
-        void SetWhiteBalance(const boost::optional<uint32_t> whiteBalance)
+        void SetWhiteBalance(const std::optional<uint32_t> whiteBalance)
         {
             WhiteBalance = whiteBalance;
         }
 
-        void SetExposureTime(const boost::optional<HundredsNanoseconds> exposureTime)
+        void SetExposureTime(const std::optional<HundredsNanoseconds> exposureTime)
         {
             ExposureTime = exposureTime;
         }
 
-        void SetIsoSpeed(const boost::optional<uint32_t> isoSpeed)
+        void SetIsoSpeed(const std::optional<uint32_t> isoSpeed)
         {
             IsoSpeed = isoSpeed;
         }
 
-        void SetIsoExternalGain(const boost::optional<float> isoExternalGain)
+        void SetIsoExternalGain(const std::optional<float> isoExternalGain)
         {
             IsoExternalGain = isoExternalGain;
         }
 
-        void SetIsoDigitalGain(const boost::optional<float> isoDigitalGain)
+        void SetIsoDigitalGain(const std::optional<float> isoDigitalGain)
         {
             IsoDigitalGain = isoDigitalGain;
         }
 
-        boost::optional<uint32_t> GetLensPosition() const
+        std::optional<uint32_t> GetLensPosition() const
         {
             return LensPosition;
         }
 
-        boost::optional<uint32_t> GetWhiteBalance() const
+        std::optional<uint32_t> GetWhiteBalance() const
         {
             return WhiteBalance;
         }
 
-        boost::optional<HundredsNanoseconds> GetExposureTime() const
+        std::optional<HundredsNanoseconds> GetExposureTime() const
         {
             return ExposureTime;
         }
 
-        boost::optional<uint32_t> GetIsoSpeed() const
+        std::optional<uint32_t> GetIsoSpeed() const
         {
             return IsoSpeed;
         }
 
-        boost::optional<float> GetIsoExternalGain() const
+        std::optional<float> GetIsoExternalGain() const
         {
             return IsoExternalGain;
         }
 
-        boost::optional<float> GetIsoDigitalGain() const
+        std::optional<float> GetIsoDigitalGain() const
         {
             return IsoDigitalGain;
         }
@@ -122,12 +122,12 @@ namespace mira
         friend inline bool operator==(const CameraSettings& lhs, const CameraSettings& rhs);
 
     private:
-        boost::optional<uint32_t>               WhiteBalance{};
-        boost::optional<HundredsNanoseconds>    ExposureTime{};
-        boost::optional<uint32_t>               LensPosition{};
-        boost::optional<uint32_t>               IsoSpeed{};
-        boost::optional<float>                  IsoExternalGain{};
-        boost::optional<float>                  IsoDigitalGain{};
+        std::optional<uint32_t>               WhiteBalance{};
+        std::optional<HundredsNanoseconds>    ExposureTime{};
+        std::optional<uint32_t>               LensPosition{};
+        std::optional<uint32_t>               IsoSpeed{};
+        std::optional<float>                  IsoExternalGain{};
+        std::optional<float>                  IsoDigitalGain{};
     };
 
     inline bool operator==(const CameraSettings& lhs, const CameraSettings& rhs)

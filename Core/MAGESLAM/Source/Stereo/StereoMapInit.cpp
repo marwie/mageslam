@@ -94,7 +94,7 @@ namespace mage
     {}
 
     //assumes undistorted input images with null distortion calibrations
-    boost::optional<InitializationData> StereoMapInit::Initialize(const std::shared_ptr<AnalyzedImage>& frame0, const std::shared_ptr<AnalyzedImage>& frame1, const cv::Matx44f& frame0ToFrame1, thread_memory memory)
+    std::optional<InitializationData> StereoMapInit::Initialize(const std::shared_ptr<AnalyzedImage>& frame0, const std::shared_ptr<AnalyzedImage>& frame1, const cv::Matx44f& frame0ToFrame1, thread_memory memory)
     {
         // get crop region
         cv::Rect frame0CropRect{ ToCVRect(CalculateOverlapCropSourceInTarget(ToMageMat(frame0ToFrame1), frame0->GetUndistortedCalibration().CreateCameraModel(), frame1->GetUndistortedCalibration().CreateCameraModel(), m_settings.MaxDepthMeters)) };
@@ -139,7 +139,7 @@ namespace mage
         if (lenDelta < minPoseDelta)
         {
             LogMessage("StereoInit: [FAILURE] zero displacement between frames");
-            return boost::none;
+            return {};
         }
 
         float oneOverMeters = 1 / lenDelta;
@@ -151,7 +151,7 @@ namespace mage
         if (numMatches < minFeatureMatches)
         {
             LogMessage("StereoInit: [FAILURE] not enough feature matches");
-            return boost::none;
+            return {};
         }
             
         Pose normalizedframe1Pose = { normalizedFrame0ToFrame1.inv() }; //initializer takes a world matrix which is the inverse of wide to narrow
@@ -162,7 +162,7 @@ namespace mage
         {
             LogMessage((boost::format("StereoInit: [FAILURE] not enough map points with: %1%") % initializationData.MapPoints.size()).str());
 
-            return boost::none;
+            return {};
         }
 
         initializationData.Frames.back()->AddExtrinsicTether(initializationData.Frames.front()->GetId(), initializationData.Frames.front()->GetPose(), m_settings.InitializationTetherStrength);
@@ -187,7 +187,7 @@ namespace mage
             )
         {
             LogMessage((boost::format("StereoInit: [FAILURE] init failed validation")).str());
-            return boost::none;
+            return {};
         }
 
         return initializationData;

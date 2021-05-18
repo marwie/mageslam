@@ -36,7 +36,7 @@ namespace mage
             m_impl{ std::make_unique<Impl>(mediator, determinator, fuser, context, settings) }
     {}
 
-    mira::task<std::shared_ptr<const PoseEstimated>> PoseEstimationWorker::EstimatePose(const FrameAnalyzed& frame, const TrackingFrameHistory& history, const boost::optional<Pose>& posePrior)
+    mira::task<std::shared_ptr<const PoseEstimated>> PoseEstimationWorker::EstimatePose(const FrameAnalyzed& frame, const TrackingFrameHistory& history, const std::optional<Pose>& posePrior)
     {
         return mira::make_task(m_impl->Mediator.dispatcher(), Cancellation(), [this, frame, &history, posePrior]() -> mira::expected<std::shared_ptr<const PoseEstimated>>
         {

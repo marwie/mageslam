@@ -217,7 +217,7 @@ namespace mage
         };
     }
 
-    boost::optional<size_t> PoseEstimator::TryEstimatePoseFromCandidates(
+    std::optional<size_t> PoseEstimator::TryEstimatePoseFromCandidates(
         BaseBow& bagOfWords,
         const collection<KeyframeProxy>& candidates,
         mira::determinator& determinator,
@@ -234,7 +234,7 @@ namespace mage
         if (currentFrameKeypointCount < m_relocSettings.MinBruteForceCorrespondences)
             return{};
 
-        boost::optional<size_t> indexOfSuccess{};
+        std::optional<size_t> indexOfSuccess{};
         std::vector<bool> currentFrameKeypointMask(currentFrameKeypointCount, true);
 
         struct RelocData

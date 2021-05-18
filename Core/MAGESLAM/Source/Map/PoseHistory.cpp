@@ -5,8 +5,6 @@
 
 #include "VolumeOfInterest/VolumeOfInterest.h"
 
-using namespace std;
-
 namespace mage
 {
     PoseHistory::PoseHistory(const mage::PoseHistorySettings& poseHistorySettings)
@@ -58,7 +56,7 @@ namespace mage
     bool PoseHistory::TryGetVolumeOfInterest(AxisAlignedVolume& volumeOfInterest, const VolumeOfInterestSettings& voiSettings) const
     {
         // Gather the keyframes to be used for the volume of interest calculations.
-        vector<VOIKeyframe> keyframes;
+        std::vector<VOIKeyframe> keyframes;
         for (auto itr_keyframe = m_keyframes.begin(); itr_keyframe != m_keyframes.end(); itr_keyframe++)
         {
             auto itr_pose = find_if(m_historicalPoses.begin(), m_historicalPoses.end(),
@@ -183,7 +181,7 @@ namespace mage
         const_cast<mage::FrameWorldPosition&>(pose) = ToWorldPosition(keyframePose);
     }
 
-    boost::optional<PoseHistory::TrackingInformation> PoseHistory::GetTrackingInformationForFrame(const FrameId& frameId) const
+    std::optional<PoseHistory::TrackingInformation> PoseHistory::GetTrackingInformationForFrame(const FrameId& frameId) const
     {
         const auto targetElementPointer = m_historicalPoses.find(frameId);
 
@@ -191,7 +189,7 @@ namespace mage
         if (targetElementPointer == m_historicalPoses.end())
         {
             assert("Unsupported usage: should never query historical poses that didn't track!");
-            return boost::none;
+            return {};
         }
         // TODO support interpolating poses for times that we don't actually have by lerping between the two nearest poses
 

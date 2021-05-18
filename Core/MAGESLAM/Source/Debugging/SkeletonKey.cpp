@@ -7,13 +7,11 @@
 #include "SkeletonLogger.h"
 #include "Utils/MageConversions.h"
 
-using namespace std;
-
 namespace mage
 {
     std::unique_ptr<SkeletonKey> SkeletonKey::Craft(const MAGESlam& mage)
     {
-        return unique_ptr<SkeletonKey>{ new SkeletonKey{mage} };
+        return std::unique_ptr<SkeletonKey>{ new SkeletonKey{mage} };
     }
 
     struct SkeletonKey::Impl
@@ -21,10 +19,10 @@ namespace mage
         SkeletonData data;
     };
 
-    extern function<SkeletonData (const MAGESlam&)> g_backdoor;
+    extern std::function<SkeletonData (const MAGESlam&)> g_backdoor;
 
     SkeletonKey::SkeletonKey(const MAGESlam& mage)
-        : m_impl{ make_unique<Impl>() }
+        : m_impl{ std::make_unique<Impl>() }
     {
         m_impl->data = g_backdoor(mage);
     }
@@ -77,10 +75,10 @@ namespace mage
         FossilizedSkeletonData data;
     };
 
-    extern function<FossilizedSkeletonData(const MAGESlam::FossilizedMap&)> g_fossilizedBackdoor;
+    extern std::function<FossilizedSkeletonData(const MAGESlam::FossilizedMap&)> g_fossilizedBackdoor;
 
     FossilizedSkeletonKey::FossilizedSkeletonKey(const MAGESlam::FossilizedMap& map)
-        : m_impl{ make_unique<Impl>() }
+        : m_impl{ std::make_unique<Impl>() }
     {
         m_impl->data = g_fossilizedBackdoor(map);
     }
@@ -90,7 +88,7 @@ namespace mage
 
     std::unique_ptr<FossilizedSkeletonKey> FossilizedSkeletonKey::Craft(const MAGESlam::FossilizedMap& map)
     {
-        return unique_ptr<FossilizedSkeletonKey>{ new FossilizedSkeletonKey{ map } };
+        return std::unique_ptr<FossilizedSkeletonKey>{ new FossilizedSkeletonKey{ map } };
     }
 
     void FossilizedSkeletonKey::GetViewMatrices(std::vector<Matrix>& viewMatrices) const

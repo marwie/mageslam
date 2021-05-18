@@ -21,8 +21,6 @@
 #include <arcana/analysis/data_point.h>
 #include <arcana/analysis/object_trace.h>
 
-using namespace std;
-
 namespace mage
 {
     ThreadSafeMap::ThreadSafeMap(
@@ -51,7 +49,7 @@ namespace mage
         SCOPE_TIMER(ThreadSafeMap::InitializeMap);
         SCOPE_TIMER(ThreadSafeMapUniqueLock);
 
-        unique_lock<shared_mutex> lock{ m_mutex };
+        std::unique_lock<std::shared_mutex> lock{ m_mutex };
 
         assert(m_map->GetKeyframesCount() == 0 && "Map already has Keyframes");
         assert(m_map->GetMapPointsCount() == 0 && "Map already has MapPoints");
@@ -67,7 +65,7 @@ namespace mage
         // add the map points
         for (const MapPointTrackingProxy& mp : initializationData.MapPoints)
         {
-            MapPoint* mapPoint = m_map->AddMapPoint(make_unique<MapPoint>(mp.GetId(), numLevels));
+            MapPoint* mapPoint = m_map->AddMapPoint(std::make_unique<MapPoint>(mp.GetId(), numLevels));
             mapPoint->SetPosition(mp.GetPosition());
             mapPoint->IncrementRefinementCount();
             mapPointsToAdd.push_back(mapPoint);
@@ -76,7 +74,7 @@ namespace mage
         // add the keyframes and associate the map points
         for (const auto& builder : initializationData.Frames)
         {
-            Keyframe* keyframe = m_map->AddKeyframe(make_unique<Keyframe>(*builder));
+            Keyframe* keyframe = m_map->AddKeyframe(std::make_unique<Keyframe>(*builder));
             keyframes.emplace_back(keyframe);
 
             builder->IterateAssociations([&](const MapPointTrackingProxy& mp, KeypointDescriptorIndex idx)
@@ -114,7 +112,7 @@ namespace mage
             XR_OUTPUT(mapPoints)
         );
 
-        shared_lock<shared_mutex> lock{ m_mutex };
+        std::shared_lock<std::shared_mutex> lock{ m_mutex };
         m_map->GetSampleOfMapPoints(mapPoints, max, offset);
     }
 
@@ -134,7 +132,7 @@ namespace mage
 
         SCOPE_TIMER(ThreadSafeMapSharedLock);
 
-        shared_lock<shared_mutex> lock{ m_mutex };
+        std::shared_lock<std::shared_mutex> lock{ m_mutex };
 
         auto K1MapPointCount = memory.stack_unordered_map<mage::Id<mage::Keyframe>, uint64_t>();
         K1MapPointCount.reserve(m_map->GetKeyframesCount());
@@ -195,19 +193,19 @@ namespace mage
                 repro.Points.emplace_back(mapPoint);
             }
 
-            reprojections.emplace_back(move(repro));
+            reprojections.emplace_back(std::move(repro));
         }
     }
 
     Proxy<Keyframe, proxy::Image> ThreadSafeMap::InsertKeyframe(
-        const shared_ptr<const KeyframeBuilder>& kb,
+        const std::shared_ptr<const KeyframeBuilder>& kb,
         thread_memory memory)
     {
         return InsertKeyframe(kb, {}, memory);
     }
 
     Proxy<Keyframe, proxy::Image> ThreadSafeMap::InsertKeyframe(
-        const shared_ptr<const KeyframeBuilder>& kb,
+        const std::shared_ptr<const KeyframeBuilder>& kb,
         const gsl::span<MapPointAssociations<MapPointTrackingProxy>::Association>& extraAssociation,
         thread_memory memory)
     {
@@ -219,13 +217,13 @@ namespace mage
         );
 
         SCOPE_TIMER(ThreadSafeMapUniqueLock);
-        unique_lock<shared_mutex> lock{ m_mutex };
+        std::unique_lock<std::shared_mutex> lock{ m_mutex };
 
         //add keyframe to map
-        auto newKf = m_map->AddKeyframe(make_unique<Keyframe>(*kb));
+        auto newKf = m_map->AddKeyframe(std::make_unique<Keyframe>(*kb));
 
         // associate keyframe and map points
-        vector<MapPointAssociations<MapPointTrackingProxy>::Association> mps;
+        std::vector<MapPointAssociations<MapPointTrackingProxy>::Association> mps;
         kb->GetAssociations(mps);
 
         for (auto& association : mps)
@@ -263,7 +261,7 @@ namespace mage
         std::vector<float> distancesSquare;
 
         {
-            shared_lock<shared_mutex> lock{ m_mutex }; //TODO_Bug 14288601 We don't want external clients to be able to grab a lock on our map
+            std::shared_lock<std::shared_mutex> lock{ m_mutex }; //TODO_Bug 14288601 We don't want external clients to be able to grab a lock on our map
 
             m_map->IterateKeyframes([&](const Keyframe& kf)
             {
@@ -296,7 +294,7 @@ namespace mage
 
     std::vector<KeyframeProxy> ThreadSafeMap::GetAllKeyframes() const
     {
-        shared_lock<shared_mutex> lock{ m_mutex };
+        std::shared_lock<std::shared_mutex> lock{ m_mutex };
 
         std::vector<KeyframeProxy> proxies;
 
@@ -324,7 +322,7 @@ namespace mage
         );
 
         SCOPE_TIMER(ThreadSafeMap::UpdateKeyframesFromProxies);
-        unique_lock<shared_mutex> lock{ m_mutex };
+        std::unique_lock<std::shared_mutex> lock{ m_mutex };
 
         m_map->UpdateKeyframesFromProxies(proxies, mergeSettings, mapPointMerges);
 
@@ -345,7 +343,7 @@ namespace mage
         );
 
         SCOPE_TIMER(ThreadSafeMap::UpdateKeyframesFromProxies);
-        unique_lock<shared_mutex> lock{ m_mutex };
+        std::unique_lock<std::shared_mutex> lock{ m_mutex };
 
         m_map->UpdateMapPoints(proxy);
     }
@@ -353,7 +351,7 @@ namespace mage
     void ThreadSafeMap::BuildGlobalBundleAdjustData(AdjustableData& data) const
     {
         SCOPE_TIMER(ThreadSafeMap::BuildGlobalBundleAdjustData);
-        unique_lock<shared_mutex> lock{ m_mutex };
+        std::unique_lock<std::shared_mutex> lock{ m_mutex };
 
         m_map->IterateMapPoints([&](const MapPoint& mp)
         {
@@ -389,7 +387,7 @@ namespace mage
         });
     }
 
-    void ThreadSafeMap::FindSimilarKeyframes(const shared_ptr<const AnalyzedImage>& image, vector<KeyframeProxy>& output) const
+    void ThreadSafeMap::FindSimilarKeyframes(const std::shared_ptr<const AnalyzedImage>& image, std::vector<KeyframeProxy>& output) const
     {
         SCOPE_TIMER(ThreadSafeMap::FindSimilarKeyframes);
 
@@ -403,7 +401,7 @@ namespace mage
         {
             SCOPE_TIMER(ThreadSafeMapUniqueLock);
 
-            unique_lock<shared_mutex> lock{ m_mutex };
+            std::unique_lock<std::shared_mutex> lock{ m_mutex };
             for (Id<Keyframe> id : res)
             {
                 auto framePtr = m_map->GetKeyframe(id);
@@ -441,7 +439,7 @@ namespace mage
 
         // Begin section that uses the map directly.
         {
-            unique_lock<shared_mutex> lock{ m_mutex };
+            std::unique_lock<std::shared_mutex> lock{ m_mutex };
 
             // Find the lowest covisibility score and remove all locally covisible keyframe IDs.
             // TODO: Reserve a reasonable size when one can be determined (setting?).
@@ -452,7 +450,7 @@ namespace mage
                 auto it = idsToScores.find(id);
                 if (it != idsToScores.end())
                 {
-                    lowestCovisScore = min(lowestCovisScore, it->second);
+                    lowestCovisScore = std::min(lowestCovisScore, it->second);
                     idsToScores.erase(it);
                 }
             }
@@ -501,12 +499,12 @@ namespace mage
 
         SCOPE_TIMER(ThreadSafeMapUniqueLock);
 
-        unique_lock<shared_mutex> lock{ m_mutex };
+        std::unique_lock<std::shared_mutex> lock{ m_mutex };
 
-        set<MapPoint*> mapPointsToCull;
+        std::set<MapPoint*> mapPointsToCull;
         for (size_t idxPointSet = 0; idxPointSet < m_pointHistory.size(); idxPointSet++)
         {
-            vector<Proxy<MapPoint>>& points = m_pointHistory[idxPointSet];
+            std::vector<Proxy<MapPoint>>& points = m_pointHistory[idxPointSet];
             points.erase(std::remove_if(points.begin(), points.end(), [&](const Proxy<MapPoint>& mapPointProxy)
             {
                 MapPoint* mapPoint = m_map->GetMapPoint(mapPointProxy.GetId());
@@ -539,7 +537,7 @@ namespace mage
 
         unsigned int numMapPointsCulled = 0;
 
-        set<const Keyframe*> modified;
+        std::set<const Keyframe*> modified;
         for (MapPoint* mapPoint : mapPointsToCull)
         {
             auto& kfs = mapPoint->GetKeyframes();
@@ -587,29 +585,29 @@ namespace mage
 
     void ThreadSafeMap::GetMapPointsAsPositions(std::vector<Position>& positions) const
     {
-        shared_lock<shared_mutex> lock{ m_mutex };
+        std::shared_lock<std::shared_mutex> lock{ m_mutex };
         m_map->GetMapPointsAsPositions(positions);
     }
 
     size_t ThreadSafeMap::GetMapPointsCount() const
     {
-        shared_lock<shared_mutex> lock{ m_mutex };
+        std::shared_lock<std::shared_mutex> lock{ m_mutex };
         return m_map->GetMapPointsCount();
     }
 
     size_t ThreadSafeMap::GetKeyframesCount() const
     {
-        shared_lock<shared_mutex> lock{ m_mutex };
+        std::shared_lock<std::shared_mutex> lock{ m_mutex };
         return m_map->GetKeyframesCount();
     }
 
     void ThreadSafeMap::GetKeyframeViewMatrices(std::vector<Matrix>& viewMatrices) const
     {
-        shared_lock<shared_mutex> lock{ m_mutex };
+        std::shared_lock<std::shared_mutex> lock{ m_mutex };
         m_map->GetKeyframeViewMatrices(viewMatrices);
     }
 
-    vector<MappingKeyframe> ThreadSafeMap::CreateMapPoints(
+    std::vector<MappingKeyframe> ThreadSafeMap::CreateMapPoints(
         const Id<Keyframe>& keyframeId,
         const gsl::span<const MapPointKeyframeAssociations>& newMapPoints,
         thread_memory memory)
@@ -621,14 +619,14 @@ namespace mage
             XR_INPUT(keyframeId, newMapPoints)
         );
 
-        vector<Proxy<MapPoint>> converted;
+        std::vector<Proxy<MapPoint>> converted;
         converted.reserve(newMapPoints.size());
 
         SCOPE_TIMER(ThreadSafeMapUniqueLock);
 
-        unique_lock<shared_mutex> lock{ m_mutex };
+        std::unique_lock<std::shared_mutex> lock{ m_mutex };
 
-        set<Keyframe*> modified;
+        std::set<Keyframe*> modified;
 
         auto pKeyframe = m_map->GetKeyframe(keyframeId);
         const size_t numLevels = pKeyframe->GetAnalyzedImage()->GetNumLevels();
@@ -638,7 +636,7 @@ namespace mage
         {
             converted.emplace_back(mpProxy.MapPoint.As<Proxy<MapPoint>>());
 
-            MapPoint* mapPoint = m_map->AddMapPoint(make_unique<MapPoint>(mpProxy.MapPoint.GetId(), numLevels));
+            MapPoint* mapPoint = m_map->AddMapPoint(std::make_unique<MapPoint>(mpProxy.MapPoint.GetId(), numLevels));
             mapPoint->SetPosition(mpProxy.MapPoint.GetPosition());
 
             // associate each map point
@@ -670,16 +668,16 @@ namespace mage
         assert(m_map->ValidSpanningTree());
 
         //get copy of connected keyframes and store in mapping frames for use by mapping thread
-        vector<MappingKeyframe> connectedKeyframes;
+        std::vector<MappingKeyframe> connectedKeyframes;
         UnSafeGetCovisibilityConnectedKeyframes(keyframeId, memory, connectedKeyframes);
         return connectedKeyframes;
     }
 
-    unique_ptr<KeyframeProxy> ThreadSafeMap::GetKeyFrameProxy(const Id<Keyframe>& id) const
+    std::unique_ptr<KeyframeProxy> ThreadSafeMap::GetKeyFrameProxy(const Id<Keyframe>& id) const
     {
-        shared_lock<shared_mutex> lock{ m_mutex };
+        std::shared_lock<std::shared_mutex> lock{ m_mutex };
         Keyframe *ptr = m_map->GetKeyframe(id);
-        return ptr == nullptr ? nullptr : make_unique<KeyframeProxy>(ptr);
+        return ptr == nullptr ? nullptr : std::make_unique<KeyframeProxy>(ptr);
     }
 
     void ThreadSafeMap::GetCovisibilityConnectedKeyframes(
@@ -697,7 +695,7 @@ namespace mage
 
         SCOPE_TIMER(ThreadSafeMapSharedLock);
 
-        shared_lock<shared_mutex> lock{ m_mutex };
+        std::shared_lock<std::shared_mutex> lock{ m_mutex };
 
         UnSafeGetCovisibilityConnectedKeyframes(kId, memory, kcs);
     }
@@ -707,7 +705,7 @@ namespace mage
         SCOPE_TIMER(ThreadSafeMap::GetRecentlyCreatedMapPointsList);
         SCOPE_TIMER(ThreadSafeMapSharedLock);
 
-        shared_lock<shared_mutex> lock{ m_mutex };
+        std::shared_lock<std::shared_mutex> lock{ m_mutex };
 
         return UnSafeGetRecentlyCreatedMapPoints();
     }
@@ -721,7 +719,7 @@ namespace mage
     {
         // Propagate newly connected map points to the connected keyframes
         SCOPE_TIMER(ThreadSafeMapUniqueLock);
-        unique_lock<shared_mutex> lock{ m_mutex };
+        std::unique_lock<std::shared_mutex> lock{ m_mutex };
 
         SCOPE_TIMER(ThreadSafeMap::TryConnectMapPoints);
 
@@ -732,7 +730,7 @@ namespace mage
 
         for (const Id<Keyframe>& keyframeId : connectedKfs)
         {
-            vector<MapPointAssociations<MapPointTrackingProxy>::Association> extraAssociations;
+            std::vector<MapPointAssociations<MapPointTrackingProxy>::Association> extraAssociations;
             Keyframe* pKeyframe = m_map->GetKeyframe(keyframeId);
 
             const cv::Matx33f& cameraCalibrationMatrix = pKeyframe->GetAnalyzedImage()->GetUndistortedCalibration().GetCameraMatrix();
@@ -740,7 +738,7 @@ namespace mage
             const cv::Matx34f& viewMatrix = pose.GetViewMatrix();
             const cv::Point3f framePosition = pose.GetWorldSpacePosition();
             const cv::Vec3f frameForward = pose.GetWorldSpaceForward();
-            vector<bool> unassociatedMask = pKeyframe->CreateUnassociatedMask();
+            std::vector<bool> unassociatedMask = pKeyframe->CreateUnassociatedMask();
 
             const float matchRadius = pKeyframe->GetAnalyzedImage()->GetImageBorder() - searchRadius / 2.0f;
             const float pyramidScale = pKeyframe->GetAnalyzedImage()->GetPyramidScale();
@@ -793,7 +791,7 @@ namespace mage
         {
             SCOPE_TIMER(ThreadSafeMapUniqueLock);
 
-            unique_lock<shared_mutex> lock{ m_mutex };
+            std::unique_lock<std::shared_mutex> lock{ m_mutex };
 
             m_pointHistory.clear();
 
@@ -805,7 +803,7 @@ namespace mage
     {
         MapState state;
 
-        shared_lock<shared_mutex> lock{ m_mutex };
+        std::shared_lock<std::shared_mutex> lock{ m_mutex };
 
         state.MapPoints.reserve(m_map->GetMapPointsCount());
         m_map->IterateMapPoints([&](const MapPoint& mp)
@@ -884,7 +882,7 @@ namespace mage
 
         SCOPE_TIMER(ThreadSafeMapSharedLock);
 
-        shared_lock<shared_mutex> lock{ m_mutex };
+        std::shared_lock<std::shared_mutex> lock{ m_mutex };
 
         //Plus 1 on max step so that it runs at least once to get the values.
         for (unsigned int i=0; i< m_covisibilitySettings.MaxSteps+1; i++)
@@ -959,7 +957,7 @@ namespace mage
         {
             externallyTetheredKeyframes.clear();
 
-            set<Id<Keyframe>> queryIds;
+            std::set<Id<Keyframe>> queryIds;
             transform(keyframes.begin(), keyframes.end(), inserter(queryIds, queryIds.end()), [](const auto& kf) { return kf.GetId(); });
 
             auto tetheredIds = memory.stack_unique_vector<Id<Keyframe>>();
@@ -985,7 +983,7 @@ namespace mage
 
         SCOPE_TIMER(ThreadSafeMapUniqueLock);
 
-        unique_lock<shared_mutex> lock{ m_mutex };
+        std::unique_lock<std::shared_mutex> lock{ m_mutex };
 
         UnSafeAdjustPosesAndMapPoints(adjusted, outlierAssociations, memory);
 
@@ -994,7 +992,7 @@ namespace mage
 
     void ThreadSafeMap::UnSafeAdjustPosesAndMapPoints(
         const AdjustableData& adjusted,
-        gsl::span<const pair<Id<MapPoint>, Id<Keyframe>>> outlierAssociations,
+        gsl::span<const std::pair<Id<MapPoint>, Id<Keyframe>>> outlierAssociations,
         thread_memory memory)
     {
         std::set<const Keyframe*> modifiedKeyframes;
@@ -1063,7 +1061,7 @@ namespace mage
         {
             SCOPE_TIMER(ThreadSafeMapUniqueLock);
 
-            unique_lock<shared_mutex> lock{ m_mutex };
+            std::unique_lock<std::shared_mutex> lock{ m_mutex };
 
             auto connectedKeyFrames = memory.stack_unique_vector<Id<Keyframe>>();
             m_map->GetCovisibilityConnectedKeyframes(Ki_ID, connectedKeyFrames);
@@ -1096,7 +1094,7 @@ namespace mage
                     continue;
                 }
 
-                vector<const MapPoint*> mapPoints;
+                std::vector<const MapPoint*> mapPoints;
                 Kc->GetMapPoints(mapPoints);
 
                 // count how many of our map points are seen at equal or finer scale in other keyframes,
@@ -1153,7 +1151,7 @@ namespace mage
 
                     // if a map point is viewed from fewer than 3 keyframes after a keyframe
                     // removal the map point should be removed
-                    set<const Keyframe*> modifiedKeyframes;
+                    std::set<const Keyframe*> modifiedKeyframes;
                     for (const MapPoint* mapPoint : mapPoints)
                     {
                         if (mapPoint->GetKeyframes().size() < 2)

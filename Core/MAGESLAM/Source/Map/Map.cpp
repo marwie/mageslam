@@ -23,8 +23,6 @@
 #include <algorithm>
 #include <arcana/iterators.h>
 
-using namespace std;
-
 namespace mage
 {
     Map::Map(
@@ -39,10 +37,10 @@ namespace mage
         m_keyframes.reserve(INIT_NUM_KEYFRAMES);
 
         // covisibility graph: which keyframes are related by a large number of mappoints being present in each
-        m_CovisGraph = make_unique<CovisibilityGraph>(m_covisSettings);
+        m_CovisGraph = std::make_unique<CovisibilityGraph>(m_covisSettings);
 
         //spanning tree: links keyframes with most map points in common
-        m_SpanningTree = make_unique<SpanningTree>();
+        m_SpanningTree = std::make_unique<SpanningTree>();
     }
 
     Map::~Map()
@@ -50,14 +48,14 @@ namespace mage
 
     ///KEYFRAME INSERTION: paper section VIA
     /// adds a keyframe to the system and updates the related datastructures
-    Keyframe* Map::AddKeyframe(unique_ptr<Keyframe>&& keyframe)
+    Keyframe* Map::AddKeyframe(std::unique_ptr<Keyframe>&& keyframe)
     {
         // we are going to create all the objects before associating them.
         // keyframes should have no map points when they get added to the
         // map, it should get it's map points associated afterwards
         assert(keyframe->GetMapPointsCount() == 0);
 
-        m_keyframes.push_back(move(keyframe));
+        m_keyframes.push_back(std::move(keyframe));
 
         auto insertedKeyframe = m_keyframes.rbegin();
 
@@ -235,7 +233,7 @@ namespace mage
             const auto proxyUnassocMask = proxyKf.GetUnassociatedKeypointMask();
             const auto realUnassocMask = realKf.CreateUnassociatedMask();
 
-            vector<MapPointAssociations<const MapPoint*>::Association> realAssociations;
+            std::vector<MapPointAssociations<const MapPoint*>::Association> realAssociations;
             realKf.GetAssociations(realAssociations);
 
             for (int idx = 0; idx < proxyKf.GetAnalyzedImage()->GetKeyPoints().size(); idx++)
@@ -373,14 +371,14 @@ namespace mage
         return retVal;
     }
 
-    MapPoint* Map::AddMapPoint(unique_ptr<MapPoint>&& mapPoint)
+    MapPoint* Map::AddMapPoint(std::unique_ptr<MapPoint>&& mapPoint)
     {
         // we are going to create all the objects before associating them.
         // MapPoints should have no Keyframes when they get added to the
         // map, it should get it's keyframes associated afterwards
         assert(mapPoint->GetKeyframes().size() == 0);
 
-        auto insertion = m_mapPoints.insert({ mapPoint->GetId(), move(mapPoint) });
+        auto insertion = m_mapPoints.insert({ mapPoint->GetId(), std::move(mapPoint) });
         assert(insertion.second);
 
         return insertion.first->second.get();
@@ -426,9 +424,9 @@ namespace mage
         }
     }
 
-    vector<Id<Keyframe>> Map::GetKeyframeIds() const
+    std::vector<Id<Keyframe>> Map::GetKeyframeIds() const
     {
-        vector<Id<Keyframe>> idList;
+        std::vector<Id<Keyframe>> idList;
         idList.reserve(m_keyframes.size());
 
         transform(m_keyframes.begin(), m_keyframes.end(), mira::emplace_inserter(idList), [](auto& kf) { return kf->GetId(); });
@@ -567,7 +565,7 @@ namespace mage
         }
     }
 
-    void Map::GetCovisibilityConnectedSubGraphs(loop::set<Id<Keyframe>>& ids, thread_memory memory, vector<vector<Id<Keyframe>>>& output) const
+    void Map::GetCovisibilityConnectedSubGraphs(loop::set<Id<Keyframe>>& ids, thread_memory memory, std::vector<std::vector<Id<Keyframe>>>& output) const
     {
         m_CovisGraph->GetConnectedSubGraphs(ids, memory, output);
     }

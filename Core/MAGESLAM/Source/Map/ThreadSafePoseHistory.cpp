@@ -5,8 +5,6 @@
 #include "Utils/Logging.h"
 #include "Utils/thread_memory.h"
 
-using namespace std;
-
 namespace mage
 {
     struct ThreadSafePoseHistoryTempData
@@ -37,7 +35,7 @@ namespace mage
     
     ThreadSafePoseHistory::ThreadSafePoseHistory(const PoseHistorySettings& settings)
         : m_poseHistory{ std::make_unique<PoseHistory>(settings) },
-        m_temporaryHistoricalPoses{ make_unique<std::deque<ThreadSafePoseHistoryTempData>>()}
+        m_temporaryHistoricalPoses{ std::make_unique<std::deque<ThreadSafePoseHistoryTempData>>()}
     {}
 
     ThreadSafePoseHistory::~ThreadSafePoseHistory()
@@ -50,21 +48,21 @@ namespace mage
 
     void ThreadSafePoseHistory::AddKeyframeToTrackingHistory(const Id<Keyframe> keyframeId, const Pose& pose)
     {
-        unique_lock<shared_mutex> lock{ m_poseHistory_mutex };
+        std::unique_lock<std::shared_mutex> lock{ m_poseHistory_mutex };
 
         m_poseHistory->KeyframeAdded(keyframeId, pose);
     }
 
     void ThreadSafePoseHistory::ConnectAdjustedKeyframeToNewlyEstimatedPoses(const Id<Keyframe> keyframeId, const Pose& pose)
     {
-        unique_lock<shared_mutex> lock{ m_poseHistory_mutex };
+        std::unique_lock<std::shared_mutex> lock{ m_poseHistory_mutex };
 
         m_poseHistory->ConnectAdjustedKeyframeToNewlyEstimatedPoses(keyframeId, pose);
     }
 
     void ThreadSafePoseHistory::RemoveKeyframeFromTrackingHistory(const Id<Keyframe> keyframeId, gsl::span<const Id<Keyframe>> covisibleKeyframes)
     {
-        unique_lock<shared_mutex> lock{ m_poseHistory_mutex };
+        std::unique_lock<std::shared_mutex> lock{ m_poseHistory_mutex };
 
         m_poseHistory->KeyframeRemoved(keyframeId, covisibleKeyframes);
     }
@@ -76,7 +74,7 @@ namespace mage
 
     void ThreadSafePoseHistory::AdjustPoses(const std::vector<Proxy<Keyframe, proxy::Pose, proxy::Intrinsics, proxy::PoseConstraints>>& adjustmentData)
     {
-        unique_lock<shared_mutex> lock{ m_poseHistory_mutex };
+        std::unique_lock<std::shared_mutex> lock{ m_poseHistory_mutex };
 
         for (const auto& keyframe : adjustmentData)
         {
@@ -90,18 +88,18 @@ namespace mage
 
         assert(covisibleKeyframes.size() > 0 && "Must have some covisible keyframes");
 
-        unique_lock<shared_mutex> lock{ m_poseHistory_mutex };
+        std::unique_lock<std::shared_mutex> lock{ m_poseHistory_mutex };
 
         // only add to the temporary history maintained by this class
         // add to the real pose history whenever there is a data update for it
         m_temporaryHistoricalPoses->emplace_back(keyframeProxy, covisibleKeyframes, std::move(depth), memory);
     }
 
-    vector<boost::optional<PoseHistory::TrackingInformation>> ThreadSafePoseHistory::GetTrackingInformationForFrames(const gsl::span<const FrameId> frameIds) const
+    std::vector<std::optional<PoseHistory::TrackingInformation>> ThreadSafePoseHistory::GetTrackingInformationForFrames(const gsl::span<const FrameId> frameIds) const
     {
-        shared_lock<shared_mutex> lock{ m_poseHistory_mutex };
+        std::shared_lock<std::shared_mutex> lock{ m_poseHistory_mutex };
 
-        vector<boost::optional<PoseHistory::TrackingInformation>> frames;
+        std::vector<std::optional<PoseHistory::TrackingInformation>> frames;
         frames.reserve(frameIds.size());
 
         for (const FrameId& frameId : frameIds)
@@ -133,7 +131,7 @@ namespace mage
 
     void ThreadSafePoseHistory::FlushTemporaryPoseHistory()
     {
-        unique_lock<shared_mutex> lock{ m_poseHistory_mutex };
+        std::unique_lock<std::shared_mutex> lock{ m_poseHistory_mutex };
 
         while (!m_temporaryHistoricalPoses->empty())
         {
@@ -146,14 +144,14 @@ namespace mage
     bool ThreadSafePoseHistory::TryGetVolumeOfInterest(AxisAlignedVolume& volumeOfInterest, const VolumeOfInterestSettings& voiSettings) const
     {
         SCOPE_TIMER(ThreadSafePoseHistory::GetVolumeOfInterest);
-        shared_lock<shared_mutex> lock{ m_poseHistory_mutex };
+        std::shared_lock<std::shared_mutex> lock{ m_poseHistory_mutex };
 
         return m_poseHistory->TryGetVolumeOfInterest(volumeOfInterest, voiSettings);
     }
 
     void ThreadSafePoseHistory::Clear()
     {
-        unique_lock<shared_mutex> lock{ m_poseHistory_mutex };
+        std::unique_lock<std::shared_mutex> lock{ m_poseHistory_mutex };
         m_poseHistory->Clear();
 
         m_temporaryHistoricalPoses->clear();
@@ -161,7 +159,7 @@ namespace mage
 
     void ThreadSafePoseHistory::DebugGetAllPoses(std::vector<Pose>& poses) const
     {
-        unique_lock<shared_mutex> lock{ m_poseHistory_mutex };
+        std::unique_lock<std::shared_mutex> lock{ m_poseHistory_mutex };
         m_poseHistory->DebugGetAllPoses(poses);
     }
 

@@ -4,8 +4,6 @@
 
 #include <memory>
 
-using namespace std;
-
 using Assert = Microsoft::VisualStudio::CppUnitTestFramework::Assert;
 
 namespace UnitTests

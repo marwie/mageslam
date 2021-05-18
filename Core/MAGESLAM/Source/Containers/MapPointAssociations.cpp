@@ -13,8 +13,6 @@
 #include <memory>
 #include <vector>
 
-using namespace std;
-
 namespace mage
 {
     template<typename MapPointT>
@@ -26,23 +24,23 @@ namespace mage
             boost::bimaps::with_info<boost::bimaps::tagged<MapPointT, MapPointT>>
         >;
 
-        shared_ptr<const AnalyzedImage> m_image;
+        std::shared_ptr<const AnalyzedImage> m_image;
         BiMap m_associations;
 
-        Impl(const shared_ptr<const AnalyzedImage>& image)
+        Impl(const std::shared_ptr<const AnalyzedImage>& image)
             : m_image{ image }
         {}
 
-        Impl(shared_ptr<const AnalyzedImage>& image, const BiMap& map)
+        Impl(std::shared_ptr<const AnalyzedImage>& image, const BiMap& map)
             : m_image{ image }, m_associations{map}
         {}
     };
 
     template<typename MapPointT>
     MapPointAssociations<MapPointT>::MapPointAssociations(
-        const shared_ptr<const AnalyzedImage>& image,
+        const std::shared_ptr<const AnalyzedImage>& image,
         const std::vector<Association>& associations)
-        :   m_impl{ make_unique<Impl>(image)}
+        :   m_impl{ std::make_unique<Impl>(image)}
     {
         for (const auto& assoc : associations)
         {
@@ -52,12 +50,12 @@ namespace mage
 
     template<typename MapPointT>
     MapPointAssociations<MapPointT>::MapPointAssociations(const std::shared_ptr<const AnalyzedImage>& image)
-        : m_impl{ make_unique<Impl>(image) }
+        : m_impl{ std::make_unique<Impl>(image) }
     {}
 
     template<typename MapPointT>
     MapPointAssociations<MapPointT>::MapPointAssociations(std::unique_ptr<Impl>&& impl)
-        : m_impl{move(impl)}
+        : m_impl{ std::move(impl) }
     {}
 
     template<typename MapPointT>
@@ -70,19 +68,19 @@ namespace mage
 
     template<typename MapPointT>
     MapPointAssociations<MapPointT>::MapPointAssociations(MapPointAssociations<MapPointT>&& other) noexcept
-        : m_impl{move(other.m_impl)}
+        : m_impl{ std::move(other.m_impl) }
     {}
 
     template<typename MapPointT>
     MapPointAssociations<MapPointT>& MapPointAssociations<MapPointT>::operator=(const MapPointAssociations& other)
     {
-        m_impl = make_unique<Impl>(*other.m_impl);
+        m_impl = std::make_unique<Impl>(*other.m_impl);
         return *this;
     }
 
     template<typename MapPointT>
     MapPointAssociations<MapPointT>::MapPointAssociations(const MapPointAssociations& other)
-        : m_impl{ make_unique<Impl>(*other.m_impl) }
+        : m_impl{ std::make_unique<Impl>(*other.m_impl) }
     {}
 
     template<typename MapPointT>
@@ -244,7 +242,7 @@ namespace mage
     template<typename MapPointT>
     std::vector<bool> MapPointAssociations<MapPointT>::CreateUnassociatedMask() const
     {
-        vector<bool> flags(m_impl->m_image->GetDescriptorsCount(), true);
+        std::vector<bool> flags(m_impl->m_image->GetDescriptorsCount(), true);
         for (const auto& assoc : m_impl->m_associations.template by<Id<MapPoint>>())
         {
             flags[assoc.template get<KeypointDescriptorIndex>()] = false;
@@ -267,7 +265,7 @@ namespace mage
     template<typename MapPointT>
     std::vector<bool> MapPointAssociations<MapPointT>::CreateAssociatedMask() const
     {
-        vector<bool> flags(m_impl->m_image->GetDescriptorsCount(), false);
+        std::vector<bool> flags(m_impl->m_image->GetDescriptorsCount(), false);
         for (const auto& assoc : m_impl->m_associations.template by<Id<MapPoint>>())
         {
             flags[assoc.template get<KeypointDescriptorIndex>()] = true;
@@ -351,7 +349,7 @@ namespace mage
         {
             other.AddAssociation(OtherMapPointT{ assoc.template get<MapPointT>() }, assoc.template get<KeypointDescriptorIndex>());
         }
-        return move(other);
+        return other;
     }
 
     template<typename MapPointT>
