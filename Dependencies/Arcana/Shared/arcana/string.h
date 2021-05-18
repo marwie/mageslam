@@ -11,28 +11,6 @@
 
 namespace mira
 {
-    inline std::string utf16_to_utf8(const wchar_t* input)
-    {
-        std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-        return converter.to_bytes(input);
-    }
-
-    inline std::wstring utf8_to_utf16(const char* input)
-    {
-        std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
-        return converter.from_bytes(input);
-    }
-
-    inline std::string utf16_to_utf8(const std::wstring& input)
-    {
-        return utf16_to_utf8(input.data());
-    }
-
-    inline std::wstring utf8_to_utf16(const std::string& input)
-    {
-        return utf8_to_utf16(input.data());
-    }
-
     struct string_compare
     {
         using is_transparent = std::true_type;

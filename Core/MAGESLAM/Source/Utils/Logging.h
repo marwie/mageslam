@@ -25,11 +25,11 @@ namespace Tracing
 namespace mage
 {
     template<uint8_t level = Tracing::TraceLevels::Information, uint64_t keyword = Tracing::TraceKeywords::None>
-    inline void LogMessage(const wchar_t*) {}
+    inline void LogMessage(const char*) {}
 
     template<uint8_t level = Tracing::TraceLevels::Information, uint64_t keyword = Tracing::TraceKeywords::None>
-    inline void LogMessage(const std::wstring&) {}
+    inline void LogMessage(const std::string&) {}
 
     template <uint8_t level = Tracing::TraceLevels::Information, uint64_t keyword = Tracing::TraceKeywords::None>
-    inline void LogStatistic(const wchar_t*, const wchar_t*, const int64_t&, const uint64_t&) {}
+    inline void LogStatistic(const char*, const char*, const int64_t&, const uint64_t&) {}
 }

@@ -311,8 +311,8 @@ namespace mage
                 }
                 DETERMINISTIC_CHECK(m_impl->Determinator, culledKeyframes.size());
 
-                LogMessage<Tracing::TraceLevels::Verbose>((boost::wformat(L"MappingThread: Map Point Count: %d") % m_impl->Context.Map.GetMapPointsCount()).str());
-                LogMessage<Tracing::TraceLevels::Verbose>((boost::wformat(L"MappingThread: Keyframe Count: %d") % m_impl->Context.Map.GetKeyframesCount()).str());
+                LogMessage<Tracing::TraceLevels::Verbose>((boost::format("MappingThread: Map Point Count: %d") % m_impl->Context.Map.GetMapPointsCount()).str());
+                LogMessage<Tracing::TraceLevels::Verbose>((boost::format("MappingThread: Keyframe Count: %d") % m_impl->Context.Map.GetKeyframesCount()).str());
 
                 return m_impl->PerIteration.Ki();
             });

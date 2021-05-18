@@ -36,19 +36,6 @@ namespace mira
     {
     };
 
-    namespace traits
-    {
-        template<typename CharT, typename Traits, typename Allocator>
-        std::true_type is_string_test(const std::basic_string<CharT, Traits, Allocator>&);
-        std::false_type is_string_test(...);
-    }
-
-    template<typename T>
-    constexpr bool is_string()
-    {
-        return std::is_same<std::decay_t<decltype(traits::is_string_test(instance_of<T>()))>, std::true_type>::value;
-    }
-
     template<typename T>
     struct static_assert_value
     {

@@ -10,14 +10,14 @@ namespace mage
 {
     DataFlow::~DataFlow()
     {
-        LogStatistic(L"DataFlow", L"Input", m_inputBytes, 1);
+        LogStatistic("DataFlow", "Input", m_inputBytes, 1);
 
         for (auto& fun : m_output)
         {
             fun();
         }
 
-        LogStatistic(L"DataFlow", L"Output", m_outputBytes, 0);
+        LogStatistic("DataFlow", "Output", m_outputBytes, 0);
     }
 
     void DataFlow::LogInput(const void*, size_t size)

@@ -323,7 +323,7 @@ namespace mage
 #pragma optimize("",off)
     void CovisibilityGraph::DebugOutput() const
     {
-        std::wstringstream ss;
+        std::stringstream ss;
         ss << "----Begin Covisibility Graph----" << std::endl;
 
         const IdT numCols = mAdjacencyMat->outerSize();

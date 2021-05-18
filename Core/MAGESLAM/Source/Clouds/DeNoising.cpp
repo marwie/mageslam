@@ -550,9 +550,9 @@ namespace mage
 
             for (size_t iteration = 0; iteration < iterations; ++iteration)
             {
-                LogMessage(L"Starting Iteration");
+                LogMessage("Starting Iteration");
 
-                LogMessage(L"Computing Neighbourhoods");
+                LogMessage("Computing Neighbourhoods");
 
                 Knn knn{ points };
 
@@ -568,11 +568,11 @@ namespace mage
                     }
                 });
 
-                LogMessage(L"Mollifying Normals");
+                LogMessage("Mollifying Normals");
 
                 MollifyNormalsInternal(points, normals, neighbourhoods, mollSigmaN * mollSigmaN, mollSigmaS * mollSigmaN);
 
-                LogMessage(L"Computing Neighborhood Sums");
+                LogMessage("Computing Neighborhood Sums");
 
                 caches.SumTijs.clear();
                 caches.SumTijs.resize(points.size());
@@ -607,7 +607,7 @@ namespace mage
                     caches.SumGammaNormalDerivedOverVi[i] = sumgammanormalderivedovervi;
                 });
 
-                LogMessage(L"Computing Gradients");
+                LogMessage("Computing Gradients");
 
                 mira::parallel(points.size(), 8, [&gradients, &points, &neighbourhoods, &knn, &initialPoints, sigmaSqr, normals, N, lambda](size_t i)
                 {

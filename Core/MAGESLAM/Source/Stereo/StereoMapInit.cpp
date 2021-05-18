@@ -129,7 +129,7 @@ namespace mage
             j++;
 #endif
 
-        LogMessage((boost::wformat(L"StereoInit: found %1% matches out of required %2%") % numMatches % minFeatureMatches).str());
+        LogMessage((boost::format("StereoInit: found %1% matches out of required %2%") % numMatches % minFeatureMatches).str());
 
         //normalized the pose
         cv::Matx44f normalizedFrame0ToFrame1(frame0ToFrame1);
@@ -138,7 +138,7 @@ namespace mage
         const float minPoseDelta = 0.00001f;
         if (lenDelta < minPoseDelta)
         {
-            LogMessage(L"StereoInit: [FAILURE] zero displacement between frames");
+            LogMessage("StereoInit: [FAILURE] zero displacement between frames");
             return boost::none;
         }
 
@@ -150,7 +150,7 @@ namespace mage
         // triangulate points      
         if (numMatches < minFeatureMatches)
         {
-            LogMessage(L"StereoInit: [FAILURE] not enough feature matches");
+            LogMessage("StereoInit: [FAILURE] not enough feature matches");
             return boost::none;
         }
             
@@ -160,7 +160,7 @@ namespace mage
 
         if (initializationData.MapPoints.size() < m_settings.MinInitMapPoints)
         {
-            LogMessage((boost::wformat(L"StereoInit: [FAILURE] not enough map points with: %1%") % initializationData.MapPoints.size()).str());
+            LogMessage((boost::format("StereoInit: [FAILURE] not enough map points with: %1%") % initializationData.MapPoints.size()).str());
 
             return boost::none;
         }
@@ -186,7 +186,7 @@ namespace mage
             m_settings.MinInitMapPoints)
             )
         {
-            LogMessage((boost::wformat(L"StereoInit: [FAILURE] init failed validation")).str());
+            LogMessage((boost::format("StereoInit: [FAILURE] init failed validation")).str());
             return boost::none;
         }
 

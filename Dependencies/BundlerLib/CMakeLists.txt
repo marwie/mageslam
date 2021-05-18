@@ -19,7 +19,7 @@ target_link_libraries(${LIBRARY_NAME}
     PUBLIC GSL)
 
 if(WIN32)
-    target_compile_options(${LIBRARY_NAME} PRIVATE "/bigobj")
+    target_compile_options(${LIBRARY_NAME} PRIVATE "/bigobj" PUBLIC "/Zc:__cplusplus")
 endif()
 
 set_property(TARGET ${LIBRARY_NAME} PROPERTY FOLDER Dependencies)

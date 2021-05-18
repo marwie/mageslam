@@ -286,7 +286,7 @@ namespace mage
 #pragma optimize("",off)
     void SpanningTree::DebugOutput() const
     {
-        wstringstream ss;
+        stringstream ss;
         ss << "----Begin Spanning Tree----" << std::endl;
 
         if (!m_Root.IsValid())

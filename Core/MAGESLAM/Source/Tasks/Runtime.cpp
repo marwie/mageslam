@@ -300,7 +300,7 @@ namespace mage
                 TrackingData.LostCount++;
                 if (!TrackingData.IsLost && TrackingData.LostCount > m_settings.TrackLocalMapSettings.TrackingLostCountUntilReloc)
                 {
-                    LogMessage<>(L"Runtime -> Tracking Lost");
+                    LogMessage<>("Runtime -> Tracking Lost");
 
                     TrackingData.IsLost = true;
                     m_trackingMediator.send(TrackingLost{});
@@ -346,14 +346,14 @@ namespace mage
             {
                 assert(!result && "Tracking schedule should never complete unless its cancelled");
 
-                std::wstringstream ss;
+                std::stringstream ss;
                 if (result)
                 {
                     ss << "Tracking Completed Without Error" << std::endl;
                 }
                 else
                 {
-                    ss << "Tracking Completed With: " << mira::utf8_to_utf16(result.error().message()) << std::endl;
+                    ss << "Tracking Completed With: " << result.error().message() << std::endl;
                 }
 
                 LogMessage<>(ss.str());
@@ -457,7 +457,7 @@ namespace mage
             {
             case mage::PosePriorMethod::VISUAL_INERTIAL_FUSION:
             {
-                LogMessage<>(L"Pose Prior: Visual Inertial");
+                LogMessage<>("Pose Prior: Visual Inertial");
 
                 // TODO: Fuser
                 /*m_externalCas = std::make_unique<ExternalCASIMU>(
@@ -472,7 +472,7 @@ namespace mage
             }
             case mage::PosePriorMethod::VISUAL_INERTIAL_FUSION_WITH_3DOF:
             {
-                LogMessage<>(L"Pose Prior: Visual Inertial With 3Dof");
+                LogMessage<>("Pose Prior: Visual Inertial With 3Dof");
 
                 /* TODO: Fuser
                 m_dynamicPriorProvider = std::make_unique<DynamicIMUPosePriorProvider>(
@@ -486,7 +486,7 @@ namespace mage
             }
             case mage::PosePriorMethod::MOTION_MODEL:
             {
-                LogMessage<>(L"Pose Prior: Motion Model");
+                LogMessage<>("Pose Prior: Motion Model");
 
                 m_motionModelProvider = std::make_unique<MotionModelPriorProvider>();
 

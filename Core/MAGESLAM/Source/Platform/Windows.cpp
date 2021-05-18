@@ -70,16 +70,16 @@ namespace mage
             switch (nAllocType)
             {
             case _HOOK_ALLOC:
-                LogStatistic(L"MemAlloc", L"CrtAlloc", nSize, reinterpret_cast<uint64_t>(pvData));
+                LogStatistic("MemAlloc", "CrtAlloc", nSize, reinterpret_cast<uint64_t>(pvData));
                 break;
             case _HOOK_REALLOC:
-                LogStatistic(L"MemAlloc", L"CrtReAlloc", nSize, reinterpret_cast<uint64_t>(pvData));
+                LogStatistic("MemAlloc", "CrtReAlloc", nSize, reinterpret_cast<uint64_t>(pvData));
                 break;
             case _HOOK_FREE:
-                LogStatistic(L"MemAlloc", L"CrtFree", nSize, reinterpret_cast<uint64_t>(pvData));
+                LogStatistic("MemAlloc", "CrtFree", nSize, reinterpret_cast<uint64_t>(pvData));
                 break;
             default:
-                LogStatistic(L"MemAlloc", L"CrtUnknown", nSize, reinterpret_cast<uint64_t>(pvData));
+                LogStatistic("MemAlloc", "CrtUnknown", nSize, reinterpret_cast<uint64_t>(pvData));
             }
             return TRUE;
         }

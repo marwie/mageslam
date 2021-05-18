@@ -4,7 +4,7 @@
 #pragma once
 
 #include <memory>
-#include <experimental/filesystem>
+#include <filesystem>
 
 #include "MageSlam.h"
 #include "Introspector.h"
@@ -40,7 +40,7 @@ namespace mage
 
         void AddIntrospector(Introspector& inspector);
 
-        void BeginIMULogging(const std::experimental::filesystem::path& imuFile);
+        void BeginIMULogging(const std::filesystem::path& imuFile);
         void EndIMULogging();
         FuserMode GetFuserMode();
 

@@ -306,7 +306,7 @@ namespace mira
                 stream >> value;
             }
 
-            assert((is_string<T>() || !stream.fail()) && "Property bag failed to convert string to value");
+            assert((std::is_convertible<T, std::string>::value || !stream.fail()) && "Property bag failed to convert string to value");
         }
 
         static void to_stream(std::ostream& stream, const T& value)

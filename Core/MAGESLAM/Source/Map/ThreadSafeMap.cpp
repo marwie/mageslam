@@ -413,7 +413,7 @@ namespace mage
                 }
                 else
                 {
-                    LogMessage<Tracing::TraceLevels::Warning>(L"QueryUnknownImage returned an element that was not in the map.  This could be a timing quirk or a map/BoW desync bug.");
+                    LogMessage<Tracing::TraceLevels::Warning>("QueryUnknownImage returned an element that was not in the map.  This could be a timing quirk or a map/BoW desync bug.");
                 }
             }
         }

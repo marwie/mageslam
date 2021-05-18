@@ -452,7 +452,7 @@ namespace mage
         // None of the potiential poses are valid
         if (selectedPoseScore <= 0)
         {
-            LogMessage<Tracing::TraceLevels::Verbose>(L"MapInitialization  No pose with valid score");
+            LogMessage<Tracing::TraceLevels::Verbose>("MapInitialization  No pose with valid score");
             return false;
         }
 
@@ -460,14 +460,14 @@ namespace mage
         float scoreRatio = (selectedPoseScore - nextBestPoseScore) / selectedPoseScore;
         if (scoreRatio < m_settings.MinCandidatePoseDisimilarity)
         {
-            LogMessage<Tracing::TraceLevels::Verbose>(L"MapInitialization  Best poses too similar");
+            LogMessage<Tracing::TraceLevels::Verbose>("MapInitialization  Best poses too similar");
             return false;
         }
 
         // validate for z-direction constraint
         if (abs(poses.at(selectedPoseIndex).GetWorldSpacePosition().z) > m_settings.MaxPoseContributionZ)
         {
-            LogMessage<Tracing::TraceLevels::Verbose>(L"MapInitialization  Best pose too biased in Z direction");
+            LogMessage<Tracing::TraceLevels::Verbose>("MapInitialization  Best pose too biased in Z direction");
             return false;
         }
 
@@ -481,7 +481,7 @@ namespace mage
 
     void MapInitialization::ResetMapInitialization()
     {
-        LogMessage<>(L"MapInitialization  ResetMapInitialization");
+        LogMessage<>("MapInitialization  ResetMapInitialization");
         m_initializationFrames.clear();
         m_initializationDescriptorsCounters.clear();
     }
@@ -537,7 +537,7 @@ namespace mage
 
             return InitializationAttemptState::NoPose;
         }
-        LogMessage<Tracing::TraceLevels::Verbose>((boost::wformat(L"MapInitialization frame %d Initializing has %d frames") % frame->GetFrameId().CorrelationId % m_initializationFrames.size()).str());
+        LogMessage<Tracing::TraceLevels::Verbose>((boost::format("MapInitialization frame %d Initializing has %d frames") % frame->GetFrameId().CorrelationId % m_initializationFrames.size()).str());
 
         if (!TryIntializeMapWithProvidedFrames(m_initializationFrames.front(), m_initializationFrames.back(), memory, initializationData, bagOfWords))
         {
@@ -627,13 +627,13 @@ namespace mage
             {
                 ResetMapInitialization();
                 SkeletonLogger::MapInitialization::LogFailure("bestMatches.size() < m_mapInitializationSettings.MinFeatureMatches");
-                LogMessage<Tracing::TraceLevels::Verbose>((boost::wformat(L"MapInitialization  Not enough matches : %d") % bestMatches.size()).str());
+                LogMessage<Tracing::TraceLevels::Verbose>((boost::format("MapInitialization  Not enough matches : %d") % bestMatches.size()).str());
                 return false;
             }
 
             // try to compute the pose for the frame pairing
             bool initializeSucceeded = InitializeWithFrames(bestMatches, referenceFrame.Image, currentFrame.Image, initializationData, memory);
-            LogMessage<Tracing::TraceLevels::Verbose>((boost::wformat(L"MapInitialization  Initializing attempt success? %s") % (initializeSucceeded ? "true" : "false")).str());
+            LogMessage<Tracing::TraceLevels::Verbose>((boost::format("MapInitialization  Initializing attempt success? %s") % (initializeSucceeded ? "true" : "false")).str());
             SkeletonLogger::MapInitialization::LogFailure(initializeSucceeded ? "Initialize succeeded" : "Initialize failed");
 
             if (!initializeSucceeded)
@@ -877,7 +877,7 @@ namespace mage
                 return false;
             }
 
-            LogMessage<Tracing::TraceLevels::Verbose>((boost::wformat(L"MapInitialization  Initializing attempt success? %s") % (initializeSucceeded ? "true" : "false")).str());
+            LogMessage<Tracing::TraceLevels::Verbose>((boost::format("MapInitialization  Initializing attempt success? %s") % (initializeSucceeded ? "true" : "false")).str());
 
             SkeletonLogger::MapInitialization::LogFailure(initializeSucceeded ? "Initialize succeeded" : "Initialize failed");
 
@@ -1001,7 +1001,7 @@ namespace mage
         // ensure that enough matches have been accepted during the collection step
         if (matches.size() < (int)m_settings.MinFeatureMatches)
         {
-            LogMessage<Tracing::TraceLevels::Verbose>(L"MapInitialization  Not enough accepted matches");
+            LogMessage<Tracing::TraceLevels::Verbose>("MapInitialization  Not enough accepted matches");
             return false;
         }
 
@@ -1020,7 +1020,7 @@ namespace mage
 
         if (!foundPose)
         {
-            LogMessage<Tracing::TraceLevels::Verbose>(L"MapInitialization didn't find correct pose");
+            LogMessage<Tracing::TraceLevels::Verbose>("MapInitialization didn't find correct pose");
             return false;
         }
 

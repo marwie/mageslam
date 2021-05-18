@@ -3,13 +3,13 @@
 
 #pragma once
 
-#if __has_include(<experimental/filesystem>)
+#if __has_include(<filesystem>)
 
-#include <experimental/filesystem>
+#include <filesystem>
 
 namespace mira
 {
-    using path = std::experimental::filesystem::path;
+    using path = std::filesystem::path;
 }
 
 #else
