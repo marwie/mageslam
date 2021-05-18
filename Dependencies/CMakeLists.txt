@@ -17,6 +17,12 @@ set(EIGEN3_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/eigen-git-mirror" CACHE STRI
 set(G2O_USE_OPENGL OFF CACHE BOOL "Build g2o with OpenGL support for visualization")
 set(G2O_BUILD_APPS OFF CACHE BOOL "Build g2o apps")
 set(G2O_BUILD_EXAMPLES OFF CACHE BOOL "Build g2o examples")
+option(DO_SSE_AUTODETECT "Enable autodetection of SSE* CPU sets and enable their use in optimized code" OFF)
+set(DISABLE_SSE2 ON CACHE BOOL "Forces compilation WITHOUT SSE2 extensions")
+set(DISABLE_SSE3 ON CACHE BOOL "Forces compilation WITHOUT SSE3 extensions")
+set(DISABLE_SSE4_1 ON CACHE BOOL "Forces compilation WITHOUT SSE4_1 extensions")
+set(DISABLE_SSE4_2 ON CACHE BOOL "Forces compilation WITHOUT SSE4_2 extensions")
+set(DISABLE_SSE4_A ON CACHE BOOL "Forces compilation WITHOUT SSE4_A extensions")
 add_subdirectory(g2o EXCLUDE_FROM_ALL)
 add_library(g2o INTERFACE)
 target_link_libraries(g2o INTERFACE
