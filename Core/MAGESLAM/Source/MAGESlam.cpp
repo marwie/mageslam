@@ -38,7 +38,8 @@ namespace
 
     struct MultiThreadedModel
     {
-        void Run(const std::future<mage::MAGESlam::Tracking>&)
+        template<typename T>
+        void Run(const std::future<T>&)
         {
         }
 
@@ -54,7 +55,8 @@ namespace
 
     struct BackgroundThreadedModel
     {
-        void Run(const std::future<mage::MAGESlam::Tracking>&)
+        template<typename T>
+        void Run(const std::future<T>&)
         {
         }
 
@@ -68,7 +70,8 @@ namespace
 
     struct SingleThreadedModel
     {
-        void Run(const std::future<mage::MAGESlam::Tracking>& future)
+        template<typename T>
+        void Run(const std::future<T>& future)
         {
             std::chrono::milliseconds span{ 0 };
             while (future.wait_for(span) == std::future_status::timeout)
@@ -215,7 +218,9 @@ namespace mage
     }
 
     MAGESlam::~MAGESlam()
-    {}
+    {
+        m_impl->m_threadingModel->Run(m_impl->m_runtime->DisposeAsync());
+    }
 
     std::future<MAGESlam::Tracking> MAGESlam::ProcessFrame(const Frame& frame)
     {

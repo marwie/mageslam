@@ -706,20 +706,32 @@ namespace mage
     {}
 
     Runtime::~Runtime()
-    {
-        std::promise<void> prom;
-
-        m_impl->DisposeAsync().then(mira::inline_scheduler, mira::cancellation::none(), [&]
-        {
-            prom.set_value();
-        });
-
-        prom.get_future().get();
-    }
+    {}
 
     void Runtime::Run(gsl::span<const MAGESlam::CameraConfiguration> cameras)
     {
         m_impl->Run(cameras);
+    }
+
+    std::future<void> Runtime::DisposeAsync()
+    {
+        std::promise<void> prom;
+        std::future<void> future = prom.get_future();
+
+        if (m_impl != nullptr)
+        {
+            std::unique_ptr<Runtime::Impl> implPtr;
+            m_impl.swap(implPtr);
+            auto& impl = *implPtr;
+            auto* tuple = new std::tuple<decltype(prom), decltype(implPtr)>(std::move(prom), std::move(implPtr));
+            impl.DisposeAsync().then(mira::inline_scheduler, mira::cancellation::none(), [tuple]() mutable
+                {
+                    std::get<0>(*tuple).set_value();
+                    delete tuple;
+                });
+        }
+
+        return future;
     }
 
     void Runtime::AddSample(const mage::SensorSample& sample)
