@@ -219,7 +219,11 @@ namespace mage
 
     MAGESlam::~MAGESlam()
     {
-        m_impl->m_threadingModel->Run(m_impl->m_runtime->DisposeAsync());
+        if (m_impl->m_runtime != nullptr)
+        {
+            auto future = m_impl->m_runtime->DisposeAsync();
+            m_impl->m_threadingModel->Run(future);
+        }
     }
 
     std::future<MAGESlam::Tracking> MAGESlam::ProcessFrame(const Frame& frame)
@@ -383,6 +387,9 @@ namespace mage
     {
         {
             SCOPE_TIMER(MAGESlam::Fossilize::StopThreads);
+            
+            auto future = slam->m_impl->m_runtime->DisposeAsync();
+            slam->m_impl->m_threadingModel->Run(future);
 
             slam->m_impl->m_runtime.reset();
         }

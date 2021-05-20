@@ -720,10 +720,8 @@ namespace mage
 
         if (m_impl != nullptr)
         {
-            std::unique_ptr<Runtime::Impl> implPtr;
-            m_impl.swap(implPtr);
-            auto& impl = *implPtr;
-            auto* tuple = new std::tuple<decltype(prom), decltype(implPtr)>(std::move(prom), std::move(implPtr));
+            auto& impl = *m_impl;
+            auto* tuple = new std::tuple(std::move(prom), std::move(m_impl));
             impl.DisposeAsync().then(mira::inline_scheduler, mira::cancellation::none(), [tuple]() mutable
                 {
                     std::get<0>(*tuple).set_value();

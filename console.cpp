@@ -295,7 +295,7 @@ void main()
 
     uint64_t idx = 0;
 
-    ProcessFrames("C:\\Users\\jumurray.REDMOND\\Desktop\\0025_Bananas\\131067625136085151.mp4", [&](cv::Mat mat)
+    ProcessFrames("C:\\scratch\\131067625136085151.mp4", [&](cv::Mat mat)
     {
         std::chrono::system_clock::time_point timePoint{ std::chrono::milliseconds(33 * idx) };
         mage::FrameId frameId{ idx++, mage::CameraIdentity::MONO };
