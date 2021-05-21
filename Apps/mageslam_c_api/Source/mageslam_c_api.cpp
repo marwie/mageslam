@@ -2,6 +2,8 @@
 
 #include "MageSlam.h"
 
+#include <opencv2/opencv.hpp>
+
 namespace
 {
     void SetDefaultSettings(mage::MageSlamSettings& settings)
@@ -271,15 +273,24 @@ void mageslam_uninitialize()
     session.reset();
 }
 
-void mageslam_process_frame(void* pixelData)
+void mageslam_process_frame(int width, int height, void* data)
 {
+    // TODO: Consider moving resize/reformat code off the CPU.
+    cv::Mat image{ height, width, CV_8UC4, data };
+    cv::Mat grayscale{};
+    cv::Mat trackingImage{};
+    const cv::Size TRACKING_SIZE{ 320, 180 };
+
+    cv::cvtColor(image, grayscale, cv::COLOR_RGBA2GRAY);
+    cv::resize(grayscale, trackingImage, TRACKING_SIZE);
+
     std::chrono::system_clock::time_point timePoint{ std::chrono::milliseconds(33 * session->Frame) };
     mage::FrameId frameId{ session->Frame, mage::CameraIdentity::MONO };
     ++session->Frame;
 
     mage::MAGESlam::FrameFormat format{ frameId, session->CameraModel, timePoint, session->CameraSettings };
 
-    auto pixels = gsl::make_span<uint8_t>(reinterpret_cast<uint8_t*>(pixelData), 320 * 180);
+    auto pixels = gsl::make_span<uint8_t>(trackingImage.data, 320 * 180);
 
     mage::MAGESlam::Frame frame{ format, pixels };
     auto future = session->Slam->ProcessFrame(frame);
