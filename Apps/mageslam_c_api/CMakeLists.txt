@@ -3,8 +3,6 @@
 
 set(LIBRARY_NAME "mageslam_c_api")
 
-find_package(OpenCV REQUIRED)
-
 set(SOURCES
     "Include/mageslam_c_api.h"
     "Source/mageslam_c_api.cpp")

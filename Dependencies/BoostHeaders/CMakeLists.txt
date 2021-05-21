@@ -3,7 +3,7 @@
 
 add_library(BoostHeaders INTERFACE)
 
-set(BOOST_DIR "C:/bin/boost")
+set(BOOST_DIR "${CMAKE_SOURCE_DIR}/${BOOST_DIR}")
 target_include_directories(BoostHeaders INTERFACE
     "${BOOST_DIR}/libs/accumulators/include"
     "${BOOST_DIR}/libs/algorithm/include"

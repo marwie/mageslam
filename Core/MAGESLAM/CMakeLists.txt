@@ -3,8 +3,6 @@
 
 set(LIBRARY_NAME "MAGESLAM")
 
-find_package(OpenCV REQUIRED)
-
 set(SOURCES
     "Source/Analysis/binary_iterators.h"
     "Source/Analysis/DataFlow.cpp"
