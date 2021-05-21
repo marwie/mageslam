@@ -2,8 +2,6 @@
 
 #include "MageSlam.h"
 
-#include <optional>
-
 namespace
 {
     void SetDefaultSettings(mage::MageSlamSettings& settings)
@@ -250,13 +248,6 @@ void mageslam_initialize()
 
     auto slam = std::make_unique<mage::MAGESlam>(settings, configurations, imuCharacterization);
 
-    // mage::Intrinsics intrinsics{ 162.04f, 92.08f, 239.12f, 239.28f, 320, 180 };
-    // std::vector<float> distortionCoefficients(5, 0);
-    // distortionCoefficients[0] = 0.094;
-    // distortionCoefficients[1] = -0.35;
-    // distortionCoefficients[2] = 0.42;
-    // auto cameraModel = std::make_shared<mage::calibration::Poly3KCameraModel>(intrinsics, distortionCoefficients);
-
     std::vector<float> distortionCoefficients(5, 0);
     distortionCoefficients[0] = 0.094f;
     distortionCoefficients[1] = -0.35f;
@@ -271,8 +262,6 @@ void mageslam_initialize()
         distortionCoefficients };
     std::shared_ptr<const mage::calibration::Poly3KCameraModel> cameraModel =
         model.CreatePoly3kCameraModel(650, 320, 180);
-
-    mira::CameraSettings cameraSettings{};
 
     session = std::make_unique<Session>(std::move(slam), std::move(cameraModel));
 }
@@ -290,12 +279,30 @@ void mageslam_process_frame(void* pixelData)
 
     mage::MAGESlam::FrameFormat format{ frameId, session->CameraModel, timePoint, session->CameraSettings };
 
-    // TODO: Convert mat into configuratin (size, pixel format) expected.
     auto pixels = gsl::make_span<uint8_t>(reinterpret_cast<uint8_t*>(pixelData), 320 * 180);
 
     mage::MAGESlam::Frame frame{ format, pixels };
     auto future = session->Slam->ProcessFrame(frame);
     auto result = future.get();
 
-    mageslam_frame_processed_callback();
+    mageslam_frame_processed_callback(
+        result.IsPoseGood(),
+        result.IsPoseSkipped(),
+        static_cast<int>(result.State),
+        result.Pose.M11,
+        result.Pose.M12,
+        result.Pose.M13,
+        result.Pose.M14,
+        result.Pose.M21,
+        result.Pose.M22,
+        result.Pose.M23,
+        result.Pose.M24,
+        result.Pose.M31,
+        result.Pose.M32,
+        result.Pose.M33,
+        result.Pose.M34,
+        result.Pose.M41,
+        result.Pose.M42,
+        result.Pose.M43,
+        result.Pose.M44);
 }
