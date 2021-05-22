@@ -3,7 +3,7 @@
 
 if(OpenCV_DIR)
     find_package(OpenCV REQUIRED)
-endif();
+endif()
 
 add_executable(Console "console.cpp")
 target_link_libraries(Console
