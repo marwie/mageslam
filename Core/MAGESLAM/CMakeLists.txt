@@ -216,7 +216,7 @@ target_include_directories(${LIBRARY_NAME} PUBLIC "Source")
 
 target_link_libraries(${LIBRARY_NAME}
     PUBLIC Arcana
-    PUBLIC opencv_world
+    PUBLIC opencv_headers
     PUBLIC Eigen
     PUBLIC BundlerLib
     PUBLIC FuserLib)
