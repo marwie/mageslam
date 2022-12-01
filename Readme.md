@@ -9,8 +9,17 @@
 - open sln
 - it should be able to build mageslam_c_api now
 
-- after that install emscripten: https://chocolatey.org/packages/emscripten via https://emscripten.org/docs/getting_started/downloads.html
-- compile mageslam_c_api to wasm using ``emcc --emit-symbol-map mageslam_c_api_d.lib``
+
+## Building a wasm
+- install emscripten: https://chocolatey.org/packages/emscripten via https://emscripten.org/docs/getting_started/downloads.html
+- run these two commands in the Build directory
+```
+emcmake cmake -G"Unix Makefiles" -DCMAKE_BUILD_TYPE=MinSizeRel ..
+cmake --build .
+```
+
+- ~~compile mageslam_c_api to wasm using ``emcc --emit-symbol-map mageslam_c_api_d.lib``~~
+
 
 ## Troubleshooting
 
