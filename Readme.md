@@ -8,4 +8,8 @@
 - ``cmake -G "Visual Studio 16 2019" -A x64 -D OpenCV_DIR="C:\path\to\opencv\build" -D Boost_INCLUDE_DIR="C:\local\boost_1_67_0"``
 
 
+## Troubleshooting
+
+#### "boost can not be found" when building
+- add additional include directories in Arcana and MAGESLAM projects (the projects that throw the error) to ``C:\local\boost_1_67_0``
 
