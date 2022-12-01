@@ -10,3 +10,6 @@
 [submodule "Dependencies/g2o"]
 	path = Dependencies/g2o
 	url = https://github.com/RainerKuemmerle/g2o
+[submodule "Dependencies/boost"]
+	path = Dependencies/boost
+	url = https://github.com/boostorg/boost.git
