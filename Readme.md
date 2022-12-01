@@ -5,7 +5,7 @@
 - Install boost 1.67 https://sourceforge.net/projects/boost/files/boost-binaries/1.67.0/
 - ``mkdir Build``
 - ``cd Build``
-- ``cmake -G "Visual Studio 16 2019" -A x64 -D OpenCV_DIR="C:\path\to\opencv\build" -D Boost_INCLUDE_DIR="C:\local\boost_1_67_0 .."``
+- ``cmake -G "Visual Studio 16 2019" -A x64 -D OpenCV_DIR="C:\path\to\opencv\build" -D Boost_INCLUDE_DIR="C:\local\boost_1_67_0" ..``
 - open sln
 - it should be able to build mageslam_c_api now
 
@@ -14,7 +14,7 @@
 - install emscripten: https://chocolatey.org/packages/emscripten via https://emscripten.org/docs/getting_started/downloads.html
 - run these two commands in the Build directory
 ```
-emcmake cmake -G"Unix Makefiles" -DCMAKE_BUILD_TYPE=MinSizeRel ..
+emcmake cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=MinSizeRel -D OpenCV_DIR="C:\opencv\build" -D Boost_INCLUDE_DIR="C:\local\boost_1_67_0" ..
 cmake --build .
 ```
 
