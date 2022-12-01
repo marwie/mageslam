@@ -10,19 +10,35 @@
 - it should be able to build mageslam_c_api now
 
 
+---
+
 ## Building a wasm
+
+### Install emscripten
 - install emscripten: https://chocolatey.org/packages/emscripten via https://emscripten.org/docs/getting_started/downloads.html
+
+### Build opencv for unix
+- download https://sourceforge.net/projects/opencvlibrary/files/3.4.16/
+- ``mkdir build && cd build``
+- ``cmake -G "Unix Makefiles" ..``
+
+### Build
 - run these two commands in the Build directory
 ```
-emcmake cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=MinSizeRel -D OpenCV_DIR="C:\opencv\build" -D Boost_INCLUDE_DIR="C:\local\boost_1_67_0" ..
+emcmake cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=MinSizeRel -D OpenCV_DIR="C:\Users\marce\Downloads\opencv-3.4.3\build" -D Boost_INCLUDE_DIR="C:\Users\marce\Downloads\boost_1_63_0.tar\boost_1_63_0" -D Boost_DIR="C:\Users\marce\Downloads\boost_1_63_0.tar\boost_1_63_0\boost" ..
 cmake --build .
 ```
 
 - ~~compile mageslam_c_api to wasm using ``emcc --emit-symbol-map mageslam_c_api_d.lib``~~
-
+https://sourceforge.net/projects/opencvlibrary/files/opencv-unix/3.4.3/opencv-3.4.3.zip/download
 
 ## Troubleshooting
 
 #### "boost can not be found" when building
 - add additional c++ include directories in Arcana and MAGESLAM projects (the projects that throw the error) to ``C:\local\boost_1_67_0``
 
+
+
+## Other links
+
+- https://github.com/floooh/pacman.c
