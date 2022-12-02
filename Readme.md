@@ -42,6 +42,7 @@ cmake --build .
   - ``-sLLD_REPORT_UNDEFINED`` print more info about unresolved symbols
   - ``-g2`` debug flag
 
+OR ``emcc --emit-symbol-map -g2 -sLLD_REPORT_UNDEFINED libmageslam_c_api_s.a -o wasm/libmageslam.html``
 
 
 
@@ -69,7 +70,8 @@ cmake --build .
 - Online WASM to text: https://webassembly.github.io/wabt/demo/wasm2wat/
 - Information about DCMAKE_BUILD_TYPE options: https://stackoverflow.com/a/59314670
 - Keep functions alive: https://emscripten.org/docs/getting_started/FAQ.html#why-do-functions-in-my-c-c-source-code-vanish-when-i-compile-to-javascript-and-or-i-get-no-functions-to-process
-
+- Export all https://stackoverflow.com/questions/33190760/export-all-functions-with-emscripten
+- Adding emscripten include to makefile? https://github.com/emscripten-core/emscripten/issues/17024 
 
 
 ## Things that didnt work

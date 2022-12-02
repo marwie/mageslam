@@ -4,6 +4,7 @@
 set(LIBRARY_NAME "mageslam_c_api")
 
 set(SOURCES
+    "Source/test.cpp"
     "Include/mageslam_c_api.h"
     "Source/mageslam_c_api.cpp")
 

@@ -4,7 +4,6 @@
 #include <emscripten.h>
 
 
-
 #ifdef __cplusplus
 #define EXTERN extern "C"
 #else
@@ -12,11 +11,7 @@
 #endif
 
 
-EXTERN EMSCRIPTEN_KEEPALIVE void myFunction(int argc) {
+EXTERN EMSCRIPTEN_KEEPALIVE void NEEDLE123() {
     printf("MyFunction Called\n");
 }
 
-
-int main() {
-    return 0;
-}

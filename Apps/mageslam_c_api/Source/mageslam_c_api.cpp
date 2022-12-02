@@ -1,8 +1,32 @@
+#include <stdio.h>
+#include <emscripten.h>
+
+
+#ifdef __cplusplus
+#define EXTERN extern "C"
+#else
+#define EXTERN
+#endif
+
+
+EXTERN EMSCRIPTEN_KEEPALIVE void NEEDLE() {
+    printf("MyFunction Called\n");
+}
+
+
+int main() {
+    return 0;
+}
+
+
+
 #include "mageslam_c_api.h"
 
 #include "MageSlam.h"
 
 #include <opencv2/opencv.hpp>
+
+
 
 namespace
 {
