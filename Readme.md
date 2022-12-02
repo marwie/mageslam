@@ -35,24 +35,21 @@ emcmake cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=MinSizeRel -D OpenCV_DIR="C
 cmake --build .
 ```
 
-- Compile ``.a`` to wasm
-```
-mkdir wasm
-emcc libminimal.a -o wasm/hello.html
-OR
- emcc --emit-symbol-map -g2 -sERROR_ON_UNDEFINED_SYMBOLS=0 -sLLD_REPORT_UNDEFINED -sEXPORTED_FUNCTIONS=_mageslam_initialize libmageslam_c_api_s.a -o wasm/libmageslam.html
-```
+- Go to Build/Apps/mageslam_c_api
+- ``mkdir wasm``
+- Compile ``.a`` to wasm ``emcc --emit-symbol-map -g2 -sLLD_REPORT_UNDEFINED --no-entry -s LINKABLE=1 -s EXPORT_ALL=1 libmageslam_c_api_s.a -o wasm/libmageslam.html``
   - ``-sERROR_ON_UNDEFINED_SYMBOLS=0`` for ignoring unresolved symbols - only here for testing
   - ``-sLLD_REPORT_UNDEFINED`` print more info about unresolved symbols
   - ``-g2`` debug flag
 
-- ~~compile mageslam_c_api to wasm using ``emcc --emit-symbol-map mageslam_c_api_d.lib``~~
 
 ## Troubleshooting
 
 #### "boost can not be found" when building
 - add additional c++ include directories in Arcana and MAGESLAM projects (the projects that throw the error) to ``C:\local\boost_1_67_0``
 
+#### how can i see which symbols are included in a ``.a`` lib?
+- ``llvm-nm libmageslam_c_api_s.a``
 
 ## EMSC options
 - ``--emit-symbol-map`` for debugging
@@ -65,3 +62,12 @@ OR
 - Online WASM to text: https://webassembly.github.io/wabt/demo/wasm2wat/
 - Information about DCMAKE_BUILD_TYPE options: https://stackoverflow.com/a/59314670
 - Keep functions alive: https://emscripten.org/docs/getting_started/FAQ.html#why-do-functions-in-my-c-c-source-code-vanish-when-i-compile-to-javascript-and-or-i-get-no-functions-to-process
+
+
+
+## Things that didnt work
+- build using VS19 and compile mageslam_c_api to wasm using ``emcc --emit-symbol-map mageslam_c_api_d.lib``
+- `` emcc --emit-symbol-map -g2 -sLLD_REPORT_UNDEFINED -sEXPORTED_FUNCTIONS=_mageslam_process_frame libmageslam_c_api_s.a -o wasm/libmageslam.html``
+- `` emcc --emit-symbol-map -g2 -sLLD_REPORT_UNDEFINED -I C:/git/mageslam/**/*.cpp -sEXPORTED_FUNCTIONS=_mageslam_process_frame libmageslam_c_api_s.a -o wasm/libmageslam.html``
+- `` emcc --emit-symbol-map -g2 -sLLD_REPORT_UNDEFINED -I "C:\git\mageslam\Build\Core\MAGESLAM\libMAGESLAM_s.a" -sEXPORTED_FUNCTIONS=_mageslam_initialize libmageslam_c_api_s.a -o wasm/libmageslam.html``
+- ``emcc --emit-symbol-map -g2 -sLLD_REPORT_UNDEFINED -I C:/git/mageslam/Build/Core/MAGESLAM/libMAGESLAM_s.a -sEXPORTED_FUNCTIONS=_mageslam_process_frame libmageslam_c_api_s.a -o wasm/libmageslam.html``
