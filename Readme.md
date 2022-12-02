@@ -18,14 +18,20 @@
 - install emscripten: https://chocolatey.org/packages/emscripten via https://emscripten.org/docs/getting_started/downloads.html
 
 ### Build opencv for unix
-- download https://sourceforge.net/projects/opencvlibrary/files/3.4.16/
+- download https://sourceforge.net/projects/opencvlibrary/files/opencv-unix/3.4.3/
 - ``mkdir build && cd build``
 - ``cmake -G "Unix Makefiles" ..``
 
-### Build
+### Include boost
+- Add ``include_directories("Shared" "C:/local/boost_1_67_0")`` to CMakeList
+
+### Update eigen
+- Commit sha: 36b95962756c1fce8e29b1f8bc45967f30773c00 fixing error ``class template partial specialization is not more specialized than the primary template [-Winvalid-partial-specialization]``
+
+### Generate and run build
 - run these two commands in the Build directory
 ```
-emcmake cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=MinSizeRel -D OpenCV_DIR="C:\Users\marce\Downloads\opencv-3.4.3\build" -D Boost_INCLUDE_DIR="C:\Users\marce\Downloads\boost_1_63_0.tar\boost_1_63_0" -D Boost_DIR="C:\Users\marce\Downloads\boost_1_63_0.tar\boost_1_63_0\boost" ..
+emcmake cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=MinSizeRel -D OpenCV_DIR="C:\Users\marce\Downloads\unix\opencv-3.4.3\opencv-3.4.3\build" ..
 cmake --build .
 ```
 
