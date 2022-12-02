@@ -13,3 +13,6 @@
 [submodule "Dependencies/boost"]
 	path = Dependencies/boost
 	url = https://github.com/boostorg/boost.git
+[submodule "Dependencies/emscripten"]
+	path = Dependencies/emscripten
+	url = https://github.com/emscripten-core/emsdk.git
