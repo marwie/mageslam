@@ -48,3 +48,4 @@ https://sourceforge.net/projects/opencvlibrary/files/opencv-unix/3.4.3/opencv-3.
 ## Other links
 
 - https://github.com/floooh/pacman.c
+- Online WASM to text: https://webassembly.github.io/wabt/demo/wasm2wat/
