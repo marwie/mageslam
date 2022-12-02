@@ -10,7 +10,7 @@
 - it should be able to build mageslam_c_api now
 
 
----
+
 
 ## Building a wasm
 
@@ -43,6 +43,8 @@ cmake --build .
   - ``-g2`` debug flag
 
 
+
+
 ## Troubleshooting
 
 #### "boost can not be found" when building
@@ -50,6 +52,11 @@ cmake --build .
 
 #### how can i see which symbols are included in a ``.a`` lib?
 - ``llvm-nm libmageslam_c_api_s.a``
+
+#### Where is the emscripten sdk?
+- ``C:\Users\marce\AppData\Local\emsdk\upstream\emscripten\system\include´`
+
+
 
 ## EMSC options
 - ``--emit-symbol-map`` for debugging

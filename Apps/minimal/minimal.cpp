@@ -1,6 +1,8 @@
 #include <stdio.h>
 
 
+#include <emscripten/emscripten.h>
+
 
 #ifdef __cplusplus
 #define EXTERN extern "C"
@@ -8,13 +10,13 @@
 #define EXTERN
 #endif
 
-EXTERN void myFunction(int argc) {
+
+EXTERN EMSCRIPTEN_KEEPALIVE void myFunction(int argc) {
     printf("MyFunction Called\n");
 }
 
 
 int main() {
-    //printf("Hello World 123\n");
-    myFunction(0);
+    printf("Hello World 123\n");
     return 0;
 }
