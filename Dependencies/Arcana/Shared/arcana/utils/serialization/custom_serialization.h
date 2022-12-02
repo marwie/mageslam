@@ -37,7 +37,7 @@ namespace mira
         {
             T val;
             stream.read(val);
-            value.store(std::move(val));
+            //value.store(std::move(val));
         }
 
         template<typename StreamT>
